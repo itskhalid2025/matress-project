@@ -1,0 +1,66 @@
+{
+  "_source": "Transcribed and verified from phone label photos (2026-07). This is REFERENCE data displayed when a live QR decodes to a known SKU. QR-confirmed productName strings: gravite=Gravite_Mattress, ortholex=Ortho_Lex_Mattress, maxi_plush=Maxi_Plush_Mattress_-_South. maxi_pro QR did not decode (phone or webcam) so its productName is UNCONFIRMED.",
+  "gravite": {
+    "commodity_name": "GRAVITE MATTRESS",
+    "variety": "GRAVITE",
+    "dimension": "1.905 m X 1.524 m X 15 cm",
+    "product_code": "75X36X6",
+    "net_content": "1 N",
+    "manufacturing": "JULY 2026",
+    "mrp": "Rs.13200.00 (Incl. of all taxes)",
+    "qr_product_name": "Gravite_Mattress",
+    "batch_no": "5532",
+    "inventory_item_id": "1600053",
+    "sub_code": "GRAVITE-75X36X6",
+    "trace_code": "044/GRAVITE/5532/07/2026"
+  },
+  "ortholex": {
+    "commodity_name": "ORTHOLEX MATTRESS",
+    "variety": "ORTHOLEX",
+    "dimension": "1.905 m X 1.524 m X 15 cm",
+    "product_code": "75X60X6",
+    "net_content": "1 N",
+    "manufacturing": "JULY 2026",
+    "mrp": "Rs.27000.00 (Incl. of all taxes)",
+    "qr_product_name": "Ortho_Lex_Mattress",
+    "batch_no": "5428",
+    "inventory_item_id": "1597990",
+    "sub_code": "ORTHO-75X60X6",
+    "trace_code": "044/ORTHO/5428/07/2026"
+  },
+  "maxi_pro": {
+    "commodity_name": "MAXIPLUSH PRO MATTRESS",
+    "variety": "MAXI PRO",
+    "dimension": "1.905 m X 0.915 m X 15 cm",
+    "product_code": "75X36X8",
+    "net_content": "1 N",
+    "manufacturing": "JULY 2026",
+    "mrp": "Rs.15500.00 (Incl. of all taxes)",
+    "qr_product_name": "Maxipro_Mattress_-_South",
+    "batch_no": "5531",
+    "inventory_item_id": "1600001",
+    "sub_code": "MAXIPRO-75X36X8",
+    "trace_code": "044/MAXIPRO/5531/07/2026"
+  },
+  "maxi_plush": {
+    "commodity_name": "MAXI PLUSH MATTRESS",
+    "variety": "MAXI PLUSH",
+    "dimension": "1.981 m x 1.067 m x 12.5 cm",
+    "product_code": "78X42X5 (78X39X5)",
+    "net_content": "1 N",
+    "manufacturing": "JULY 2025",
+    "mrp": "Rs.11300.00 (Incl. of all taxes)",
+    "qr_product_name": "Maxi_Plush_Mattress_-_South",
+    "batch_no": "5515",
+    "inventory_item_id": "1598602",
+    "sub_code": "MAXI-78X39X5",
+    "trace_code": "044/MAXI/5515/07/2026"
+  },
+  "_manufacturer": {
+    "manufactured_by": "MM RUBBER COMPANY LTD, No. 44, Sipcot Industrial Complex, Ranipet - 632 403",
+    "marketed_by": "MM RUBBER COMPANY LTD, Janpriya Crest, 3rd Floor, 113, Pantheon Road, Egmore, Chennai - 600 008",
+    "phone": "+91 76695 68709",
+    "email": "customercare@mmfoam.in",
+    "website": "www.mmfoam.com"
+  }
+}
