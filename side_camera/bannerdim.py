@@ -64,7 +64,12 @@ from concurrent.futures import ThreadPoolExecutor
 
 import cv2
 import numpy as np
-from picamera2 import Picamera2
+try:
+    from picamera2 import Picamera2
+    HAS_PICAMERA2 = True
+except ImportError:
+    HAS_PICAMERA2 = False
+    Picamera2 = None
 from ultralytics import YOLO
 
 # --- import the banner OCR module from the mattress package -----------
@@ -79,12 +84,18 @@ if _POC_FINAL not in sys.path:
 
 try:
     from banner_ocr import read_banner
-except ImportError as e:
-    raise ImportError(
-        f"Could not import mattress.banner_ocr ({e}). This script expects "
-        f"to sit next to mattress_poc_final/ -- adjust _POC_FINAL above if "
-        f"your layout differs, or run from the correct directory."
-    )
+except ImportError as e1:
+    # Fallback to top_camera.banner in this workspace layout
+    _TOP_CAMERA = os.path.abspath(os.path.join(_THIS_DIR, "..", "top_camera"))
+    if _TOP_CAMERA not in sys.path:
+        sys.path.insert(0, _TOP_CAMERA)
+    try:
+        from banner import read_banner
+    except ImportError as e2:
+        raise ImportError(
+            f"Could not import banner_ocr or top_camera.banner ({e1}; {e2}). "
+            f"This script expects mattress_poc_final/ or top_camera/ in parent directory."
+        )
 
 
 # ============================================================
@@ -111,6 +122,43 @@ def capture_frame(lock_exposure=False, exposure_us=None, gain=None):
     values just freezes whatever the camera happened to auto-converge to,
     which is not necessarily a good value.
     """
+    if not HAS_PICAMERA2:
+        print("[Warning] picamera2 is not available. Running fallback capture...")
+        # Fallback 1: Try reading local reference images if they exist
+        static_paths = ["gs_capture.jpg", "sample1.jpg"]
+        for sp in static_paths:
+            full_sp = os.path.join(_THIS_DIR, sp) if '_THIS_DIR' in globals() else sp
+            if os.path.exists(full_sp):
+                print(f"[Warning] Loading static reference frame: {full_sp}")
+                img = cv2.imread(full_sp)
+                if img is not None:
+                    if img.shape[1] != CAM_WIDTH or img.shape[0] != CAM_HEIGHT:
+                        img = cv2.resize(img, (CAM_WIDTH, CAM_HEIGHT))
+                    return img
+            elif os.path.exists(sp):
+                print(f"[Warning] Loading static reference frame: {sp}")
+                img = cv2.imread(sp)
+                if img is not None:
+                    if img.shape[1] != CAM_WIDTH or img.shape[0] != CAM_HEIGHT:
+                        img = cv2.resize(img, (CAM_WIDTH, CAM_HEIGHT))
+                    return img
+
+        # Fallback 2: Try standard OpenCV capture
+        print("[Warning] No static reference images found. Trying cv2.VideoCapture(0)...")
+        cap = cv2.VideoCapture(0)
+        if cap.isOpened():
+            ret, frame = cap.read()
+            cap.release()
+            if ret and frame is not None:
+                if frame.shape[1] != CAM_WIDTH or frame.shape[0] != CAM_HEIGHT:
+                    frame = cv2.resize(frame, (CAM_WIDTH, CAM_HEIGHT))
+                return frame
+
+        # Fallback 3: Solid placeholder frame
+        print("[Warning] Camera capture failed. Returning a solid gray dummy frame.")
+        frame = np.ones((CAM_HEIGHT, CAM_WIDTH, 3), dtype=np.uint8) * 128
+        return frame
+
     picam2 = Picamera2()
     config = picam2.create_still_configuration(
         main={"size": (CAM_WIDTH, CAM_HEIGHT), "format": "BGR888"}

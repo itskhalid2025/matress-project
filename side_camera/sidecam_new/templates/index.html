@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mattress Side Camera Tile-Based Inspection System</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #0b0f19;
+            --card-bg: rgba(18, 26, 44, 0.75);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent-cyan: #00f2fe;
+            --accent-blue: #4facfe;
+            --accent-green: #00e676;
+            --accent-purple: #9d50bb;
+            --text-main: #f0f4f8;
+            --text-muted: #8a99ad;
+            --panel-radius: 16px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: var(--bg-dark);
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(79, 172, 254, 0.08) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(0, 242, 254, 0.05) 0px, transparent 50%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--accent-cyan), var(--accent-blue));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        .brand-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: #0b0f19;
+        }
+
+        .brand-title {
+            font-size: 1.45rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            background: linear-gradient(90deg, #ffffff, #c2e9fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-subtitle {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px;
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid rgba(0, 230, 118, 0.25);
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent-green);
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--accent-green);
+            animation: pulse 1.8s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1.3); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        /* Main Grid Layout */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-bottom: 32px;
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .panel-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--panel-radius);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .panel-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .panel-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .panel-title svg {
+            width: 20px;
+            height: 20px;
+            fill: var(--accent-cyan);
+        }
+
+        /* Left Panel - Live Stream */
+        .video-container {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.8);
+        }
+
+        .video-stream {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .stream-overlay {
+            position: absolute;
+            top: 12px;
+            left: 12px;
+            background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(6px);
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .process-action-bar {
+            margin-top: 20px;
+        }
+
+        .btn-process {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #00f2fe, #4facfe);
+            border: none;
+            border-radius: 12px;
+            color: #080d1a;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.35);
+        }
+
+        .btn-process:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.5);
+            background: linear-gradient(135deg, #38f9d7, #4facfe);
+        }
+
+        .btn-process:active {
+            transform: translateY(1px);
+        }
+
+        .btn-process:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(8, 13, 26, 0.3);
+            border-radius: 50%;
+            border-top-color: #080d1a;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Right Panel - Inspection Results */
+        .captured-image-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px dashed var(--card-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .captured-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: none;
+        }
+
+        .empty-preview {
+            text-align: center;
+            color: var(--text-muted);
+            padding: 20px;
+        }
+
+        .empty-preview svg {
+            width: 48px;
+            height: 48px;
+            fill: var(--text-muted);
+            opacity: 0.4;
+            margin-bottom: 10px;
+        }
+
+        .result-details {
+            display: grid;
+            gap: 12px;
+        }
+
+        .detail-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 10px;
+            padding: 12px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .detail-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .detail-value {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+
+        .detail-value.code {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-cyan);
+        }
+
+        .ocr-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 8px;
+            padding: 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: #c2e9fb;
+            max-height: 150px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            line-height: 1.4;
+        }
+
+        .timestamp-tag {
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            font-weight: 500;
+        }
+
+        /* History Section */
+        .history-section {
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--panel-radius);
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .history-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .history-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .record-count {
+            background: rgba(79, 172, 254, 0.15);
+            color: var(--accent-blue);
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.82rem;
+            font-weight: 600;
+        }
+
+        .history-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 16px;
+        }
+
+        .history-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 12px;
+            padding: 14px;
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .history-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(0, 242, 254, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .history-thumb {
+            width: 90px;
+            height: 90px;
+            border-radius: 8px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: #000;
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .history-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            overflow: hidden;
+        }
+
+        .history-item-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-meta {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .history-meta span {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .history-time {
+            font-size: 0.72rem;
+            color: var(--accent-blue);
+            margin-top: 4px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="brand">
+            <div class="brand-icon">
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 5v4h2V5h4V3H5c-1.1 0-2 .9-2 2zm2 10H3v4c0 1.1.9 2 2 2h4v-2H5v-4zm14 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2v4zM19 3h-4v2h4v4h2V5c0-1.1-.9-2-2-2zm-9 4h4v4h-4V7zm0 6h4v4h-4v-4z"/>
+                </svg>
+            </div>
+            <div>
+                <div class="brand-title">Mattress Inspection System</div>
+                <div class="brand-subtitle">Sliding Window Tile-Based QR & Tesseract OCR Framework</div>
+            </div>
+        </div>
+        <div class="status-badge" id="statusBadge">
+            <div class="pulse-dot" id="statusDot"></div>
+            <span id="statusText">LIVE STREAMING</span>
+        </div>
+    </header>
+
+    <main>
+        <div class="dashboard-grid">
+            
+            <!-- LEFT PANEL: Live Camera Stream & Trigger Button -->
+            <div class="panel-card">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4z"/></svg>
+                        Live Camera Stream
+                    </div>
+                </div>
+
+                <div class="video-container">
+                    <div class="stream-overlay">
+                        <div class="pulse-dot" style="width:6px; height:6px;"></div>
+                        Live Feed (Streaming Only — High FPS)
+                    </div>
+                    <img src="/video_feed" class="video-stream" alt="Live Camera Feed" id="liveFeed">
+                </div>
+
+                <div class="process-action-bar">
+                    <button class="btn-process" id="btnProcess" onclick="handleMainAction()">
+                        <span class="spinner" id="btnSpinner"></span>
+                        <svg id="btnIcon" width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                            <path id="btnIconPath" d="M12 15c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm9-8h-3.17L16 5H8L6.17 7H3c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-9 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/>
+                        </svg>
+                        <span id="btnText">PROCESS IMAGE</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- RIGHT PANEL: Latest Inspection Results -->
+            <div class="panel-card">
+                <div class="panel-header">
+                    <div class="panel-title">
+                        <svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
+                        Latest Inspection Result
+                    </div>
+                    <div class="timestamp-tag" id="latestTimestamp">—</div>
+                </div>
+
+                <div class="captured-image-container" style="position: relative;">
+                    <div class="empty-preview" id="emptyPreview">
+                        <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                        <div>No processed image yet.<br>Click <strong>PROCESS IMAGE</strong> to scan.</div>
+                    </div>
+                    <img id="latestImage" class="captured-image" alt="Captured Inspection Image">
+                    
+                    <!-- VIEW TOGGLE OVERLAYS -->
+                    <div id="viewToggle" style="display: none; position: absolute; bottom: 12px; right: 12px; z-index: 10; display: flex; gap: 8px;">
+                        <button onclick="switchView('crop')" id="btnViewCrop" style="padding: 6px 12px; background: var(--accent-cyan); color: #0b0f19; border: none; border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Label Crop</button>
+                        <button onclick="switchView('full')" id="btnViewFull" style="padding: 6px 12px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); border-radius: 6px; font-weight: 600; font-size: 0.8rem; cursor: pointer; transition: all 0.2s;">Full Frame</button>
+                    </div>
+                </div>
+
+                <div class="result-details">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 4px;">
+                        <div class="detail-card" id="verificationCard" style="border: 1px solid rgba(255,255,255,0.06); transition: all 0.3s ease;">
+                            <div class="detail-label">Verification Verdict</div>
+                            <div class="detail-value" id="valVerificationVerdict" style="font-size: 1.15rem; font-weight: 700;">—</div>
+                            <div id="valVerificationDetail" style="font-size: 0.72rem; color: var(--text-muted); margin-top: 4px; line-height: 1.2;">No verification run yet.</div>
+                        </div>
+                        <div class="detail-card">
+                            <div class="detail-label">Product Name</div>
+                            <div class="detail-value" id="valProductName">—</div>
+                        </div>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <div class="detail-card">
+                            <div class="detail-label">Batch Number</div>
+                            <div class="detail-value code" id="valBatchNo">—</div>
+                        </div>
+                        <div class="detail-card">
+                            <div class="detail-label">Inventory Item ID</div>
+                            <div class="detail-value code" id="valInventoryId">—</div>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <div class="detail-label">Combined OCR Result</div>
+                        <div class="ocr-box" id="valOcrText">Press PROCESS IMAGE to extract OCR text</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- HISTORY SECTION -->
+        <div class="history-section">
+            <div class="history-header">
+                <div class="history-title">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="var(--accent-cyan)"><path d="M13 3c-4.97 0-9 4.03-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42C8.27 19.99 10.51 21 13 21c4.97 0 9-4.03 9-9s-4.03-9-9-9zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"/></svg>
+                    Inspection History
+                </div>
+                <div class="record-count" id="historyCount">0 Records</div>
+            </div>
+
+            <div class="history-grid" id="historyGrid">
+                <!-- Dynamically populated history cards -->
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Load initial inspection history when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchRecords();
+        });
+
+        async function fetchRecords() {
+            try {
+                const response = await fetch('/records');
+                const data = await response.json();
+                if (data.success && data.records) {
+                    renderHistory(data.records);
+                    if (data.records.length > 0) {
+                        updateLatestView(data.records[0]);
+                    }
+                }
+            } catch (err) {
+                console.error("Failed to load records:", err);
+            }
+        }
+
+        let isFeedPaused = false;
+
+        function handleMainAction() {
+            if (isFeedPaused) {
+                resumeFeed();
+            } else {
+                processImage();
+            }
+        }
+
+        async function processImage() {
+            const btn = document.getElementById('btnProcess');
+            const spinner = document.getElementById('btnSpinner');
+            const icon = document.getElementById('btnIcon');
+            const text = document.getElementById('btnText');
+            const statusBadge = document.getElementById('statusBadge');
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('statusText');
+
+            // Disable button during processing
+            btn.disabled = true;
+            spinner.style.display = 'inline-block';
+            icon.style.display = 'none';
+            text.innerText = 'PROCESSING...';
+
+            try {
+                const response = await fetch('/process', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    // Update Latest Inspection View
+                    updateLatestView(data.latest);
+                    // Update History List
+                    renderHistory(data.records);
+
+                    // Transition to PAUSED state
+                    isFeedPaused = true;
+                    btn.disabled = false;
+                    spinner.style.display = 'none';
+                    icon.style.display = 'inline-block';
+                    document.getElementById('btnIconPath').setAttribute('d', 'M8 5v14l11-7z'); // Play icon
+                    text.innerText = 'RESUME FEED';
+                    btn.style.background = 'linear-gradient(135deg, #ff9100, #ff3d00)';
+                    btn.style.boxShadow = '0 6px 20px rgba(255, 61, 0, 0.35)';
+
+                    // Update status badge
+                    statusText.innerText = 'FEED PAUSED';
+                    statusBadge.style.background = 'rgba(255, 145, 0, 0.1)';
+                    statusBadge.style.borderColor = 'rgba(255, 145, 0, 0.25)';
+                    statusBadge.style.color = '#ff9100';
+                    statusDot.style.backgroundColor = '#ff9100';
+                    statusDot.style.boxShadow = '0 0 10px #ff9100';
+                    statusDot.style.animation = 'none';
+                } else {
+                    alert("Error processing image: " + (data.error || "Unknown error"));
+                    // Reset button back to normal
+                    btn.disabled = false;
+                    spinner.style.display = 'none';
+                    icon.style.display = 'inline-block';
+                    text.innerText = 'PROCESS IMAGE';
+                }
+            } catch (err) {
+                console.error("Process request error:", err);
+                alert("Failed to connect to backend server.");
+                // Reset button back to normal
+                btn.disabled = false;
+                spinner.style.display = 'none';
+                icon.style.display = 'inline-block';
+                text.innerText = 'PROCESS IMAGE';
+            }
+        }
+
+        async function resumeFeed() {
+            const btn = document.getElementById('btnProcess');
+            const spinner = document.getElementById('btnSpinner');
+            const icon = document.getElementById('btnIcon');
+            const text = document.getElementById('btnText');
+            const statusBadge = document.getElementById('statusBadge');
+            const statusDot = document.getElementById('statusDot');
+            const statusText = document.getElementById('statusText');
+
+            btn.disabled = true;
+            spinner.style.display = 'inline-block';
+            icon.style.display = 'none';
+            text.innerText = 'RESUMING...';
+
+            try {
+                const response = await fetch('/resume', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' }
+                });
+                const data = await response.json();
+                if (data.success) {
+                    isFeedPaused = false;
+                    
+                    // Reset button back to PROCESS IMAGE (cyan)
+                    btn.disabled = false;
+                    spinner.style.display = 'none';
+                    icon.style.display = 'inline-block';
+                    document.getElementById('btnIconPath').setAttribute('d', 'M12 15c1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3 1.34 3 3 3zm9-8h-3.17L16 5H8L6.17 7H3c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2zm-9 12c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z'); // Camera icon
+                    text.innerText = 'PROCESS IMAGE';
+                    btn.style.background = 'linear-gradient(135deg, #00f2fe, #4facfe)';
+                    btn.style.boxShadow = '0 6px 20px rgba(0, 242, 254, 0.35)';
+
+                    // Reset status badge back to LIVE STREAMING (green)
+                    statusText.innerText = 'LIVE STREAMING';
+                    statusBadge.style.background = 'rgba(0, 230, 118, 0.1)';
+                    statusBadge.style.borderColor = 'rgba(0, 230, 118, 0.25)';
+                    statusBadge.style.color = 'var(--accent-green)';
+                    statusDot.style.backgroundColor = 'var(--accent-green)';
+                    statusDot.style.boxShadow = '0 0 10px var(--accent-green)';
+                    statusDot.style.animation = 'pulse 1.8s infinite';
+                } else {
+                    alert("Failed to resume camera feed.");
+                    btn.disabled = false;
+                    spinner.style.display = 'none';
+                    icon.style.display = 'inline-block';
+                    text.innerText = 'RESUME FEED';
+                }
+            } catch (err) {
+                console.error("Resume request error:", err);
+                alert("Failed to connect to backend server.");
+                btn.disabled = false;
+                spinner.style.display = 'none';
+                icon.style.display = 'inline-block';
+                text.innerText = 'RESUME FEED';
+            }
+        }
+
+        let currentFullImagePath = null;
+        let currentCropImagePath = null;
+
+        function switchView(mode) {
+            const latestImg = document.getElementById('latestImage');
+            const btnCrop = document.getElementById('btnViewCrop');
+            const btnFull = document.getElementById('btnViewFull');
+            const cb = '?t=' + new Date().getTime();
+
+            if (mode === 'crop' && currentCropImagePath) {
+                latestImg.src = '/' + currentCropImagePath + cb;
+                btnCrop.style.background = 'var(--accent-cyan)';
+                btnCrop.style.color = '#0b0f19';
+                btnFull.style.background = 'rgba(255,255,255,0.1)';
+                btnFull.style.color = '#fff';
+            } else if (mode === 'full' && currentFullImagePath) {
+                latestImg.src = '/' + currentFullImagePath + cb;
+                btnFull.style.background = 'var(--accent-cyan)';
+                btnFull.style.color = '#0b0f19';
+                btnCrop.style.background = 'rgba(255,255,255,0.1)';
+                btnCrop.style.color = '#fff';
+            }
+        }
+
+        function updateLatestView(record) {
+            if (!record) return;
+
+            const emptyPreview = document.getElementById('emptyPreview');
+            const latestImg = document.getElementById('latestImage');
+            const timestamp = document.getElementById('latestTimestamp');
+            const valProduct = document.getElementById('valProductName');
+            const valBatch = document.getElementById('valBatchNo');
+            const valInventory = document.getElementById('valInventoryId');
+            const valOcr = document.getElementById('valOcrText');
+            
+            const viewToggle = document.getElementById('viewToggle');
+            const valVerdict = document.getElementById('valVerificationVerdict');
+            const valDetail = document.getElementById('valVerificationDetail');
+            const verCard = document.getElementById('verificationCard');
+
+            const cb = '?t=' + new Date().getTime();
+
+            currentFullImagePath = record.image_path;
+            currentCropImagePath = record.label_path;
+
+            // Zoom/Crop default behavior if label isolated
+            if (record.label_detected && record.label_path) {
+                emptyPreview.style.display = 'none';
+                latestImg.style.display = 'block';
+                latestImg.src = '/' + record.label_path + cb;
+                viewToggle.style.display = 'flex';
+                
+                document.getElementById('btnViewCrop').style.background = 'var(--accent-cyan)';
+                document.getElementById('btnViewCrop').style.color = '#0b0f19';
+                document.getElementById('btnViewFull').style.background = 'rgba(255,255,255,0.1)';
+                document.getElementById('btnViewFull').style.color = '#fff';
+            } else if (record.image_path) {
+                emptyPreview.style.display = 'none';
+                latestImg.style.display = 'block';
+                latestImg.src = '/' + record.image_path + cb;
+                viewToggle.style.display = 'none';
+            }
+
+            timestamp.innerText = record.timestamp || '—';
+
+            // Support both new record schema (record.qr.*) and legacy schema
+            const productName = (record.qr && record.qr.product_name) ? record.qr.product_name : record.product_name;
+            const batchNo = (record.qr && record.qr.batch_no) ? record.qr.batch_no : record.batch_no;
+            const inventoryId = (record.qr && record.qr.inventory_item_id) ? record.qr.inventory_item_id : record.inventory_item_id;
+            const ocrText = (record.ocr && record.ocr.text) ? record.ocr.text : 'N/A';
+
+            valProduct.innerText = productName || 'N/A';
+            valBatch.innerText = batchNo || 'N/A';
+            valInventory.innerText = inventoryId || 'N/A';
+            valOcr.innerText = ocrText || 'No text extracted';
+
+            // Verification display presentation logic
+            const verification = record.verification || {};
+            const verdict = verification.verdict || 'UNVERIFIED';
+            const detail = verification.detail || 'No verification info.';
+
+            valVerdict.innerText = verdict;
+            valDetail.innerText = detail;
+
+            if (verdict === 'VERIFIED') {
+                verCard.style.border = '1px solid rgba(0, 230, 118, 0.4)';
+                verCard.style.boxShadow = '0 0 10px rgba(0, 230, 118, 0.15)';
+                valVerdict.style.color = 'var(--accent-green)';
+            } else if (verdict === 'MISMATCH') {
+                verCard.style.border = '1px solid rgba(255, 23, 68, 0.5)';
+                verCard.style.boxShadow = '0 0 15px rgba(255, 23, 68, 0.3)';
+                valVerdict.style.color = '#ff1744';
+            } else {
+                verCard.style.border = '1px solid rgba(255, 255, 255, 0.06)';
+                verCard.style.boxShadow = 'none';
+                valVerdict.style.color = 'var(--text-muted)';
+            }
+        }
+
+        function renderHistory(records) {
+            const grid = document.getElementById('historyGrid');
+            const count = document.getElementById('historyCount');
+
+            count.innerText = records.length + (records.length === 1 ? ' Record' : ' Records');
+
+            if (!records || records.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); padding: 40px;">
+                        No historical records found.
+                    </div>`;
+                return;
+            }
+
+            grid.innerHTML = records.map(rec => {
+                const thumbPath = rec.label_path || rec.image_path;
+                const productName = (rec.qr && rec.qr.product_name) ? rec.qr.product_name : rec.product_name;
+                const batchNo = (rec.qr && rec.qr.batch_no) ? rec.qr.batch_no : rec.batch_no;
+                const inventoryId = (rec.qr && rec.qr.inventory_item_id) ? rec.qr.inventory_item_id : rec.inventory_item_id;
+
+                return `
+                    <div class="history-card">
+                        <img src="/${thumbPath}" class="history-thumb" alt="Inspection Image Thumbnail" onclick="window.open('/${rec.image_path}', '_blank')">
+                        <div class="history-info">
+                            <div class="history-item-title" title="${escapeHtml(productName)}">${escapeHtml(productName || 'N/A')}</div>
+                            <div class="history-meta">
+                                <span><strong>Batch:</strong> ${escapeHtml(batchNo || 'N/A')}</span>
+                                <span><strong>Item ID:</strong> ${escapeHtml(inventoryId || 'N/A')}</span>
+                            </div>
+                            <div class="history-time">${rec.timestamp}</div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;');
+        }
+    </script>
+</body>
+</html>

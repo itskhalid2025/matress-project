@@ -45,6 +45,12 @@ pixels_per_cm = 10.0  # Default calibration (pixels per cm)
 edge_correction = 1.1
 
 import pytesseract
+import platform
+
+if platform.system() == "Windows":
+    TESSERACT_WIN_PATH = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    if os.path.exists(TESSERACT_WIN_PATH):
+        pytesseract.pytesseract.tesseract_cmd = TESSERACT_WIN_PATH
 
 def _extract_general_ocr(img):
     """Runs general pytesseract OCR on the target image to extract ANY detected text."""

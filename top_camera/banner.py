@@ -14,6 +14,12 @@ import pickle
 import numpy as np
 import cv2
 import pytesseract
+import platform
+
+if platform.system() == "Windows":
+    TESSERACT_WIN_PATH = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
+    if os.path.exists(TESSERACT_WIN_PATH):
+        pytesseract.pytesseract.tesseract_cmd = TESSERACT_WIN_PATH
 
 import config as cfg
 
