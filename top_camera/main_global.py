@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 """
 main.py — Self-Contained Web Dashboard for Top Camera Rig.
 Updated for Raspberry Pi Global Shutter Camera (IMX296) using V4L2.
@@ -32,14 +33,38 @@ class GlobalShutterCamera:
         self.width = width
         self.height = height
         self.cap = None
+        self.picam2 = None
         self.lock = threading.Lock()
         self._connect()
 
     def _connect(self):
+        if self.picam2 is not None:
+            try:
+                self.picam2.stop()
+                self.picam2.close()
+            except Exception:
+                pass
+            self.picam2 = None
         if self.cap is not None:
             self.cap.release()
-        
-        # V4L2 backend required for libcamerify bridge
+            self.cap = None
+
+        # 1. Try Picamera2 (Native Raspberry Pi 5 / IMX296 libcamera driver)
+        try:
+            from picamera2 import Picamera2
+            picam = Picamera2()
+            config = picam.create_video_configuration(
+                main={"size": (self.width, self.height), "format": "BGR888"}
+            )
+            picam.configure(config)
+            picam.start()
+            self.picam2 = picam
+            print(f"[GlobalShutterCamera] Initialized Picamera2 ({self.width}x{self.height})")
+            return
+        except Exception as e:
+            print(f"[GlobalShutterCamera] Picamera2 fallback to V4L2: {e}")
+
+        # 2. V4L2 backend required for libcamerify bridge
         self.cap = cv2.VideoCapture(self.index, cv2.CAP_V4L2)
         self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
         self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
@@ -47,6 +72,12 @@ class GlobalShutterCamera:
 
     def read(self):
         with self.lock:
+            if self.picam2:
+                try:
+                    bgr = self.picam2.capture_array()
+                    return bgr, None
+                except Exception as e:
+                    return None, f"Picamera2 capture error: {e}"
             if self.cap is None or not self.cap.isOpened():
                 return None, "Camera not opened"
             ret, frame = self.cap.read()
@@ -58,10 +89,17 @@ class GlobalShutterCamera:
         with self.lock:
             self.index = new_idx
             self._connect()
-            return self.cap.isOpened()
+            return (self.picam2 is not None) or (self.cap is not None and self.cap.isOpened())
 
     def release(self):
         with self.lock:
+            if self.picam2:
+                try:
+                    self.picam2.stop()
+                    self.picam2.close()
+                except Exception:
+                    pass
+                self.picam2 = None
             if self.cap:
                 self.cap.release()
                 self.cap = None

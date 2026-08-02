@@ -42,7 +42,7 @@ class MinimalCameraStream:
             picam = Picamera2()
             try:
                 config = picam.create_video_configuration(
-                    main={"size": (self.width, self.height), "format": "RGB888"}
+                    main={"size": (self.width, self.height), "format": "BGR888"}
                 )
                 picam.configure(config)
                 picam.start()
@@ -77,8 +77,7 @@ class MinimalCameraStream:
             frame = None
             if self.picam2:
                 try:
-                    rgb = self.picam2.capture_array()
-                    frame = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
+                    frame = self.picam2.capture_array()
                 except Exception:
                     time.sleep(0.005)
                     continue

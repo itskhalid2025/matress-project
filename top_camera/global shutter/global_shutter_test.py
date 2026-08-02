@@ -39,7 +39,7 @@ class HighFPSGlobalShutter:
             from picamera2 import Picamera2
             picam = Picamera2()
             config = picam.create_video_configuration(
-                main={"size": (self.width, self.height), "format": "RGB888"},
+                main={"size": (self.width, self.height), "format": "BGR888"},
                 controls={"FrameDurationLimits": (int(1000000 / self.fps), int(1000000 / self.fps))}
             )
             picam.configure(config)
@@ -74,8 +74,7 @@ class HighFPSGlobalShutter:
             frame = None
             if self.picam2:
                 try:
-                    rgb = self.picam2.capture_array()
-                    frame = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
+                    frame = self.picam2.capture_array()
                 except Exception:
                     time.sleep(0.01)
                     continue

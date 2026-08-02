@@ -47,7 +47,7 @@ class ZeroLatencyCamera:
             from picamera2 import Picamera2
             picam = Picamera2()
             config = picam.create_preview_configuration(
-                main={"size": (self.width, self.height), "format": "XBGR8888"}
+                main={"size": (self.width, self.height), "format": "BGR888"}
             )
             picam.configure(config)
             picam.start()
@@ -84,8 +84,7 @@ class ZeroLatencyCamera:
             frame = None
             if self.picam2:
                 try:
-                    rgb = self.picam2.capture_array()
-                    frame = cv2.cvtColor(rgb, cv2.COLOR_BGRA2BGR)
+                    frame = self.picam2.capture_array()
                 except Exception:
                     time.sleep(0.002)
                     continue

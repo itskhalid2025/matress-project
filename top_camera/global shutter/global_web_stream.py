@@ -60,7 +60,7 @@ class HighSpeedCamera:
             try:
                 # create_video_configuration is tuned for zero-drop continuous capture
                 config = picam.create_video_configuration(
-                    main={"size": (self.width, self.height), "format": "RGB888"}
+                    main={"size": (self.width, self.height), "format": "BGR888"}
                 )
                 picam.configure(config)
                 picam.start()
@@ -120,8 +120,7 @@ class HighSpeedCamera:
             frame = None
             if self.picam2:
                 try:
-                    rgb = self.picam2.capture_array()
-                    frame = cv2.cvtColor(rgb, cv2.COLOR_RGB2BGR)
+                    frame = self.picam2.capture_array()
                 except Exception as e:
                     time.sleep(0.01)
                     continue

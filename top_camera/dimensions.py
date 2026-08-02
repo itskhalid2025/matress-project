@@ -76,12 +76,11 @@ def measure_dimensions(img, pixels_per_cm=None, edge_correction=1.1, min_contour
         crop_area = crop_img.shape[0] * crop_img.shape[1]
 
         # ----------------------------------------------------------------------
-        # STAGE 1: YOLO AI Detection Masking
+        # STAGE 1: YOLO AI Target Isolation & Bounding Box Extraction
         # ----------------------------------------------------------------------
         model = get_model()
         yolo_mask = np.zeros(crop_img.shape[:2], dtype=np.uint8)
 
-        # Run inference (conf=0.15 matches legacy configuration)
         results = model.predict(source=crop_img, save=False, conf=0.15, verbose=False)
         valid_box = None
         max_box_area = 0
@@ -89,47 +88,48 @@ def measure_dimensions(img, pixels_per_cm=None, edge_correction=1.1, min_contour
         if len(results) > 0 and len(results[0].boxes) > 0:
             for box in results[0].boxes:
                 class_id = int(box.cls[0].item())
-                # Skip human detections (Class 0) so operators don't corrupt the ROI mask
+                # Skip human operator detections (Class 0)
                 if class_id == 0:
                     continue
 
-                x1_box, y1_box, x2_box, y2_box = box.xyxy[0].cpu().numpy()
-                area = (x2_box - x1_box) * (y2_box - y1_box)
+                x1_b, y1_b, x2_b, y2_b = box.xyxy[0].cpu().numpy()
+                area = (x2_b - x1_b) * (y2_b - y1_b)
 
                 if area > max_box_area:
                     max_box_area = area
                     valid_box = box
 
         if valid_box is not None:
-            x1_box, y1_box, x2_box, y2_box = valid_box.xyxy[0].cpu().numpy()
-            
-            # Pad the bounding box slightly outward to ensure we don't clip the mattress edges
-            pad = 40
-            x1_pad = max(0, int(x1_box) - pad)
-            y1_pad = max(0, int(y1_box) - pad)
-            x2_pad = min(crop_img.shape[1], int(x2_box) + pad)
-            y2_pad = min(crop_img.shape[0], int(y2_box) + pad)
+            x1_b, y1_b, x2_b, y2_b = valid_box.xyxy[0].cpu().numpy()
+            pad = 25
+            x1_pad = max(0, int(x1_b) - pad)
+            y1_pad = max(0, int(y1_b) - pad)
+            x2_pad = min(crop_img.shape[1], int(x2_b) + pad)
+            y2_pad = min(crop_img.shape[0], int(y2_b) + pad)
 
             cv2.rectangle(yolo_mask, (x1_pad, y1_pad), (x2_pad, y2_pad), 255, -1)
         else:
-            # Fallback to full-frame if YOLO doesn't detect any object
+            # Fallback to full-frame mask if no YOLO object was detected
             yolo_mask[:] = 255
 
         # ----------------------------------------------------------------------
-        # STAGE 2: Classical OpenCV Geometry
+        # STAGE 2: High-Contrast Edge Detection (Canny + Adaptive Morph)
         # ----------------------------------------------------------------------
-        crop_blur = cv2.GaussianBlur(crop_gray, (9, 9), 0)
+        crop_blur = cv2.GaussianBlur(crop_gray, (7, 7), 0)
         
-        # Otsu thresholding handles variable conveyor lighting dynamically
-        _, crop_thresh = cv2.threshold(crop_blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-
-        # Morphological clean up to remove stitches/texture lines
-        kernel = np.ones((5, 5), np.uint8)
-        crop_clean = cv2.erode(crop_thresh, kernel, iterations=1)
-        crop_clean = cv2.dilate(crop_clean, kernel, iterations=2)
+        # Combine Canny edge detection + Otsu thresholding for multi-object versatility
+        edges = cv2.Canny(crop_blur, 30, 120)
+        _, thresh = cv2.threshold(crop_blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        
+        combined_binary = cv2.bitwise_or(edges, thresh)
+        
+        # Morphological dilation to close gaps in outer object boundary
+        kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (7, 7))
+        crop_clean = cv2.morphologyEx(combined_binary, cv2.MORPH_CLOSE, kernel)
+        crop_clean = cv2.dilate(crop_clean, kernel, iterations=1)
 
         # ----------------------------------------------------------------------
-        # STAGE 3: Mask Merging and Convex Hull Estimation
+        # STAGE 3: Mask Merging and Convex Hull Geometry Estimation
         # ----------------------------------------------------------------------
         final_mask = cv2.bitwise_and(crop_clean, crop_clean, mask=yolo_mask)
         contours, _ = cv2.findContours(final_mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
@@ -138,65 +138,68 @@ def measure_dimensions(img, pixels_per_cm=None, edge_correction=1.1, min_contour
             print("[dimensions] No contours found inside mask.")
             return None, None, annotated_img
 
-        # Sort contours by area to inspect the largest ones first
+        # Sort contours by area descending
         contours = sorted(contours, key=cv2.contourArea, reverse=True)
         roi_found = False
+        min_area_thresh = min(min_contour_area, 2000)
 
         for c in contours:
             area = cv2.contourArea(c)
 
-            # Area must be significant and not take up the entire crop area (prevent background bleed)
-            if min_contour_area < area < (crop_area * 0.90):
-                # Smooth the shape outline using a Convex Hull
+            # Area must be within reasonable bounds (not tiny noise, not full table background)
+            if min_area_thresh < area < (crop_area * 0.85):
+                # Smooth outer boundary using Convex Hull
                 hull = cv2.convexHull(c)
                 
-                # Get the minimum area rotated bounding box
+                # Compute minimum area rotated bounding box
                 rect = cv2.minAreaRect(hull)
                 (cx, cy), (w, h), angle = rect
 
-                if w == 0 or h == 0:
+                if w < 5 or h < 5:
                     continue
 
-                # Project coordinates back onto the original uncropped frame coordinate system
+                # Project coordinates back onto original frame system
                 cx_orig = cx + x0
                 cy_orig = cy + y0
                 
-                # Draw the convex hull contour
+                # Draw the red convex hull contour
                 hull_offset = hull + np.array([x0, y0])
                 cv2.drawContours(annotated_img, [hull_offset], -1, (0, 0, 255), 2)
 
-                # Draw the rotated bounding box
+                # Draw the green rotated bounding box
                 box_pts = cv2.boxPoints(rect)
                 box_pts_offset = np.int32(box_pts + np.array([x0, y0]))
                 cv2.drawContours(annotated_img, [box_pts_offset], 0, (0, 255, 0), 3)
 
-                # Render a center indicator dot
-                cv2.circle(annotated_img, (int(cx_orig), int(cy_orig)), 5, (0, 255, 255), -1)
+                # Render yellow center point
+                cv2.circle(annotated_img, (int(cx_orig), int(cy_orig)), 6, (0, 255, 255), -1)
 
-                # If calibration is missing, render warning guidelines
+                # If uncalibrated, return raw pixel dimensions
                 if pixels_per_cm is None or pixels_per_cm <= 0:
-                    warn_text = "UNCALIBRATED: Size showing in pixels"
-                    cv2.putText(annotated_img, warn_text, (int(cx_orig) - 180, int(cy_orig) - 40),
+                    warn_text = "UNCALIBRATED: Showing pixels"
+                    cv2.putText(annotated_img, warn_text, (int(cx_orig) - 140, int(cy_orig) - 40),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 165, 255), 2)
-                    cv2.putText(annotated_img, f"Width: {round(w,1)} px", (int(cx_orig) - 100, int(cy_orig)),
+                    cv2.putText(annotated_img, f"W: {round(w,1)} px", (int(cx_orig) - 100, int(cy_orig)),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 165, 255), 2)
-                    cv2.putText(annotated_img, f"Length: {round(h,1)} px", (int(cx_orig) - 100, int(cy_orig) + 30),
+                    cv2.putText(annotated_img, f"L: {round(h,1)} px", (int(cx_orig) - 100, int(cy_orig) + 30),
                                 cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 165, 255), 2)
                     return w, h, annotated_img
 
-                # Calibrate dimension math: convert pixels to cm
+                # Calibrate dimension math: convert pixels to cm & inches
                 raw_w = w / pixels_per_cm
                 raw_h = h / pixels_per_cm
 
-                # Apply edge correction factor and round to 1 decimal place
                 nW = round(raw_w * edge_correction, 1)
                 nH = round(raw_h * edge_correction, 1)
 
-                # Draw width and height tags
-                cv2.putText(annotated_img, f'Width: {nW} cm', (int(cx_orig) - 100, int(cy_orig) - 10),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 255), 2)
-                cv2.putText(annotated_img, f'Length: {nH} cm', (int(cx_orig) - 100, int(cy_orig) + 30),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.9, (255, 0, 255), 2)
+                nW_in = round(nW / 2.54, 1)
+                nH_in = round(nH / 2.54, 1)
+
+                # Render text tags on frame
+                cv2.putText(annotated_img, f'W: {nW} cm ({nW_in} in)', (int(cx_orig) - 120, int(cy_orig) - 10),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.85, (255, 0, 255), 2)
+                cv2.putText(annotated_img, f'L: {nH} cm ({nH_in} in)', (int(cx_orig) - 120, int(cy_orig) + 30),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.85, (255, 0, 255), 2)
 
                 roi_found = True
                 return nW, nH, annotated_img
@@ -208,3 +211,65 @@ def measure_dimensions(img, pixels_per_cm=None, edge_correction=1.1, min_contour
         print(f"[dimensions] Error during processing: {str(e)}")
 
     return None, None, annotated_img
+
+
+if __name__ == "__main__":
+    import argparse
+
+    parser = argparse.ArgumentParser(description="Test dimensions.py individually")
+    parser.add_argument("--image", type=str, default=None, help="Path to an image file to test (optional)")
+    parser.add_argument("--save", type=str, default="dimensions_result.jpg", help="Output path for annotated image")
+    parser.add_argument("--pixels-per-cm", type=float, default=10.0, help="Calibration pixels/cm (default: 10.0)")
+    args = parser.parse_args()
+
+    print("\n" + "="*60)
+    print(" 📐 DIMENSIONS.PY INDIVIDUAL TEST")
+    print("="*60)
+
+    frame = None
+    if args.image and os.path.exists(args.image):
+        print(f"[test] Loading image from disk: {args.image}")
+        frame = cv2.imread(args.image)
+    else:
+        print("[test] Grabbing live frame from Picamera2...")
+        try:
+            from picamera2 import Picamera2
+            picam = Picamera2()
+            config = picam.create_video_configuration(
+                main={"size": (1456, 1088), "format": "RGB888"}
+            )
+            picam.configure(config)
+            picam.start()
+            import time; time.sleep(1.5)
+            frame = picam.capture_array()
+            frame = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+            picam.stop()
+            picam.close()
+        except Exception as e:
+            print(f"[test] Picamera2 failed: {e}. Trying OpenCV V4L2 fallback...")
+            cap = cv2.VideoCapture(0, cv2.CAP_V4L2)
+            if cap.isOpened():
+                ret, frame = cap.read()
+                cap.release()
+
+    if frame is None:
+        print("❌ ERROR: Could not get frame from camera or image file.")
+        exit(1)
+
+    print(f"[test] Input frame shape: {frame.shape}")
+    print("[test] Measuring dimensions...")
+
+    w, h, annotated = measure_dimensions(frame, pixels_per_cm=args.pixels_per_cm)
+
+    print("-" * 40)
+    if w is not None and h is not None:
+        print(f"✅ MEASUREMENT SUCCESSFUL:")
+        print(f"   Width:  {w} cm (or px if uncalibrated)")
+        print(f"   Height: {h} cm (or px if uncalibrated)")
+    else:
+        print("⚠️ No valid object contour detected in frame.")
+
+    cv2.imwrite(args.save, annotated)
+    print(f"📸 Saved annotated output image to: {os.path.abspath(args.save)}")
+    print("="*60 + "\n")
+
