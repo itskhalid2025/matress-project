@@ -57,9 +57,12 @@ pixels_per_cm = 10.0  # Default pixels per cm
 edge_correction = 1.0
 
 # Load YOLO Model
-MODEL_PATH = os.path.join(TOP_CAM_DIR, "yolov8n.pt")
+MODEL_PATH = os.path.join(TOP_CAM_DIR, "bestdimension.pt")
+if not os.path.exists(MODEL_PATH):
+    print(f"[stream2] WARNING: Custom model {MODEL_PATH} not found. Falling back to yolov8n.pt.")
+    MODEL_PATH = os.path.join(TOP_CAM_DIR, "yolov8n.pt")
 
-print(f"[stream2] Loading YOLOv8 model from {MODEL_PATH}...")
+print(f"[stream2] Loading YOLO model from {MODEL_PATH}...")
 yolo_model = YOLO(MODEL_PATH)
 
 def process_frame_tight_geometry(img, current_px_per_cm):
@@ -89,7 +92,8 @@ def process_frame_tight_geometry(img, current_px_per_cm):
     if len(results) > 0 and len(results[0].boxes) > 0:
         for box in results[0].boxes:
             cls_id = int(box.cls[0].item())
-            if cls_id == 0:  # Skip human operator
+            cls_name = yolo_model.names.get(cls_id, "").lower()
+            if cls_name == "person":  # Skip human operator
                 continue
             x1, y1, x2, y2 = box.xyxy[0].cpu().numpy()
             area = (x2 - x1) * (y2 - y1)
