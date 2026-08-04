@@ -1,51 +1,41 @@
 #!/usr/bin/env python3
 """
 ============================================================
-FILE: cctv_bestdimension_color.py
-PATH: top_camera/global_shutter/cctv_bestdimension_color.py
+FILE: cctv_bestdimension_color3.py
+PATH: top_camera/global_shutter/cctv_bestdimension_color3.py
 ============================================================
 DESCRIPTION:
   Live Web Streaming & Measurement Rig powered by a CCTV RTSP
   camera stream, using PURE COLOR / CONTOUR based detection
-  (no neural network) to locate and measure a mattress against
-  a contrasting background.
+  (no neural network) to locate and measure a mattress/box
+  against a contrasting background.
 
-WHY THIS VERSION (vs the YOLO rig):
-  cctv_bestdimension_fixed.py runs a neural net first to get a
-  bounding box, then refines it with contour analysis inside
-  that box. This version skips the neural net entirely and runs
-  color/contrast segmentation (HSV + CLAHE + Otsu, with a Canny
-  edge fallback) directly on the FULL camera frame.
-
-  Trade-off: lighter weight (no GPU/torch/ultralytics needed,
-  runs fine on CPU), but it depends much more heavily on:
-    - consistent, even lighting (avoid harsh shadows/glare)
-    - a genuinely CONTRASTING background (the mattress must
-      stand out clearly in brightness or saturation from
-      whatever it's resting on)
-    - nothing else large/high-contrast entering the frame
-      (a box, a person, a cart) since there's no "mattress
-      class" to distinguish it from other objects -- only
-      geometry (rectangularity, angle, size) is used as a filter
-
-ARCHITECTURE (kept identical to the YOLO rig otherwise):
-  - RTSP capture with auto-reconnect
-  - Full-frame color/contour segmentation -> rotated bounding box
-  - Rectangularity + angle + area-ratio quality gate (rejects
-    garbage contours -- e.g. a background box, or a sash/label
-    that splits the mattress into two blobs)
-  - Rolling-median smoothing + outlier rejection across frames
-  - Pinhole-distance-corrected pixel -> cm conversion
-  - Flask MJPEG stream + dashboard + live calibration endpoint
-  - Background OCR thread for brand/banner text (unchanged)
-
-TUNING:
-  If detection is flaky, the first things to adjust are (in
-  CONFIG below): INVERT_MASK (flip if mattress is darker than
-  background), MIN_MATTRESS_AREA_RATIO / MAX_MATTRESS_AREA_RATIO
-  (how much of the frame the mattress should occupy at your
-  camera's fixed distance), and MIN_RECTANGULARITY (lower it if
-  valid mattress contours are being rejected).
+CHANGELOG vs cctv_bestdimension_color2.py:
+  - FIXED: single physical box getting split into two separate
+    contours (seen in the wild as a "green" box and a "blue"
+    box both showing the same printed "FRAGILE / KEEP DRY /
+    THIS END UP" text). Root cause: a strong internal edge
+    (printed warning text block, tape seam, shadow line) on
+    the box produces a dense Canny edge cluster that the
+    15x15 morphological close (at 0.25 working scale, ~60px
+    in the real frame) wasn't wide enough to bridge. The
+    largest-first contour walk then picked up only one half
+    of the box, leaving the other half to be reported as a
+    separate object.
+  - Added _merge_nearby_contours(): merges contours whose
+    bounding boxes lie within gap_px of each other (at the
+    0.25 working scale) BEFORE the fill/select stage. This is
+    robust regardless of *why* a box got split (text, seam,
+    shadow) and doesn't require blindly enlarging the close
+    kernel, which risks re-fusing the object to the background
+    (the exact bug the OSD-band fix in _v2 solved). Genuinely
+    separate physical boxes that are far enough apart keep
+    their own contours.
+  - gap_px defaults to 40 on the 0.25-scale working image
+    (~160px in a 1920-wide real frame). Tune via
+    CONTOUR_MERGE_GAP_PX below if boxes still split, or if two
+    genuinely separate objects start getting merged into one
+    (lower the value).
 ============================================================
 """
 
@@ -98,6 +88,50 @@ MAX_ANGLE_DEG = 89.0             # allow any angle
 MIN_CONTOUR_AREA_PX = 3000       # low floor, true filtering done by area ratio
 MAX_OBJECTS = 10                 # max number of objects to detect and annotate
 
+# Camera's own OSD band (timestamp / label baked into the raw RTSP frame).
+# Blanked out before edge detection so it can never seed or bridge a false
+# contour to the frame border. Tune with DEBUG_SHOW_RAW_MASK=True if your
+# camera's overlay sits somewhere other than the very top/bottom strip.
+OSD_TOP_BAND_PCT = 0.07
+OSD_BOTTOM_BAND_PCT = 0.07
+
+# Gap (in pixels, measured on the 0.25-scale working image used inside
+# _get_raw_mask) within which two separate contours are CANDIDATES to
+# be merged as pieces of the SAME physical object. Whether they
+# actually get merged is then decided by _has_strong_boundary_edge()
+# below, which reads the real Sobel gradient in the gap -- not just
+# distance. ~40px here corresponds to ~160px in a real 1920-wide frame.
+CONTOUR_MERGE_GAP_PX = 40
+
+# Sobel gradient magnitude (0-255 scale image, ksize=3) above which a
+# pixel counts as "on a strong edge" when scanning the gap between two
+# contour fragments for a real object boundary (a seam between two
+# separate boxes) vs. weak/no edge (fragmentation of one object).
+GAP_EDGE_GRAD_THRESH = 35
+# Fraction of the gap's overlap-length that must be covered by strong
+# edge pixels for the gap to be treated as a real boundary (don't
+# merge). Below this fraction, the gap is treated as internal to a
+# single object (merge).
+GAP_EDGE_FRAC_THRESH = 0.5
+
+# Half-width, in ORIGINAL full-resolution pixels, of the band searched
+# around each side of a detected bounding box to snap it onto the true
+# object edge (see _snap_box_to_gradient). The 0.25-scale mask pipeline
+# is fast but its box can be several real-frame pixels loose or tight;
+# this recovers precision using the full-res Sobel gradient.
+EDGE_SNAP_SEARCH_PX = 20
+
+# GrabCut refinement (see _grabcut_refine): grows the detected box into
+# regions where the object and background have near-identical
+# color/brightness -- e.g. a light-grey box against a light-grey wall.
+# Canny/Sobel-based edge detection CANNOT recover a boundary that isn't
+# there in the pixels; GrabCut instead uses per-region color statistics
+# to keep expanding the foreground until it hits a genuine color/texture
+# change, which is what these low-contrast edges actually need.
+USE_GRABCUT_REFINE = True
+GRABCUT_PAD_FRAC = 0.15     # how far outside the coarse box to search
+GRABCUT_ITERS = 4
+
 DETECT_EVERY_N_FRAMES = 1        # color detection is cheap -- safe to run every frame
 
 SMOOTH_HISTORY = 7                # frames of rolling-median history
@@ -142,35 +176,6 @@ def _normalize_angle(angle):
     return a
 
 
-def _all_valid_contours(mask, frame_area):
-    """Find ALL contours in the mask that pass the quality gate.
-    Returns a list of contours sorted by area (largest first)."""
-    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-    if not contours:
-        return []
-    contours = sorted(contours, key=cv2.contourArea, reverse=True)[:MAX_OBJECTS * 2]
-    results = []
-    for c in contours:
-        if cv2.contourArea(c) < MIN_CONTOUR_AREA_PX:
-            continue
-        
-        x, y, w, h = cv2.boundingRect(c)
-        rect_area = max(w * h, 1e-6)
-        
-        area_ratio = rect_area / frame_area
-        if area_ratio < MIN_MATTRESS_AREA_RATIO or area_ratio > MAX_MATTRESS_AREA_RATIO:
-            continue
-            
-        rectangularity = cv2.contourArea(c) / rect_area
-        if rectangularity < MIN_RECTANGULARITY:
-            continue
-            
-        results.append(c)
-        if len(results) >= MAX_OBJECTS:
-            break
-    return results
-
-
 def compute_gradient_features(bgr_roi):
     """Sobel-based texture features for a region."""
     if bgr_roi.size == 0:
@@ -196,63 +201,386 @@ def compute_color_features(bgr_roi):
         "val_mean": float(np.mean(v)),
     }
 
-def segment_candidates(bgr, min_area_px=2000):
-    """Generic contrast-based segmentation using Otsu in both directions (light/dark)."""
-    gray = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
-    # Downscale for faster Otsu segmentation
-    small_gray = cv2.resize(gray, (0, 0), fx=0.5, fy=0.5)
-    blurred = cv2.GaussianBlur(small_gray, (7, 7), 0)
+DEBUG_SHOW_RAW_MASK = False  # Set to True to visualize the raw binary detection mask
 
-    candidates = []
-    for thresh_type in (cv2.THRESH_BINARY, cv2.THRESH_BINARY_INV):
-        _, mask = cv2.threshold(blurred, 0, 255, thresh_type + cv2.THRESH_OTSU)
-        kernel = np.ones((9, 9), np.uint8)
-        mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel, iterations=2)
-        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=1)
+# --- HYSTERESIS GLOBALS ---
+MAX_MISSED_FRAMES = 15
+_missed_frames = 0
+_last_primary_box = None
+_last_primary_contour = None
+_last_primary_features = None
+_last_primary_w_cm = None
+_last_primary_h_cm = None
+_last_primary_stable = False
 
-        # Scale mask back up
-        mask_full = cv2.resize(mask, (bgr.shape[1], bgr.shape[0]), interpolation=cv2.INTER_NEAREST)
-        contours, _ = cv2.findContours(mask_full, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-        candidates.extend(c for c in contours if cv2.contourArea(c) >= min_area_px)
 
-    # Sort by area descending
-    candidates.sort(key=cv2.contourArea, reverse=True)
-    return candidates
+def _gap_rect_between(b1, b2):
+    """Return (rect, axis) describing the empty gap between two bounding
+    boxes, where rect = (x0, y0, x1, y1) and axis is 'vertical' if the
+    boxes sit side-by-side (so the gap is a vertical strip) or
+    'horizontal' if stacked. Returns (None, None) if the boxes overlap
+    directly (no gap to inspect -- they should just be merged)."""
+    x1, y1, w1, h1 = b1
+    x2, y2, w2, h2 = b2
 
-def _all_valid_contours(bgr, frame_area):
-    """Find ALL contours that pass the generic quality gate and compute their gradient profiles."""
-    candidates = segment_candidates(bgr, min_area_px=MIN_CONTOUR_AREA_PX)
-    if not candidates:
+    if x1 + w1 <= x2:
+        gx0, gx1 = x1 + w1, x2
+    elif x2 + w2 <= x1:
+        gx0, gx1 = x2 + w2, x1
+    else:
+        gx0 = gx1 = None
+    gy0 = max(y1, y2)
+    gy1 = min(y1 + h1, y2 + h2)
+    if gx0 is not None and gy1 > gy0:
+        return (gx0, gy0, gx1, gy1), 'vertical'
+
+    if y1 + h1 <= y2:
+        gy0b, gy1b = y1 + h1, y2
+    elif y2 + h2 <= y1:
+        gy0b, gy1b = y2 + h2, y1
+    else:
+        gy0b = gy1b = None
+    gx0b = max(x1, x2)
+    gx1b = min(x1 + w1, x2 + w2)
+    if gy0b is not None and gx1b > gx0b:
+        return (gx0b, gy0b, gx1b, gy1b), 'horizontal'
+
+    return None, None
+
+
+def _has_strong_boundary_edge(gray, gap_rect, axis,
+                               frac_thresh=GAP_EDGE_FRAC_THRESH,
+                               grad_thresh=GAP_EDGE_GRAD_THRESH):
+    """Read the real Sobel gradient inside the gap between two contour
+    fragments to tell apart two different situations that look
+    identical if you only measure pixel distance:
+
+      - A real seam between two separate physical objects (e.g. two
+        boxes pushed together) -- this shows up as a strong, CONTINUOUS
+        edge line running most of the length of the gap.
+      - Fragmentation of a single object by an internal edge (printed
+        text, tape, a shadow) that happened to also break the outer
+        contour -- the gap here has weak or patchy gradient, because
+        it's still the same surface/material on both sides.
+
+    Returns True only for the first case (real boundary -- do not merge).
+    """
+    x0, y0, x1, y1 = gap_rect
+    h_img, w_img = gray.shape[:2]
+    x0, y0 = max(0, x0), max(0, y0)
+    x1, y1 = min(w_img, x1), min(h_img, y1)
+    if x1 <= x0 or y1 <= y0:
+        return False
+
+    roi = gray[y0:y1, x0:x1]
+    if roi.size == 0:
+        return False
+
+    if axis == 'vertical':
+        gx = cv2.Sobel(roi, cv2.CV_32F, 1, 0, ksize=3)
+        mag = np.abs(gx)
+        line_max = mag.max(axis=1)  # strongest edge per row
+    else:
+        gy = cv2.Sobel(roi, cv2.CV_32F, 0, 1, ksize=3)
+        mag = np.abs(gy)
+        line_max = mag.max(axis=0)  # strongest edge per column
+
+    if line_max.size == 0:
+        return False
+    strong_frac = float(np.mean(line_max > grad_thresh))
+    return strong_frac > frac_thresh
+
+
+def _merge_nearby_contours(contours, gray, gap_px=CONTOUR_MERGE_GAP_PX):
+    """Merge contours whose bounding boxes are within gap_px of each
+    other AND whose gap does NOT contain a strong, continuous gradient
+    edge (see _has_strong_boundary_edge). Handles a single physical box
+    getting split into multiple contours by a strong internal edge
+    (printed warning text, a tape seam, a shadow) that the Canny+close
+    stage couldn't fully bridge -- without this, the largest-first
+    contour walk in _all_valid_contours() would only ever pick up one
+    fragment, leaving the rest to be reported as a spurious second
+    object.
+
+    Critically, this does NOT merge two genuinely separate physical
+    objects sitting close together (e.g. two boxes pushed side by
+    side): the real seam between them shows up as a strong continuous
+    gradient edge, which _has_strong_boundary_edge detects, so those
+    contours are left distinct even though they're within gap_px.
+    """
+    if len(contours) <= 1:
+        return contours
+
+    boxes = [cv2.boundingRect(c) for c in contours]
+
+    def _mergeable(b1, b2, gap):
+        x1, y1, w1, h1 = b1
+        x2, y2, w2, h2 = b2
+        near = not (x1 - gap > x2 + w2 or x2 - gap > x1 + w1 or
+                    y1 - gap > y2 + h2 or y2 - gap > y1 + h1)
+        if not near:
+            return False
+        gap_rect, axis = _gap_rect_between(b1, b2)
+        if gap_rect is None:
+            return True  # boxes already touch/overlap -- same object
+        if _has_strong_boundary_edge(gray, gap_rect, axis):
+            return False  # real seam -- keep as separate objects
+        return True
+
+    groups = [[i] for i in range(len(contours))]
+    changed = True
+    while changed:
+        changed = False
+        for i in range(len(groups)):
+            for j in range(i + 1, len(groups)):
+                if any(_mergeable(boxes[a], boxes[b], gap_px)
+                       for a in groups[i] for b in groups[j]):
+                    groups[i].extend(groups[j])
+                    groups.pop(j)
+                    changed = True
+                    break
+            if changed:
+                break
+
+    merged = []
+    for g in groups:
+        pts = np.vstack([contours[i] for i in g])
+        merged.append(cv2.convexHull(pts))
+    return merged
+
+
+def _snap_box_to_gradient(gray_full, x, y, w, h, search_px=EDGE_SNAP_SEARCH_PX):
+    """Refine a coarse bounding box to the true object edges using the
+    Sobel gradient of the FULL-RESOLUTION frame (the mask/contour
+    pipeline runs on a 0.25-scale image for speed, so its box can be a
+    few real-frame pixels loose or tight). For each of the 4 sides,
+    search a small band around the current position and snap to the
+    column/row with the strongest total gradient energy -- i.e. the
+    precise physical edge of the object, not the coarse mask boundary.
+    This directly improves measurement accuracy in cm.
+    """
+    H, W = gray_full.shape[:2]
+    x0, y0 = max(0, x), max(0, y)
+    x1, y1 = min(W, x + w), min(H, y + h)
+    if x1 <= x0 or y1 <= y0:
+        return x, y, w, h
+
+    gx = cv2.Sobel(gray_full, cv2.CV_32F, 1, 0, ksize=3)
+    gy = cv2.Sobel(gray_full, cv2.CV_32F, 0, 1, ksize=3)
+    mag_x = np.abs(gx)  # vertical edges -- used to snap left/right sides
+    mag_y = np.abs(gy)  # horizontal edges -- used to snap top/bottom sides
+
+    def best_col(cx, lo, hi, y0_, y1_):
+        lo = max(0, lo); hi = min(W - 1, hi)
+        if hi <= lo:
+            return cx
+        band = mag_x[y0_:y1_, lo:hi + 1]
+        if band.size == 0:
+            return cx
+        energy = band.sum(axis=0)
+        return lo + int(np.argmax(energy))
+
+    def best_row(cy, lo, hi, x0_, x1_):
+        lo = max(0, lo); hi = min(H - 1, hi)
+        if hi <= lo:
+            return cy
+        band = mag_y[lo:hi + 1, x0_:x1_]
+        if band.size == 0:
+            return cy
+        energy = band.sum(axis=1)
+        return lo + int(np.argmax(energy))
+
+    left = best_col(x0, x0 - search_px, x0 + search_px, y0, y1)
+    right = best_col(x1, x1 - search_px, x1 + search_px, y0, y1)
+    top = best_row(y0, y0 - search_px, y0 + search_px, x0, x1)
+    bottom = best_row(y1, y1 - search_px, y1 + search_px, x0, x1)
+
+    if right <= left:
+        left, right = x0, x1
+    if bottom <= top:
+        top, bottom = y0, y1
+
+    return left, top, right - left, bottom - top
+
+
+def _grabcut_refine(bgr, x, y, w, h, pad_frac=GRABCUT_PAD_FRAC, iters=GRABCUT_ITERS):
+    """Grow the coarse edge-derived box into a precise object mask using
+    GrabCut, seeded from the box itself.
+
+    Pure edge detection (Canny/Sobel) cannot recover a boundary where
+    the object and background have near-identical color/brightness --
+    there is no gradient to find because the pixels genuinely don't
+    change much there. GrabCut instead models the foreground/background
+    color distributions and iteratively grows the foreground region
+    until it hits a real color/texture change, which is the correct
+    tool for exactly this failure mode (a light-grey box against a
+    light-grey wall/background) rather than continuing to tune Canny
+    thresholds or morphology kernel sizes.
+
+    Seeding:
+      - Sure foreground: a shrunk-in core of the detected box (very
+        likely to be genuinely inside the object).
+      - Probable foreground: the rest of the detected box.
+      - Everything in the padded search window outside the box:
+        probable background, letting GrabCut grow outward if the color
+        statistics support it.
+    """
+    H, W = bgr.shape[:2]
+    pad_x = max(10, int(w * pad_frac))
+    pad_y = max(10, int(h * pad_frac))
+    gx0 = max(0, x - pad_x)
+    gy0 = max(0, y - pad_y)
+    gx1 = min(W, x + w + pad_x)
+    gy1 = min(H, y + h + pad_y)
+
+    roi = bgr[gy0:gy1, gx0:gx1]
+    if roi.size == 0 or roi.shape[0] < 10 or roi.shape[1] < 10:
+        return x, y, w, h
+
+    mask = np.full(roi.shape[:2], cv2.GC_PR_BGD, np.uint8)
+
+    # Probable foreground = the original detected box footprint
+    px0, py0 = max(0, x - gx0), max(0, y - gy0)
+    px1, py1 = min(roi.shape[1], x - gx0 + w), min(roi.shape[0], y - gy0 + h)
+    if px1 > px0 and py1 > py0:
+        mask[py0:py1, px0:px1] = cv2.GC_PR_FGD
+
+    # Sure foreground = a shrunk-in core of that box
+    fx0 = px0 + int((px1 - px0) * 0.2)
+    fy0 = py0 + int((py1 - py0) * 0.2)
+    fx1 = px0 + int((px1 - px0) * 0.8)
+    fy1 = py0 + int((py1 - py0) * 0.8)
+    if fx1 > fx0 and fy1 > fy0:
+        mask[fy0:fy1, fx0:fx1] = cv2.GC_FGD
+
+    bgd_model = np.zeros((1, 65), np.float64)
+    fgd_model = np.zeros((1, 65), np.float64)
+    try:
+        cv2.grabCut(roi, mask, None, bgd_model, fgd_model, iters, cv2.GC_INIT_WITH_MASK)
+    except Exception:
+        return x, y, w, h
+
+    fg = np.where((mask == cv2.GC_FGD) | (mask == cv2.GC_PR_FGD), 255, 0).astype(np.uint8)
+    cnts, _ = cv2.findContours(fg, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    if not cnts:
+        return x, y, w, h
+    c = max(cnts, key=cv2.contourArea)
+    if cv2.contourArea(c) < 0.5 * w * h:
+        # GrabCut collapsed to something much smaller than the original
+        # detection -- likely a bad seed on this frame; keep the
+        # edge-based box rather than trust a degenerate result.
+        return x, y, w, h
+    rx, ry, rw, rh = cv2.boundingRect(c)
+    return gx0 + rx, gy0 + ry, rw, rh
+
+
+def _get_raw_mask(bgr):
+    """Structural-edge segmentation with the camera's own OSD band
+    blanked out first, so its full-width timestamp/label text can never
+    seed or bridge a false contour to the frame border.
+
+    VERIFIED against a real captured frame from this exact camera: the
+    previous approach (broad HSV color fill + Canny) fused the box to
+    the frame border via the camera's baked-in timestamp/label text --
+    those overlays create solid full-width edges near the top and
+    bottom of every raw frame, and any morphological closing bridges
+    right through them, producing area_ratio ~= 1.0 with all 4 edges
+    touched every time (permanent "Searching Target..."). The broad
+    color mask was a second, independent problem: the light floor and
+    striped background shared enough hue/saturation with the tan box
+    to light up just as brightly as the box itself.
+
+    Fix: blank the OSD bands, drop the color mask, rely on tuned edges
+    + modest morphology, then merge nearby contour fragments so a
+    single box with a strong internal edge (printed text, tape seam)
+    doesn't get reported as two separate objects.
+    """
+    h_orig, w_orig = bgr.shape[:2]
+    small = cv2.resize(bgr, (0, 0), fx=0.25, fy=0.25)
+    sh, sw = small.shape[:2]
+
+    # Structural edges
+    gray = cv2.cvtColor(small, cv2.COLOR_BGR2GRAY)
+    blurred = cv2.GaussianBlur(gray, (5, 5), 0)
+    edges = cv2.Canny(blurred, 30, 90)
+
+    # Blank the camera's own OSD band (top timestamp, bottom label) so
+    # it can never seed or bridge a contour to the frame border.
+    roi_mask = np.zeros_like(edges)
+    y0 = int(sh * OSD_TOP_BAND_PCT)
+    y1 = int(sh * (1.0 - OSD_BOTTOM_BAND_PCT))
+    roi_mask[y0:y1, :] = 255
+    edges = cv2.bitwise_and(edges, roi_mask)
+
+    # Modest dilate/close -- enough to bridge small gaps in the outline
+    # (tape seams, faint contrast patches), not enough to fuse the
+    # object with the background.
+    dilated = cv2.dilate(edges, np.ones((5, 5), np.uint8), iterations=1)
+    closed = cv2.morphologyEx(dilated, cv2.MORPH_CLOSE, np.ones((15, 15), np.uint8), iterations=2)
+    closed = cv2.bitwise_and(closed, roi_mask)  # keep clipped to the OSD-safe region
+
+    # Find raw contour fragments, drop tiny noise, then merge fragments
+    # that likely belong to the same physical object (e.g. a box split
+    # by a strong internal edge such as printed warning text).
+    cnts, _ = cv2.findContours(closed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    cnts = [c for c in cnts if cv2.contourArea(c) > 1000]
+    cnts = _merge_nearby_contours(cnts, gray, gap_px=CONTOUR_MERGE_GAP_PX)
+
+    # Fill the internal area to seal the block(s)
+    filled = np.zeros_like(closed)
+    for c in cnts:
+        cv2.drawContours(filled, [cv2.convexHull(c)], -1, 255, -1)
+
+    mask_full = cv2.resize(filled, (w_orig, h_orig), interpolation=cv2.INTER_NEAREST)
+    return mask_full
+
+
+def _all_valid_contours(mask, bgr, frame_area):
+    """Walk contours largest-first and return the first one that passes
+    the size + border-bleed sanity checks, instead of only ever checking
+    the single largest contour (which, if it was a background-fused
+    blob, killed detection entirely with no fallback).
+    """
+    contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    if not contours:
         return []
-    
-    results = []
+
+    contours = sorted(contours, key=cv2.contourArea, reverse=True)
     h_img, w_img = bgr.shape[:2]
-    
-    for c in candidates:
+
+    for c in contours:
         x, y, w, h = cv2.boundingRect(c)
         rect_area = max(w * h, 1e-6)
-        
+
+        # Strict Area Filter: object must occupy a sane fraction of the
+        # frame -- eliminates tiny noise (foam tube) and full-frame
+        # background-fused blobs alike.
         area_ratio = rect_area / frame_area
-        if area_ratio < MIN_MATTRESS_AREA_RATIO or area_ratio > MAX_MATTRESS_AREA_RATIO:
+        if area_ratio < 0.10 or area_ratio > MAX_MATTRESS_AREA_RATIO:
             continue
-            
-        rectangularity = cv2.contourArea(c) / rect_area
-        if rectangularity < MIN_RECTANGULARITY:
+
+        # Border-bleed guard: if the box hugs 3+ frame edges it's almost
+        # certainly a background-fused blob rather than the real object
+        # -- skip it and try the next-largest contour instead of giving
+        # up on the whole frame.
+        touches = sum([
+            x <= 2,
+            y <= 2,
+            (x + w) >= w_img - 2,
+            (y + h) >= h_img - 2,
+        ])
+        if touches >= 3:
             continue
-            
-        # Extract ROI for gradient/color features
+
+        # Extract ROI for gradient classification features
         roi_x, roi_y = max(0, x), max(0, y)
         roi_w, roi_h = min(w, w_img - roi_x), min(h, h_img - roi_y)
         roi = bgr[roi_y:roi_y + roi_h, roi_x:roi_x + roi_w]
-        
+
         features = compute_gradient_features(roi)
-        # We attach the features to the contour object implicitly by returning a tuple
-        results.append((c, features))
-        
-        if len(results) >= MAX_OBJECTS:
-            break
-            
-    return results
+        return [(cv2.convexHull(c), features)]
+
+    return []
 
 
 class MeasurementSmoother:
@@ -300,42 +628,73 @@ def process_frame_tight_geometry(img, px_cm_x, px_cm_y, distance_cm=200.0, frame
     h_orig, w_orig = img.shape[:2]
     frame_area = float(w_orig * h_orig)
 
+    global _missed_frames, _last_primary_box, _last_primary_contour
+    global _last_primary_features, _last_primary_w_cm, _last_primary_h_cm, _last_primary_stable
+
     try:
-        # Find ALL valid contours using the gradient/texture logic
-        all_found = _all_valid_contours(img, frame_area)
+        # Generate the unified, lighting-invariant structural mask
+        mask = _get_raw_mask(img)
+
+        if DEBUG_SHOW_RAW_MASK:
+            # Short-circuit the pipeline to output the raw binary mask for debugging
+            annotated = cv2.cvtColor(mask, cv2.COLOR_GRAY2BGR)
+            cv2.putText(annotated, "DEBUG MASK ACTIVE (Toggle DEBUG_SHOW_RAW_MASK=False to disable)", (30, 90),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 165, 255), 2, cv2.LINE_AA)
+            return None, None, annotated, None, False
+
+        # Find the best valid contour (largest-first, with fallback)
+        all_found = _all_valid_contours(mask, img, frame_area)
 
         if not all_found:
-            # No qualifying contours -- report searching
-            _smoother.reset()
-            cv2.putText(annotated, "Searching Target...", (30, 90),
-                        cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 2, cv2.LINE_AA)
-            return None, None, annotated, None, False
+            _missed_frames += 1
+            if _missed_frames < MAX_MISSED_FRAMES and _last_primary_contour is not None:
+                # HYSTERESIS: Use the last known good target to bridge temporary detection gaps
+                all_found = [(_last_primary_contour, _last_primary_features)]
+            else:
+                # No qualifying contours after timeout -- report searching
+                _smoother.reset()
+                _last_primary_box = None
+                cv2.putText(annotated, "Searching Target...", (30, 90),
+                            cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 2, cv2.LINE_AA)
+                return None, None, annotated, None, False
+        else:
+            _missed_frames = 0  # Reset timeout
 
         primary_w_cm = None
         primary_h_cm = None
         primary_box = None
         primary_stable = False
 
+        gray_full = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
         for idx, (contour, features) in enumerate(all_found):
             x, y, w_px, h_px = cv2.boundingRect(contour)
+            # Snap the coarse mask-derived box onto the true full-resolution
+            # gradient edge for a precise, less noisy measurement.
+            x, y, w_px, h_px = _snap_box_to_gradient(gray_full, x, y, w_px, h_px)
+            if USE_GRABCUT_REFINE:
+                # Then grow into any remaining low-contrast region (object
+                # and background too similar in color/brightness for edge
+                # detection to see) using color-based GrabCut segmentation.
+                x, y, w_px, h_px = _grabcut_refine(img, x, y, w_px, h_px)
 
             color = _OBJECT_COLORS[idx % len(_OBJECT_COLORS)]
             is_primary = (idx == 0)
-            
+
             # Determine label based on gradient edge density
             edge_dens = features['edge_density']
             if edge_dens > 0.11:
                 label = "CARDBOARD"
             else:
                 label = "MATTRESS/FOAM"
-                
+
             if is_primary:
                 label = f"*{label}*"
 
             # Draw YOLO-style straight bounding box
             thickness = 3 if is_primary else 2
             cv2.rectangle(annotated, (x, y), (x + w_px, y + h_px), color, thickness)
-            
+
             # Draw semi-transparent fill ("gradient overlay") to match the reference picture
             overlay = annotated.copy()
             cv2.rectangle(overlay, (x, y), (x + w_px, y + h_px), color, -1)
@@ -357,10 +716,24 @@ def process_frame_tight_geometry(img, px_cm_x, px_cm_y, distance_cm=200.0, frame
                         primary_w_cm = nW_cm
                         primary_h_cm = nH_cm
                         primary_stable = stable
-                        w_cm_obj = nW_cm
-                        h_cm_obj = nH_cm
-                        w_in_obj = round(nW_cm / 2.54, 1)
-                        h_in_obj = round(nH_cm / 2.54, 1)
+                    elif _last_primary_w_cm is not None:
+                        # Fallback to last known smoothed dims during hysteresis
+                        primary_w_cm = _last_primary_w_cm
+                        primary_h_cm = _last_primary_h_cm
+                        primary_stable = _last_primary_stable
+
+                    if primary_w_cm is not None:
+                        w_cm_obj = primary_w_cm
+                        h_cm_obj = primary_h_cm
+
+                    # Save state for temporal hysteresis
+                    _last_primary_contour = contour
+                    _last_primary_features = features
+                    _last_primary_w_cm = primary_w_cm
+                    _last_primary_h_cm = primary_h_cm
+                    _last_primary_stable = primary_stable
+                    primary_box = (x, y, x + w_px, y + h_px)
+                    _last_primary_box = primary_box
 
                 diag_cm = round(math.hypot(w_cm_obj, h_cm_obj), 1)
 
@@ -368,16 +741,16 @@ def process_frame_tight_geometry(img, px_cm_x, px_cm_y, distance_cm=200.0, frame
                 suffix = "" if (is_primary and primary_stable) or not is_primary else " ~"
                 full_label = f"{label} | Grad: {edge_dens:.2f} | W:{w_cm_obj}cm H:{h_cm_obj}cm{suffix}"
                 (tw, th), _ = cv2.getTextSize(full_label, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 1)
-                
+
                 # Make sure the label doesn't go off the top of the screen
                 label_y_top = max(0, y - th - 10)
                 label_y_bottom = max(th + 10, y)
                 cv2.rectangle(annotated, (x, label_y_top), (x + tw + 10, label_y_bottom), color, -1)
-                
+
                 # Text with thin black outline for readability against bright colors
-                cv2.putText(annotated, full_label, (x + 5, label_y_bottom - 5), 
+                cv2.putText(annotated, full_label, (x + 5, label_y_bottom - 5),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 3, cv2.LINE_AA)
-                cv2.putText(annotated, full_label, (x + 5, label_y_bottom - 5), 
+                cv2.putText(annotated, full_label, (x + 5, label_y_bottom - 5),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1, cv2.LINE_AA)
 
                 # Draw Diagonal label at bottom of box
@@ -388,9 +761,6 @@ def process_frame_tight_geometry(img, px_cm_x, px_cm_y, distance_cm=200.0, frame
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 3, cv2.LINE_AA)
                 cv2.putText(annotated, metrics_text, (x + 5, y + h_px + mh + 5),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1, cv2.LINE_AA)
-
-                if is_primary:
-                    primary_box = (x, y, x + w_px, y + h_px)
 
         # Show total objects detected count
         obj_text = f"Objects: {len(all_found)}"
