@@ -1,0 +1,144 @@
+import os
+import shutil
+import random
+from pathlib import Path
+
+from PIL import Image
+from pillow_heif import register_heif_opener
+import imagehash
+
+register_heif_opener()
+
+# ==========================
+# CONFIG
+# ==========================
+
+SOURCE = r"C:\texture\Mattress"
+DEST = r"dataset_split"
+
+TRAIN_RATIO = 0.80
+RANDOM_SEED = 42
+
+random.seed(RANDOM_SEED)
+
+SUPPORTED = [
+    ".jpg",
+    ".jpeg",
+    ".png",
+    ".heic",
+    ".HEIC",
+    ".JPG",
+    ".JPEG",
+    ".PNG",
+]
+
+# ==========================
+# CLEAN OLD SPLIT
+# ==========================
+
+if os.path.exists(DEST):
+    shutil.rmtree(DEST)
+
+os.makedirs(DEST)
+
+# ==========================
+# PROCESS EACH CLASS
+# ==========================
+
+for cls in sorted(os.listdir(SOURCE)):
+
+    class_path = os.path.join(SOURCE, cls)
+
+    if not os.path.isdir(class_path):
+        continue
+
+    print(f"\nProcessing {cls}")
+
+    images = []
+
+    hashes = set()
+
+    temp_folder = Path(f"_temp_{cls}")
+
+    temp_folder.mkdir(exist_ok=True)
+
+    # ------------------------
+    # Convert + Remove Duplicates
+    # ------------------------
+
+    for file in os.listdir(class_path):
+
+        ext = Path(file).suffix
+
+        if ext.lower() not in [".jpg", ".jpeg", ".png", ".heic"]:
+            continue
+
+        src = os.path.join(class_path, file)
+
+        try:
+
+            img = Image.open(src).convert("RGB")
+
+            phash = imagehash.phash(img)
+
+            if phash in hashes:
+                print(f"Duplicate removed: {file}")
+                continue
+
+            hashes.add(phash)
+
+            save_name = Path(file).stem + ".jpg"
+
+            save_path = temp_folder / save_name
+
+            img.save(save_path, quality=95)
+
+            images.append(str(save_path))
+
+        except Exception as e:
+            print(f"Skipped {file}: {e}")
+
+    random.shuffle(images)
+
+    total = len(images)
+
+    if total < 2:
+        print(f"Not enough images in {cls}")
+        continue
+
+    train_count = max(1, int(total * TRAIN_RATIO))
+    val_count = total - train_count
+
+    if val_count == 0:
+        train_count -= 1
+        val_count = 1
+
+    train_imgs = images[:train_count]
+    val_imgs = images[train_count:]
+
+    # ------------------------
+    # Copy Train
+    # ------------------------
+
+    train_dir = os.path.join(DEST, "train", cls)
+    os.makedirs(train_dir, exist_ok=True)
+
+    for img in train_imgs:
+        shutil.copy(img, train_dir)
+
+    # ------------------------
+    # Copy Validation
+    # ------------------------
+
+    val_dir = os.path.join(DEST, "val", cls)
+    os.makedirs(val_dir, exist_ok=True)
+
+    for img in val_imgs:
+        shutil.copy(img, val_dir)
+
+    print(f"Train : {len(train_imgs)}")
+    print(f"Val   : {len(val_imgs)}")
+
+    shutil.rmtree(temp_folder)
+
+print("\nDataset ready.")

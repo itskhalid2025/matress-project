@@ -54,6 +54,7 @@ import os
 import time
 import threading
 import re
+import math
 from collections import deque
 
 import cv2
@@ -89,12 +90,13 @@ CAMERA_DISTANCE_CM = 200.0     # Fixed camera distance to mattress plane
 KNOWN_REF_WIDTH_CM = 47.0      # Physical reference horizontal width
 KNOWN_REF_HEIGHT_CM = 46.0     # Physical reference vertical length
 
-INVERT_MASK = False              # True if mattress is DARKER than the background
-MIN_RECTANGULARITY = 0.75        # hull_area / rotated-rect area guard
-MIN_MATTRESS_AREA_RATIO = 0.06   # rotated-rect area must be >= 6% of the full frame
-MAX_MATTRESS_AREA_RATIO = 0.95   # and not basically the whole frame (lens edge/glare)
-MAX_ANGLE_DEG = 30.0              # max rotation angle allowed
-MIN_CONTOUR_AREA_PX = 1500        # raw pixel-area floor before any ratio checks
+INVERT_MASK = True               # True: mattress is BRIGHT on a darker background
+MIN_RECTANGULARITY = 0.35        # lowered to allow thin or irregular objects
+MIN_MATTRESS_AREA_RATIO = 0.015  # lowered to 1.5% to detect the thin blue foam object
+MAX_MATTRESS_AREA_RATIO = 0.95   # raised to 95% to allow detecting the large background cardboard
+MAX_ANGLE_DEG = 89.0             # allow any angle
+MIN_CONTOUR_AREA_PX = 3000       # low floor, true filtering done by area ratio
+MAX_OBJECTS = 10                 # max number of objects to detect and annotate
 
 DETECT_EVERY_N_FRAMES = 1        # color detection is cheap -- safe to run every frame
 
@@ -115,6 +117,20 @@ _calib_lock = threading.Lock()
 
 _clahe = cv2.createCLAHE(clipLimit=3.0, tileGridSize=(8, 8))
 
+# Colors for annotating multiple objects (BGR)
+_OBJECT_COLORS = [
+    (0, 255, 0),    # green
+    (255, 165, 0),  # orange
+    (0, 255, 255),  # yellow
+    (255, 0, 255),  # magenta
+    (255, 0, 0),    # blue
+    (0, 165, 255),  # dark orange
+    (128, 0, 255),  # purple
+    (0, 255, 128),  # spring green
+    (255, 128, 0),  # sky blue
+    (128, 255, 0),  # chartreuse
+]
+
 
 # ==============================================================================
 # Color / contour segmentation (this replaces the YOLO stage entirely)
@@ -126,70 +142,117 @@ def _normalize_angle(angle):
     return a
 
 
-def _rect_quality_ok(hull, rect, frame_area):
-    (_, _), (w_cv, h_cv), angle = rect
-    rect_area = max(w_cv * h_cv, 1e-6)
-
-    if abs(_normalize_angle(angle)) > MAX_ANGLE_DEG:
-        return False
-
-    area_ratio = rect_area / frame_area
-    if area_ratio < MIN_MATTRESS_AREA_RATIO or area_ratio > MAX_MATTRESS_AREA_RATIO:
-        return False
-
-    rectangularity = cv2.contourArea(hull) / rect_area
-    if rectangularity < MIN_RECTANGULARITY:
-        return False
-
-    return True
-
-
-def _largest_valid_contour(mask, frame_area):
-    """Scan the top-N largest contours in the mask and return the first
-    one that passes the rectangularity/angle/area-ratio quality gate."""
+def _all_valid_contours(mask, frame_area):
+    """Find ALL contours in the mask that pass the quality gate.
+    Returns a list of contours sorted by area (largest first)."""
     contours, _ = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
     if not contours:
-        return None
-    contours = sorted(contours, key=cv2.contourArea, reverse=True)[:5]
+        return []
+    contours = sorted(contours, key=cv2.contourArea, reverse=True)[:MAX_OBJECTS * 2]
+    results = []
     for c in contours:
         if cv2.contourArea(c) < MIN_CONTOUR_AREA_PX:
             continue
-        hull = cv2.convexHull(c)
-        rect = cv2.minAreaRect(hull)
-        if _rect_quality_ok(hull, rect, frame_area):
-            return hull, rect
-    return None
+        
+        x, y, w, h = cv2.boundingRect(c)
+        rect_area = max(w * h, 1e-6)
+        
+        area_ratio = rect_area / frame_area
+        if area_ratio < MIN_MATTRESS_AREA_RATIO or area_ratio > MAX_MATTRESS_AREA_RATIO:
+            continue
+            
+        rectangularity = cv2.contourArea(c) / rect_area
+        if rectangularity < MIN_RECTANGULARITY:
+            continue
+            
+        results.append(c)
+        if len(results) >= MAX_OBJECTS:
+            break
+    return results
 
 
-def _threshold_mask(bgr):
-    """Primary mask: HSV value (CLAHE + Otsu) OR'd with a saturation
-    threshold. This is the core 'contrast background' segmentation --
-    it works because the mattress and background differ strongly in
-    either brightness or colorfulness."""
-    hsv = cv2.cvtColor(bgr, cv2.COLOR_BGR2HSV)
-    v_eq = _clahe.apply(hsv[:, :, 2])
-    thresh_type = cv2.THRESH_BINARY if INVERT_MASK else cv2.THRESH_BINARY_INV
-    _, mask_v = cv2.threshold(v_eq, 0, 255, thresh_type + cv2.THRESH_OTSU)
-    _, mask_s = cv2.threshold(hsv[:, :, 1], 35, 255, cv2.THRESH_BINARY)
-    mask = cv2.bitwise_or(mask_v, mask_s)
+def compute_gradient_features(bgr_roi):
+    """Sobel-based texture features for a region."""
+    if bgr_roi.size == 0:
+        return {"mean_gradient": 0.0, "gradient_std": 0.0, "edge_density": 0.0}
+    gray = cv2.cvtColor(bgr_roi, cv2.COLOR_BGR2GRAY)
+    gx = cv2.Sobel(gray, cv2.CV_32F, 1, 0, ksize=3)
+    gy = cv2.Sobel(gray, cv2.CV_32F, 0, 1, ksize=3)
+    mag = cv2.magnitude(gx, gy)
+    return {
+        "mean_gradient": float(np.mean(mag)),
+        "gradient_std": float(np.std(mag)),
+        "edge_density": float(np.mean(mag > 40)),  # fraction of pixels with a strong edge
+    }
 
-    kernel = cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (15, 15))
-    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel, iterations=2)
-    mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=1)
-    return mask
+def compute_color_features(bgr_roi):
+    if bgr_roi.size == 0:
+        return {"hue_mean": 0.0, "sat_mean": 0.0, "val_mean": 0.0}
+    hsv = cv2.cvtColor(bgr_roi, cv2.COLOR_BGR2HSV)
+    h, s, v = cv2.split(hsv)
+    return {
+        "hue_mean": float(np.mean(h)),
+        "sat_mean": float(np.mean(s)),
+        "val_mean": float(np.mean(v)),
+    }
 
-
-def _edge_mask(bgr):
-    """Fallback mask for scenes where the Otsu split is weak (low
-    contrast lighting) -- uses Canny edges instead of a flat threshold."""
+def segment_candidates(bgr, min_area_px=2000):
+    """Generic contrast-based segmentation using Otsu in both directions (light/dark)."""
     gray = cv2.cvtColor(bgr, cv2.COLOR_BGR2GRAY)
-    enhanced = _clahe.apply(gray)
-    blur = cv2.GaussianBlur(enhanced, (5, 5), 0)
-    edges = cv2.Canny(blur, 30, 120)
-    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (7, 7))
-    closed = cv2.morphologyEx(edges, cv2.MORPH_CLOSE, kernel, iterations=2)
-    closed = cv2.dilate(closed, kernel, iterations=1)
-    return closed
+    # Downscale for faster Otsu segmentation
+    small_gray = cv2.resize(gray, (0, 0), fx=0.5, fy=0.5)
+    blurred = cv2.GaussianBlur(small_gray, (7, 7), 0)
+
+    candidates = []
+    for thresh_type in (cv2.THRESH_BINARY, cv2.THRESH_BINARY_INV):
+        _, mask = cv2.threshold(blurred, 0, 255, thresh_type + cv2.THRESH_OTSU)
+        kernel = np.ones((9, 9), np.uint8)
+        mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, kernel, iterations=2)
+        mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN, kernel, iterations=1)
+
+        # Scale mask back up
+        mask_full = cv2.resize(mask, (bgr.shape[1], bgr.shape[0]), interpolation=cv2.INTER_NEAREST)
+        contours, _ = cv2.findContours(mask_full, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+        candidates.extend(c for c in contours if cv2.contourArea(c) >= min_area_px)
+
+    # Sort by area descending
+    candidates.sort(key=cv2.contourArea, reverse=True)
+    return candidates
+
+def _all_valid_contours(bgr, frame_area):
+    """Find ALL contours that pass the generic quality gate and compute their gradient profiles."""
+    candidates = segment_candidates(bgr, min_area_px=MIN_CONTOUR_AREA_PX)
+    if not candidates:
+        return []
+    
+    results = []
+    h_img, w_img = bgr.shape[:2]
+    
+    for c in candidates:
+        x, y, w, h = cv2.boundingRect(c)
+        rect_area = max(w * h, 1e-6)
+        
+        area_ratio = rect_area / frame_area
+        if area_ratio < MIN_MATTRESS_AREA_RATIO or area_ratio > MAX_MATTRESS_AREA_RATIO:
+            continue
+            
+        rectangularity = cv2.contourArea(c) / rect_area
+        if rectangularity < MIN_RECTANGULARITY:
+            continue
+            
+        # Extract ROI for gradient/color features
+        roi_x, roi_y = max(0, x), max(0, y)
+        roi_w, roi_h = min(w, w_img - roi_x), min(h, h_img - roi_y)
+        roi = bgr[roi_y:roi_y + roi_h, roi_x:roi_x + roi_w]
+        
+        features = compute_gradient_features(roi)
+        # We attach the features to the contour object implicitly by returning a tuple
+        results.append((c, features))
+        
+        if len(results) >= MAX_OBJECTS:
+            break
+            
+    return results
 
 
 class MeasurementSmoother:
@@ -228,8 +291,7 @@ _smoother = MeasurementSmoother()
 
 def process_frame_tight_geometry(img, px_cm_x, px_cm_y, distance_cm=200.0, frame_index=0):
     """
-    Computes mattress dimensions using PURE color/contour segmentation
-    on the full camera frame -- no neural network stage.
+    Detects objects and draws YOLO-style axis-aligned bounding boxes.
     """
     if img is None or img.size == 0:
         return None, None, img, None, False
@@ -239,60 +301,109 @@ def process_frame_tight_geometry(img, px_cm_x, px_cm_y, distance_cm=200.0, frame
     frame_area = float(w_orig * h_orig)
 
     try:
-        # Color detection is cheap, so we just run it every frame regardless
-        # of DETECT_EVERY_N_FRAMES; the knob is kept for parity/tuning.
-        found = _largest_valid_contour(_threshold_mask(img), frame_area)
-        if found is None:
-            found = _largest_valid_contour(_edge_mask(img), frame_area)
+        # Find ALL valid contours using the gradient/texture logic
+        all_found = _all_valid_contours(img, frame_area)
 
-        if found is None:
-            # No qualifying contour this frame -- don't guess, just report searching.
+        if not all_found:
+            # No qualifying contours -- report searching
             _smoother.reset()
             cv2.putText(annotated, "Searching Target...", (30, 90),
                         cv2.FONT_HERSHEY_SIMPLEX, 1.0, (0, 0, 255), 2, cv2.LINE_AA)
             return None, None, annotated, None, False
 
-        hull_final, rect_final = found
-        (cx, cy), (w_px, h_px), angle = rect_final
-        if angle < -45 or angle > 45:
-            w_px, h_px = h_px, w_px
+        primary_w_cm = None
+        primary_h_cm = None
+        primary_box = None
+        primary_stable = False
 
-        cv2.drawContours(annotated, [hull_final], -1, (0, 0, 255), 2)
-        box_pts = np.int32(cv2.boxPoints(rect_final))
-        cv2.drawContours(annotated, [box_pts], 0, (0, 255, 0), 3)
-        cv2.circle(annotated, (int(cx), int(cy)), 6, (0, 255, 255), -1)
+        for idx, (contour, features) in enumerate(all_found):
+            x, y, w_px, h_px = cv2.boundingRect(contour)
 
-        # ==================================================================
-        # Pinhole Distance Math + Smoothing (unchanged from the YOLO rig)
-        # ==================================================================
-        if px_cm_x <= 0 or px_cm_y <= 0:
-            _smoother.reset()
-            return None, None, annotated, None, False
+            color = _OBJECT_COLORS[idx % len(_OBJECT_COLORS)]
+            is_primary = (idx == 0)
+            
+            # Determine label based on gradient edge density
+            edge_dens = features['edge_density']
+            if edge_dens > 0.11:
+                label = "CARDBOARD"
+            else:
+                label = "MATTRESS/FOAM"
+                
+            if is_primary:
+                label = f"*{label}*"
 
-        nW_cm_raw = (w_px * (distance_cm / CAMERA_DISTANCE_CM)) / px_cm_x * edge_correction
-        nH_cm_raw = (h_px * (distance_cm / CAMERA_DISTANCE_CM)) / px_cm_y * edge_correction
+            # Draw YOLO-style straight bounding box
+            thickness = 3 if is_primary else 2
+            cv2.rectangle(annotated, (x, y), (x + w_px, y + h_px), color, thickness)
+            
+            # Draw semi-transparent fill ("gradient overlay") to match the reference picture
+            overlay = annotated.copy()
+            cv2.rectangle(overlay, (x, y), (x + w_px, y + h_px), color, -1)
+            cv2.addWeighted(overlay, 0.35, annotated, 0.65, 0, annotated)
 
-        nW_cm, nH_cm, stable = _smoother.update(round(nW_cm_raw, 1), round(nH_cm_raw, 1))
-        if nW_cm is None:
-            return None, None, annotated, None, False
+            # Compute dimensions in cm
+            if px_cm_x > 0 and px_cm_y > 0:
+                w_cm_raw = (w_px * (distance_cm / CAMERA_DISTANCE_CM)) / px_cm_x * edge_correction
+                h_cm_raw = (h_px * (distance_cm / CAMERA_DISTANCE_CM)) / px_cm_y * edge_correction
 
-        nW_in = round(nW_cm / 2.54, 1)
-        nH_in = round(nH_cm / 2.54, 1)
+                w_cm_obj = round(w_cm_raw, 1)
+                h_cm_obj = round(h_cm_raw, 1)
+                w_in_obj = round(w_cm_obj / 2.54, 1)
+                h_in_obj = round(h_cm_obj / 2.54, 1)
 
-        suffix = "" if stable else " (stabilizing...)"
-        cv2.putText(annotated, f'W: {nW_cm} cm ({nW_in} in){suffix}', (int(cx) - 120, int(cy) - 10),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.85, (255, 0, 255), 2, cv2.LINE_AA)
-        cv2.putText(annotated, f'L: {nH_cm} cm ({nH_in} in)', (int(cx) - 120, int(cy) + 30),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.85, (255, 0, 255), 2, cv2.LINE_AA)
+                if is_primary:
+                    nW_cm, nH_cm, stable = _smoother.update(w_cm_obj, h_cm_obj)
+                    if nW_cm is not None:
+                        primary_w_cm = nW_cm
+                        primary_h_cm = nH_cm
+                        primary_stable = stable
+                        w_cm_obj = nW_cm
+                        h_cm_obj = nH_cm
+                        w_in_obj = round(nW_cm / 2.54, 1)
+                        h_in_obj = round(nH_cm / 2.54, 1)
 
-        x1_g = int(max(0, cx - w_px / 2))
-        y1_g = int(max(0, cy - h_px / 2))
-        x2_g = int(min(w_orig, cx + w_px / 2))
-        y2_g = int(min(h_orig, cy + h_px / 2))
+                diag_cm = round(math.hypot(w_cm_obj, h_cm_obj), 1)
 
-        return nW_cm, nH_cm, annotated, (x1_g, y1_g, x2_g, y2_g), stable
+                # Draw YOLO-style solid label background above box for dimensions and gradient
+                suffix = "" if (is_primary and primary_stable) or not is_primary else " ~"
+                full_label = f"{label} | Grad: {edge_dens:.2f} | W:{w_cm_obj}cm H:{h_cm_obj}cm{suffix}"
+                (tw, th), _ = cv2.getTextSize(full_label, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 1)
+                
+                # Make sure the label doesn't go off the top of the screen
+                label_y_top = max(0, y - th - 10)
+                label_y_bottom = max(th + 10, y)
+                cv2.rectangle(annotated, (x, label_y_top), (x + tw + 10, label_y_bottom), color, -1)
+                
+                # Text with thin black outline for readability against bright colors
+                cv2.putText(annotated, full_label, (x + 5, label_y_bottom - 5), 
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 3, cv2.LINE_AA)
+                cv2.putText(annotated, full_label, (x + 5, label_y_bottom - 5), 
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1, cv2.LINE_AA)
+
+                # Draw Diagonal label at bottom of box
+                metrics_text = f'Diag: {diag_cm} cm'
+                (mw, mh), _ = cv2.getTextSize(metrics_text, cv2.FONT_HERSHEY_SIMPLEX, 0.6, 1)
+                cv2.rectangle(annotated, (x, y + h_px), (x + mw + 10, y + h_px + mh + 10), color, -1)
+                cv2.putText(annotated, metrics_text, (x + 5, y + h_px + mh + 5),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 0, 0), 3, cv2.LINE_AA)
+                cv2.putText(annotated, metrics_text, (x + 5, y + h_px + mh + 5),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (255, 255, 255), 1, cv2.LINE_AA)
+
+                if is_primary:
+                    primary_box = (x, y, x + w_px, y + h_px)
+
+        # Show total objects detected count
+        obj_text = f"Objects: {len(all_found)}"
+        cv2.putText(annotated, obj_text, (30, h_orig - 30),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 0, 0), 4, cv2.LINE_AA)
+        cv2.putText(annotated, obj_text, (30, h_orig - 30),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 255, 0), 2, cv2.LINE_AA)
+
+        return primary_w_cm, primary_h_cm, annotated, primary_box, primary_stable
 
     except Exception as e:
+        import traceback
+        traceback.print_exc()
         print(f"[dimensions] Error during processing: {str(e)}")
 
     return None, None, annotated, None, False

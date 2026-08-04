@@ -1,0 +1,254 @@
+#!/usr/bin/env python3
+"""
+dashboard_app.py: Flask backend for the mattress verification POC dashboard.
+
+Sequential camera slicing (Pi 5 USB bandwidth safety), MJPEG streaming from
+shared frame buffers, JSON telemetry APIs.
+
+FIXES vs first draft:
+  1. MJPEG generator no longer crashes when a frame buffer is still None.
+  2. QR payload parsed as key=value pairs (productName=Gravite_Mattress&...),
+     not the old QR_/_001 placeholder format.
+  3. Reconciliation uses an explicit label->SKU map with EQUALITY comparison.
+     Substring matching was unsafe: normalized "maxiplush" is a substring of
+     "maxiplushpro", so a Maxiplush Pro label could falsely MATCH a
+     maxi_plush classification.
+  4. Sharpness is computed on every top frame, independent of whether the
+     reference DB / pipeline is loaded.
+  5. MJPEG generator throttled (was a busy-loop re-encoding the same frame).
+  6. Pipeline exceptions are logged, not silently swallowed.
+  7. Side camera index comes from config (with fallback), like the top cam.
+"""
+import os
+import re
+import time
+import threading
+import traceback
+
+import cv2
+from flask import Flask, Response, jsonify, send_from_directory
+from pyzbar.pyzbar import decode
+
+# Core pipeline modules (existing project code)
+from mattress.reference import ReferenceStore
+from mattress.pipeline import IdentificationPipeline, PipelineStatus
+import mattress.config as cfg
+
+app = Flask(__name__)
+
+# ---------------------------------------------------------------------------
+# Config / constants
+# ---------------------------------------------------------------------------
+CAM_SIDE_INDEX = getattr(cfg, "CAM_SIDE_INDEX", 0)
+CAM_TOP_INDEX = getattr(cfg, "CAM_TOP_INDEX", 2)
+SHARPNESS_GATE = getattr(cfg, "SHARPNESS_GATE", 60.0)
+
+# Map of normalized QR productName -> internal SKU id.
+# Normalization strips everything except a-z0-9 and lowercases, so
+# "Gravite_Mattress" -> "gravitemattress".
+#
+# !!! VERIFY these against real captured QR payloads before the demo.
+# Confirmed so far: gravite payload uses productName=Gravite_Mattress.
+# maxi_pro is printed as "Maxiplush Pro" (NOT "Maxi Pro") -- exact
+# productName string for it and maxi_plush should be confirmed from
+# data/references_side/ captures.
+LABEL_TO_SKU = {
+    "gravitemattress": "gravite",
+    "maxiplushmattress": "maxi_plush",
+    "ortholexmattress": "ortholex",
+    "maxiplushpromattress": "maxi_pro",
+}
+
+
+def _normalize(s: str) -> str:
+    return re.sub(r"[^a-z0-9]", "", s.lower())
+
+
+def parse_qr_payload(qr_str: str):
+    """
+    Parse 'productName=Gravite_Mattress&batchNo=...&inventoryItemId=...'
+    into a dict. Returns {} if the payload isn't in that format.
+    """
+    fields = {}
+    for part in qr_str.split("&"):
+        if "=" in part:
+            k, v = part.split("=", 1)
+            fields[k.strip()] = v.strip()
+    return fields
+
+
+# ---------------------------------------------------------------------------
+# Shared state
+# ---------------------------------------------------------------------------
+global_frame_side = None
+global_frame_top = None
+buffer_lock = threading.Lock()
+
+telemetry_status = {
+    "sharpness": 0.0,
+    "gate_status": "PENDING",
+    "classification": "PENDING",
+    "timestamp": 0.0,
+}
+telemetry_details = {
+    "sku_claim": "UNKNOWN",
+    "qr_string": "NOT_SCANNED",
+    "reconciliation": "PENDING",
+}
+
+# Load reference DB if present; dashboard still runs without it
+root_dir = os.path.expanduser("~/Matress-project")
+db_path = os.path.join(root_dir, "data", "references_db.pkl")
+pipeline = None
+if os.path.exists(db_path):
+    store = ReferenceStore()
+    store.load(db_path)
+    pipeline = IdentificationPipeline(store)
+    print("[DASHBOARD] Core texture pipeline linked.")
+else:
+    print("[WARNING] references_db.pkl missing. Classification will stay PENDING; "
+          "video feeds, sharpness and QR decode still work.")
+
+
+# ---------------------------------------------------------------------------
+# Camera thread (sequential slicing: one cam open at a time)
+# ---------------------------------------------------------------------------
+def grab_one_frame(index, width=None, height=None):
+    """Open a camera, grab a single frame, release immediately. Returns frame or None."""
+    cap = cv2.VideoCapture(index, cv2.CAP_V4L2)
+    if not cap.isOpened():
+        cap.release()
+        return None
+    cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*"MJPG"))
+    if width and height:
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
+    ret, frame = cap.read()
+    cap.release()  # free USB bus before the other camera opens
+    return frame if ret else None
+
+
+def camera_slicing_thread():
+    global global_frame_side, global_frame_top
+    print("[THREAD] Sequential multi-cam polling loop active "
+          f"(side={CAM_SIDE_INDEX}, top={CAM_TOP_INDEX}).")
+
+    while True:
+        # --- A. SIDE CAMERA: label / QR claim ---
+        frame = grab_one_frame(CAM_SIDE_INDEX)
+        if frame is not None:
+            with buffer_lock:
+                global_frame_side = frame.copy()
+
+            barcodes = decode(frame)
+            if barcodes:
+                qr_str = barcodes[0].data.decode("utf-8", errors="replace")
+                telemetry_details["qr_string"] = qr_str
+                fields = parse_qr_payload(qr_str)
+                product_name = fields.get("productName", "")
+                if product_name:
+                    sku = LABEL_TO_SKU.get(_normalize(product_name))
+                    telemetry_details["sku_claim"] = sku if sku else f"UNMAPPED ({product_name})"
+                else:
+                    telemetry_details["sku_claim"] = "UNPARSEABLE_PAYLOAD"
+
+        time.sleep(0.1)
+
+        # --- B. TOP CAMERA: texture ground truth ---
+        frame = grab_one_frame(CAM_TOP_INDEX,
+                               getattr(cfg, "CAPTURE_W", None),
+                               getattr(cfg, "CAPTURE_H", None))
+        if frame is not None:
+            with buffer_lock:
+                global_frame_top = frame.copy()
+
+            # Sharpness: always computed, even with no pipeline loaded (fix #4)
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            lap_var = cv2.Laplacian(gray, cv2.CV_64F).var()
+            telemetry_status["sharpness"] = round(lap_var, 2)
+            telemetry_status["gate_status"] = "PASS" if lap_var >= SHARPNESS_GATE else "FAIL"
+            telemetry_status["timestamp"] = time.time()
+
+            # Classification, only if the pipeline is available
+            if pipeline is not None:
+                try:
+                    status, decision = pipeline.process_frame(frame)
+                    if status == PipelineStatus.SUCCESS:
+                        telemetry_status["classification"] = decision.upper()
+                    else:
+                        telemetry_status["classification"] = str(status.value)
+
+                    # Reconciliation: equality on mapped SKU ids only (fix #3)
+                    claim = telemetry_details["sku_claim"]
+                    if status == PipelineStatus.SUCCESS and claim in LABEL_TO_SKU.values():
+                        telemetry_details["reconciliation"] = (
+                            "MATCH" if decision.lower() == claim else "MISMATCH"
+                        )
+                except Exception:
+                    print("[PIPELINE ERROR]")
+                    traceback.print_exc()
+
+        time.sleep(0.1)
+
+
+# ---------------------------------------------------------------------------
+# MJPEG streaming
+# ---------------------------------------------------------------------------
+def generate_mjpeg_stream(feed_type):
+    while True:
+        with buffer_lock:
+            src = global_frame_side if feed_type == "side" else global_frame_top
+            frame = src.copy() if src is not None else None  # None-safe (fix #1)
+
+        if frame is not None:
+            preview = cv2.resize(frame, (640, 360))
+            ok, jpeg = cv2.imencode(".jpg", preview)
+            if ok:
+                yield (b"--frame\r\n"
+                       b"Content-Type: image/jpeg\r\n\r\n" + jpeg.tobytes() + b"\r\n\r\n")
+
+        # Throttle: buffers only refresh ~every slicing cycle anyway (fix #5)
+        time.sleep(0.15)
+
+
+# ---------------------------------------------------------------------------
+# Routes
+# ---------------------------------------------------------------------------
+@app.route("/")
+def index():
+    return send_from_directory("static", "index.html")
+
+
+@app.route("/static/<path:path>")
+def serve_static(path):
+    return send_from_directory("static", path)
+
+
+@app.route("/video_feed/side")
+def video_feed_side():
+    return Response(generate_mjpeg_stream("side"),
+                    mimetype="multipart/x-mixed-replace; boundary=frame")
+
+
+@app.route("/video_feed/top")
+def video_feed_top():
+    return Response(generate_mjpeg_stream("top"),
+                    mimetype="multipart/x-mixed-replace; boundary=frame")
+
+
+@app.route("/api/status")
+def api_status():
+    return jsonify(telemetry_status)
+
+
+@app.route("/api/mattress_details")
+def api_mattress_details():
+    return jsonify(telemetry_details)
+
+
+if __name__ == "__main__":
+    t = threading.Thread(target=camera_slicing_thread, daemon=True)
+    t.start()
+    # Browse directly to http://<pi-lan-ip>:5000 on the local network
+    # (do NOT proxy the MJPEG streams through the VS Code SSH tunnel).
+    app.run(host="0.0.0.0", port=5000, debug=False, threaded=True)

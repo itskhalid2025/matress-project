@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Mattress Inspection System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Navigation Header -->
+        <header class="navbar">
+            <div class="brand">
+                <div class="logo-icon"></div>
+                <h1>MATTRESS INSPECTION SYSTEM <span>UNIFIED MASTER DASHBOARD</span></h1>
+            </div>
+            <div class="header-status">
+                <div class="cam-badge" id="badge-qr">
+                    <span class="dot green"></span> Cam 1 (QR Scanner)
+                </div>
+                <div class="cam-badge" id="badge-bill">
+                    <span class="dot green"></span> Cam 2 (Side Bill & Texture)
+                </div>
+                <div class="cam-badge" id="badge-top">
+                    <span class="dot green"></span> Cam 3 (Top Dimensions & Corner Label)
+                </div>
+                <div class="system-time" id="sys-clock">--:--:--</div>
+            </div>
+        </header>
+
+        <!-- Main Workspace -->
+        <main class="main-content-3col">
+            <!-- Left & Middle Column: 3 Live Camera Feeds -->
+            <section class="feeds-section">
+                <div class="feeds-grid-3">
+                    <div class="feed-card">
+                        <div class="card-header">
+                            <div class="header-title">
+                                <svg class="icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 3h3v3h-3v-3zm3 3h3v3h-3v-3zm-3-3h-3v-2h3v2zm0 3h-3v3h-3v-3h3v-2h3v2z"/></svg>
+                                <span>Camera 1: QR Scanner</span>
+                            </div>
+                            <span class="live-tag">LIVE</span>
+                        </div>
+                        <div class="feed-wrapper">
+                            <img src="{{ url_for('video_feed_qr') }}" alt="Camera 1 Stream" class="video-feed">
+                        </div>
+                    </div>
+
+                    <div class="feed-card">
+                        <div class="card-header">
+                            <div class="header-title">
+                                <svg class="icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
+                                <span>Camera 2: Side Bill & Texture AI</span>
+                            </div>
+                            <span class="live-tag">LIVE</span>
+                        </div>
+                        <div class="feed-wrapper">
+                            <img src="{{ url_for('video_feed_bill') }}" alt="Camera 2 Stream" class="video-feed">
+                        </div>
+                    </div>
+
+                    <div class="feed-card">
+                        <div class="card-header">
+                            <div class="header-title">
+                                <svg class="icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+                                <span>Camera 3: Top Dimensions & Corner Label</span>
+                            </div>
+                            <span class="live-tag">LIVE</span>
+                        </div>
+                        <div class="feed-wrapper">
+                            <img src="{{ url_for('video_feed_top') }}" alt="Camera 3 Stream" class="video-feed">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-bar">
+                    <button id="btn-process" class="btn-primary">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+                        <span>PROCESS FULL INSPECTION</span>
+                    </button>
+                    <div id="processing-spinner" class="spinner-container hidden">
+                        <div class="spinner"></div>
+                        <span>Running 4-Way AI & Dimension Inferences...</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right Column: 4-Way Identity & Dimension Results -->
+            <section class="results-section">
+                <!-- Status Banner -->
+                <div class="status-banner" id="status-banner">
+                    <div class="status-icon" id="status-icon"> READY </div>
+                    <div class="status-info">
+                        <h2 id="status-title">SYSTEM READY</h2>
+                        <p id="status-desc">Click "PROCESS FULL INSPECTION" to execute 4-way product verification & dimension checks.</p>
+                    </div>
+                </div>
+
+                <!-- Dimension Measurement Card -->
+                <div class="res-card highlighted-card" id="card-dimensions">
+                    <div class="res-card-header">
+                        <span class="res-badge green">TOP CAMERA DIMS</span>
+                        <h3>Measured vs Expected Dimensions</h3>
+                    </div>
+                    <div class="res-card-body">
+                        <div class="res-row"><label>Length (L):</label> <strong id="res-dim-l">-- cm (Exp: -- cm)</strong></div>
+                        <div class="res-row"><label>Width (W):</label> <strong id="res-dim-w">-- cm (Exp: -- cm)</strong></div>
+                        <div class="res-row"><label>Thickness (H):</label> <strong id="res-dim-h">-- cm (Exp: -- cm)</strong></div>
+                        <div class="res-row"><label>Dimension Status:</label> <span class="tag-badge" id="res-dim-status">--</span></div>
+                    </div>
+                </div>
+
+                <!-- 4-Way Identity Results Grid -->
+                <div class="results-grid-4">
+                    <!-- 1. QR Code -->
+                    <div class="res-card" id="card-qr">
+                        <div class="res-card-header">
+                            <span class="res-badge blue">CAM 1: QR</span>
+                            <h3>QR Payload</h3>
+                        </div>
+                        <div class="res-card-body">
+                            <div class="res-row"><label>Variety:</label> <strong id="res-qr-product">--</strong></div>
+                            <div class="res-row"><label>Batch:</label> <span id="res-qr-batch">--</span></div>
+                            <div class="res-row"><label>ItemID:</label> <span id="res-qr-itemid">--</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 2. Side Bill OCR -->
+                    <div class="res-card" id="card-ocr">
+                        <div class="res-card-header">
+                            <span class="res-badge purple">CAM 2: BILL OCR</span>
+                            <h3>Bill Text</h3>
+                        </div>
+                        <div class="res-card-body">
+                            <div class="res-row"><label>Sim Score:</label> <strong id="res-ocr-conf">--%</strong></div>
+                            <div class="res-row"><label>Extracted:</label> <span class="text-truncate" id="res-ocr-text">--</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 3. PyTorch Texture AI -->
+                    <div class="res-card" id="card-texture">
+                        <div class="res-card-header">
+                            <span class="res-badge cyan">CAM 2: TEXTURE AI</span>
+                            <h3>Texture AI</h3>
+                        </div>
+                        <div class="res-card-body">
+                            <div class="res-row"><label>Variety:</label> <strong id="res-texture-pred">--</strong></div>
+                            <div class="res-row"><label>Confidence:</label> <span id="res-texture-conf">--%</span></div>
+                        </div>
+                    </div>
+
+                    <!-- 4. Corner Label OCR -->
+                    <div class="res-card" id="card-corner-label">
+                        <div class="res-card-header">
+                            <span class="res-badge yellow">CAM 3: CORNER LABEL</span>
+                            <h3>Corner Label OCR</h3>
+                        </div>
+                        <div class="res-card-body">
+                            <div class="res-row"><label>Variety:</label> <strong id="res-corner-product">--</strong></div>
+                            <div class="res-row"><label>Label Size:</label> <span id="res-corner-size">--</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mismatch Detail Card -->
+                <div class="mismatch-card hidden" id="mismatch-container">
+                    <div class="mismatch-header">
+                        <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#ff4d4f" d="M12 2L1 21h22L12 2zm1 14h-2v-2h2v2zm0-4h-2V8h2v4z"/></svg>
+                        <h3>Mismatched Verification Items</h3>
+                    </div>
+                    <ul class="mismatch-list" id="mismatch-list"></ul>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Section: Searchable Inspection History -->
+        <section class="history-section">
+            <div class="section-header">
+                <h2>AUDIT TRAIL & INSPECTION HISTORY</h2>
+                <div class="search-box">
+                    <input type="text" id="history-search" placeholder="Search by Inspection ID, Item ID, Variety, or Batch...">
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Inspection ID</th>
+                            <th>Timestamp</th>
+                            <th>Overall Status</th>
+                            <th>Identity Status</th>
+                            <th>Dim Status</th>
+                            <th>Product Variety</th>
+                            <th>Batch No</th>
+                            <th>Measured L x W x H</th>
+                            <th>Corner Label</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="history-table-body">
+                        <tr><td colspan="10" class="text-center">Loading inspection records...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Image Detail Modal -->
+    <div class="modal-backdrop hidden" id="image-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Inspection Artifacts</h3>
+                <button class="close-btn" id="modal-close">&times;</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Images rendered dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

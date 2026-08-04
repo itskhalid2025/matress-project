@@ -1,0 +1,14 @@
+              precision    recall  f1-score   support
+
+Dual harmony     0.0000    0.0000    0.0000         2
+     Gravite     0.0000    0.0000    0.0000         2
+  Maxi plush     0.1667    0.5000    0.2500         2
+    Maxi pro     0.0000    0.0000    0.0000         2
+    Memorise     0.0000    0.0000    0.0000         2
+    Ortholex     0.3333    0.5000    0.4000         2
+ Purity plus     0.0000    0.0000    0.0000         2
+      Velvet     0.0000    0.0000    0.0000         2
+
+    accuracy                         0.1250        16
+   macro avg     0.0625    0.1250    0.0813        16
+weighted avg     0.0625    0.1250    0.0813        16

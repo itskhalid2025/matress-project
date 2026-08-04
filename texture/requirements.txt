@@ -1,0 +1,13 @@
+torch
+torchvision
+torchaudio
+
+numpy
+opencv-python
+pillow
+pillow-heif
+imagehash
+
+matplotlib
+scikit-learn
+tqdm
