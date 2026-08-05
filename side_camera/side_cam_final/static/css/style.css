@@ -333,6 +333,8 @@ body {
 .history-table { width: 100%; border-collapse: collapse; font-size: 0.8rem; text-align: left; }
 .history-table th { background: #0f172a; padding: 10px; color: var(--text-muted); font-weight: 600; border-bottom: 1px solid var(--border-color); }
 .history-table td { padding: 10px; border-bottom: 1px solid var(--border-color); }
+.clickable-row { cursor: pointer; transition: background-color 0.2s ease; }
+.clickable-row:hover { background-color: rgba(56, 189, 248, 0.08); }
 
 .tag-pass { background: rgba(34, 197, 94, 0.15); color: var(--pass-green); padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
 .tag-fail { background: rgba(239, 68, 68, 0.15); color: var(--fail-red); padding: 2px 6px; border-radius: 4px; font-weight: 700; font-size: 0.7rem; }
@@ -347,3 +349,4 @@ body {
 .modal-content { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; width: 92%; max-width: 1200px; max-height: 88vh; overflow-y: auto; padding: 20px; }
 .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; border-bottom: 1px solid var(--border-color); padding-bottom: 10px; }
 .close-btn { background: none; border: none; color: var(--text-muted); font-size: 1.8rem; cursor: pointer; }
+

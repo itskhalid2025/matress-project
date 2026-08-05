@@ -1,0 +1,2740 @@
+[
+  {
+    "inspection_id": "INS_MATTRESS_20260805_074519",
+    "timestamp": "2026-08-05T07:45:19.422249",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "FAIL",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "RUACTURED & PA \"KED BY | RUBBER | COMPANY | 5 | 44 | Sipcot ! | Industrial | Complex; | 2 | 8 | 403 | IAME | OF | 4 | COMMODITY: | MAXIPLUSH | PRO | MA | TTRESS | VARIETY: | MAXI | PRO | Dimension | 1 | 1.905 m | X0.915 | ondodd | CODE: | 75x36X8 | NET | CONTENT | MONTH | AND | YEAR | OF | 1 | US",
+      "average_confidence": 87.62,
+      "items": [
+        {
+          "text": "RUACTURED & PA \"KED BY",
+          "confidence": 0.3097728762940734
+        },
+        {
+          "text": "RUBBER",
+          "confidence": 0.9993234287432181
+        },
+        {
+          "text": "COMPANY",
+          "confidence": 0.9748708519173488
+        },
+        {
+          "text": "5",
+          "confidence": 0.6201063458230607
+        },
+        {
+          "text": "44",
+          "confidence": 0.9998185204938808
+        },
+        {
+          "text": "Sipcot !",
+          "confidence": 0.5268999575293881
+        },
+        {
+          "text": "Industrial",
+          "confidence": 0.9999847702285249
+        },
+        {
+          "text": "Complex;",
+          "confidence": 0.9739942420960498
+        },
+        {
+          "text": "2",
+          "confidence": 0.7541407784948753
+        },
+        {
+          "text": "8",
+          "confidence": 0.9998517091417511
+        },
+        {
+          "text": "403",
+          "confidence": 0.9999991740938607
+        },
+        {
+          "text": "IAME",
+          "confidence": 0.9627411365509033
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9949521028178128
+        },
+        {
+          "text": "4",
+          "confidence": 0.8433372394221159
+        },
+        {
+          "text": "COMMODITY:",
+          "confidence": 0.9810357575322686
+        },
+        {
+          "text": "MAXIPLUSH",
+          "confidence": 0.9999626076699621
+        },
+        {
+          "text": "PRO",
+          "confidence": 0.9992198347416612
+        },
+        {
+          "text": "MA",
+          "confidence": 0.9997530284011836
+        },
+        {
+          "text": "TTRESS",
+          "confidence": 0.9997399646806036
+        },
+        {
+          "text": "VARIETY:",
+          "confidence": 0.9949825796684285
+        },
+        {
+          "text": "MAXI",
+          "confidence": 0.9984550476074219
+        },
+        {
+          "text": "PRO",
+          "confidence": 0.9968185999361152
+        },
+        {
+          "text": "Dimension",
+          "confidence": 0.6744935728481578
+        },
+        {
+          "text": "1",
+          "confidence": 0.48525108952194174
+        },
+        {
+          "text": "1.905 m",
+          "confidence": 0.8323723862795857
+        },
+        {
+          "text": "X0.915",
+          "confidence": 0.6969368779252098
+        },
+        {
+          "text": "ondodd",
+          "confidence": 0.5123718366179545
+        },
+        {
+          "text": "CODE:",
+          "confidence": 0.9982178583607625
+        },
+        {
+          "text": "75x36X8",
+          "confidence": 0.7436657147242665
+        },
+        {
+          "text": "NET",
+          "confidence": 0.9986031104695744
+        },
+        {
+          "text": "CONTENT",
+          "confidence": 0.9994274544021693
+        },
+        {
+          "text": "MONTH",
+          "confidence": 0.9804633870734716
+        },
+        {
+          "text": "AND",
+          "confidence": 0.9999918097681595
+        },
+        {
+          "text": "YEAR",
+          "confidence": 0.999937891960144
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9858187273380644
+        },
+        {
+          "text": "1",
+          "confidence": 0.590131118093268
+        },
+        {
+          "text": "US",
+          "confidence": 0.9921830676932788
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Maxi pro",
+      "confidence": 19.77,
+      "all_probabilities": {
+        "Dual harmony": 9.45,
+        "Gravite": 9.65,
+        "Maxi plush": 11.11,
+        "Maxi pro": 19.77,
+        "Memorise": 14.78,
+        "Ortholex": 13.93,
+        "Purity plus": 10.4,
+        "Velvet": 10.91
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 632.0,
+        "width_cm": 263.0,
+        "thickness_cm": 31.6
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2QQQ-Q1-Q1 Q0\"50*0",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "FAIL",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "RUACTURED & PA \"KED BY | RUBBER | COMPANY | 5 | 44 | Sipcot ! | Industrial | Complex; | 2 | 8 | 403 | IAME | OF | 4 | COMMODITY: | MAXIPLUSH | PRO | MA | TTRESS | VARIETY: | MAXI | PRO | Dimension | 1 | 1.905 m | X0.915 | ondodd | CODE: | 75x36X8 | NET | CONTENT | MONTH | AND | YEAR | OF | 1 | US",
+      "side_ocr_similarity": 54.1,
+      "texture_category": "Maxi pro",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 632.0,
+        "width_cm": 263.0,
+        "thickness_cm": 31.6
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Maxi pro (Similarity: 43%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "RUACTURED & PA \"KED BY | RUBBER | COMPANY | 5 | 44 | Sipcot ! | Industrial | Complex; | 2 | 8 | 403 | IAME | OF | 4 | COMMODITY: | MAXIPLUSH | PRO | MA | TTRESS | VARIETY: | MAXI | PRO | Dimension | 1 | 1.905 m | X0.915 | ondodd | CODE: | 75x36X8 | NET | CONTENT | MONTH | AND | YEAR | OF | 1 | US (Similarity: 54%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 2QQQ-Q1-Q1 Q0\"50*0)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_074519\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_074519\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_074519\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_074519\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_074519\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_074519\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_074519\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_074143",
+    "timestamp": "2026-08-05T07:41:43.620660",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Not Detected",
+    "item_id": "N/A",
+    "batch_number": "N/A",
+    "qr_code_data": {
+      "raw_text": "",
+      "product_name": "Not Detected",
+      "batch_no": "N/A",
+      "inventory_item_id": "N/A"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Maxi plush",
+      "confidence": 13.92,
+      "all_probabilities": {
+        "Dual harmony": 12.86,
+        "Gravite": 13.51,
+        "Maxi plush": 13.92,
+        "Maxi pro": 12.17,
+        "Memorise": 13.9,
+        "Ortholex": 10.74,
+        "Purity plus": 11.33,
+        "Velvet": 11.57
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2000-01-01 00.46*2",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Not Detected",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Maxi plush",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "QR Code Mismatch",
+          "expected": "Valid Product QR",
+          "detected": "Unreadable / Missing QR"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_074143\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_074143\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_074143\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_074143\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_074143\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_074143\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_074143\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_074053",
+    "timestamp": "2026-08-05T07:40:53.937619",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Not Detected",
+    "item_id": "N/A",
+    "batch_number": "N/A",
+    "qr_code_data": {
+      "raw_text": "",
+      "product_name": "Not Detected",
+      "batch_no": "N/A",
+      "inventory_item_id": "N/A"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Maxi plush",
+      "confidence": 19.11,
+      "all_probabilities": {
+        "Dual harmony": 10.33,
+        "Gravite": 13.47,
+        "Maxi plush": 19.11,
+        "Maxi pro": 12.35,
+        "Memorise": 8.37,
+        "Ortholex": 12.63,
+        "Purity plus": 11.39,
+        "Velvet": 12.36
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2000-01-01 00453 | 8",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Not Detected",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Maxi plush",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "QR Code Mismatch",
+          "expected": "Valid Product QR",
+          "detected": "Unreadable / Missing QR"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_074053\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_074053\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_074053\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_074053\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_074053\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_074053\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_074053\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_074030",
+    "timestamp": "2026-08-05T07:40:30.423807",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Purity  Mattress",
+    "item_id": "803397",
+    "batch_number": "3829",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Purity+_Mattress&batchNo=3829&inventoryItemId=803397",
+      "product_name": "Purity  Mattress",
+      "batch_no": "3829",
+      "inventory_item_id": "803397"
+    },
+    "side_ocr_data": {
+      "full_text": "0 | MANUFACTURED | 1 | MM RubBer COMPANY LTD, | Ranice Sipcct Industrial Comple; | Ranipet | 632 402 | NAME OF THE COMMODITY: | PURITY | MATTRESS | VARIETY: | PURITY + | :XMX 7) uoisuawia | 1.905 m x 0.915m x 15 cm",
+      "average_confidence": 77.06,
+      "items": [
+        {
+          "text": "0",
+          "confidence": 0.8642687544034402
+        },
+        {
+          "text": "MANUFACTURED",
+          "confidence": 0.9964672624903964
+        },
+        {
+          "text": "1",
+          "confidence": 0.8932928948773942
+        },
+        {
+          "text": "MM RubBer COMPANY LTD,",
+          "confidence": 0.29484120013627363
+        },
+        {
+          "text": "Ranice Sipcct Industrial Comple;",
+          "confidence": 0.48408228058236724
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.9998268415836533
+        },
+        {
+          "text": "632 402",
+          "confidence": 0.6402643485253482
+        },
+        {
+          "text": "NAME OF THE COMMODITY:",
+          "confidence": 0.5782458346392595
+        },
+        {
+          "text": "PURITY",
+          "confidence": 0.8221668012581792
+        },
+        {
+          "text": "MATTRESS",
+          "confidence": 0.9997519530531777
+        },
+        {
+          "text": "VARIETY:",
+          "confidence": 0.9989436952836471
+        },
+        {
+          "text": "PURITY +",
+          "confidence": 0.9997206333858178
+        },
+        {
+          "text": ":XMX 7) uoisuawia",
+          "confidence": 0.6847465178748662
+        },
+        {
+          "text": "1.905 m x 0.915m x 15 cm",
+          "confidence": 0.5312738301644303
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 19.64,
+      "all_probabilities": {
+        "Dual harmony": 11.59,
+        "Gravite": 13.49,
+        "Maxi plush": 18.04,
+        "Maxi pro": 12.16,
+        "Memorise": 6.19,
+        "Ortholex": 19.64,
+        "Purity plus": 7.83,
+        "Velvet": 11.05
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2QQQ-Q1-Q1 0Q.45*1",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Purity  Mattress",
+      "side_ocr_summary": "0 | MANUFACTURED | 1 | MM RubBer COMPANY LTD, | Ranice Sipcct Industrial Comple; | Ranipet | 632 402 | NAME OF THE COMMODITY: | PURITY | MATTRESS | VARIETY: | PURITY + | :XMX 7) uoisuawia | 1.905 m x 0.915m x 15 cm",
+      "side_ocr_similarity": 97.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Purity  Mattress",
+          "detected": "Ortholex (Similarity: 25%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Purity  Mattress",
+          "detected": "Not Detected (Raw Text: 2QQQ-Q1-Q1 0Q.45*1)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_074030\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_074030\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_074030\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_074030\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_074030\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_074030\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_074030\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_074019",
+    "timestamp": "2026-08-05T07:40:19.754467",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Not Detected",
+    "item_id": "N/A",
+    "batch_number": "N/A",
+    "qr_code_data": {
+      "raw_text": "",
+      "product_name": "Not Detected",
+      "batch_no": "N/A",
+      "inventory_item_id": "N/A"
+    },
+    "side_ocr_data": {
+      "full_text": "MANUFACTURED & PACKED B) | MM RUBBER COMPANY LTD, | 44 , Sipcot Industrial Comple | No_ | 632 403 | Ranipet | NAME OF THE COMMODITY: | MATTRESS | PURITY | VARIETY: | PURITY | Dimension (LXWXT): | 905 m X 0.915m X 16cm | 1 | 75X36X6 | NET CONTENT | 1 N | MONTH AND YEAR | 'MANUFACTURING | OF | 1 | 3",
+      "average_confidence": 86.2,
+      "items": [
+        {
+          "text": "MANUFACTURED & PACKED B)",
+          "confidence": 0.7343077870038658
+        },
+        {
+          "text": "MM RUBBER COMPANY LTD,",
+          "confidence": 0.9367035788198493
+        },
+        {
+          "text": "44 , Sipcot Industrial Comple",
+          "confidence": 0.7217760961844616
+        },
+        {
+          "text": "No_",
+          "confidence": 0.9851644142462143
+        },
+        {
+          "text": "632 403",
+          "confidence": 0.9998290044338897
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.9991974330298801
+        },
+        {
+          "text": "NAME OF THE COMMODITY:",
+          "confidence": 0.983583737841165
+        },
+        {
+          "text": "MATTRESS",
+          "confidence": 0.9998516385344565
+        },
+        {
+          "text": "PURITY",
+          "confidence": 0.9991950238434579
+        },
+        {
+          "text": "VARIETY:",
+          "confidence": 0.9963771605457722
+        },
+        {
+          "text": "PURITY",
+          "confidence": 0.9989668745260062
+        },
+        {
+          "text": "Dimension (LXWXT):",
+          "confidence": 0.8156659573473416
+        },
+        {
+          "text": "905 m X 0.915m X 16cm",
+          "confidence": 0.40579298454030427
+        },
+        {
+          "text": "1",
+          "confidence": 0.5443845524428639
+        },
+        {
+          "text": "75X36X6",
+          "confidence": 0.821743304254283
+        },
+        {
+          "text": "NET CONTENT",
+          "confidence": 0.9976438252182971
+        },
+        {
+          "text": "1 N",
+          "confidence": 0.9988203550988981
+        },
+        {
+          "text": "MONTH AND YEAR",
+          "confidence": 0.9289781342879057
+        },
+        {
+          "text": "'MANUFACTURING",
+          "confidence": 0.6428144844383473
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9990082601659968
+        },
+        {
+          "text": "1",
+          "confidence": 0.6855618064921742
+        },
+        {
+          "text": "3",
+          "confidence": 0.7678082630505401
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 19.14,
+      "all_probabilities": {
+        "Dual harmony": 10.93,
+        "Gravite": 13.51,
+        "Maxi plush": 14.23,
+        "Maxi pro": 13.53,
+        "Memorise": 7.58,
+        "Ortholex": 19.14,
+        "Purity plus": 11.25,
+        "Velvet": 9.84
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2QQQ-Q1-Q1 0045*0 | 8",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Not Detected",
+      "side_ocr_summary": "MANUFACTURED & PACKED B) | MM RUBBER COMPANY LTD, | 44 , Sipcot Industrial Comple | No_ | 632 403 | Ranipet | NAME OF THE COMMODITY: | MATTRESS | PURITY | VARIETY: | PURITY | Dimension (LXWXT): | 905 m X 0.915m X 16cm | 1 | 75X36X6 | NET CONTENT | 1 N | MONTH AND YEAR | 'MANUFACTURING | OF | 1 | 3",
+      "side_ocr_similarity": 52.2,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "QR Code Mismatch",
+          "expected": "Valid Product QR",
+          "detected": "Unreadable / Missing QR"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_074019\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_074019\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_074019\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_074019\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_074019\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_074019\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_074019\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_074001",
+    "timestamp": "2026-08-05T07:40:01.360835",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Purity  Mattress",
+    "item_id": "803397",
+    "batch_number": "3829",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Purity+_Mattress&batchNo=3829&inventoryItemId=803397",
+      "product_name": "Purity  Mattress",
+      "batch_no": "3829",
+      "inventory_item_id": "803397"
+    },
+    "side_ocr_data": {
+      "full_text": "VANUFACTURED | Ranipet | 2 | 5 | 1 | 1 | 4 | MoNth AND | 8 | 4RXETed | MRp | '77 | RUBBER | JLY2026 | MANUFACTURING | CONTENT | 9 | 632 | Ca | Ii | 4 | 8 | 8 | YEAR | COMMOD | PACK | 58 | 5 | ple",
+      "average_confidence": 78.5,
+      "items": [
+        {
+          "text": "VANUFACTURED",
+          "confidence": 0.8993384961318885
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.7151082027703882
+        },
+        {
+          "text": "2",
+          "confidence": 0.9639169999751154
+        },
+        {
+          "text": "5",
+          "confidence": 0.4871783083449941
+        },
+        {
+          "text": "1",
+          "confidence": 0.7377017538164097
+        },
+        {
+          "text": "1",
+          "confidence": 0.7597339959505831
+        },
+        {
+          "text": "4",
+          "confidence": 0.8780852098234466
+        },
+        {
+          "text": "MoNth AND",
+          "confidence": 0.5649473292812719
+        },
+        {
+          "text": "8",
+          "confidence": 0.9969853267949134
+        },
+        {
+          "text": "4RXETed",
+          "confidence": 0.2594189668475335
+        },
+        {
+          "text": "MRp",
+          "confidence": 0.4342253365092993
+        },
+        {
+          "text": "'77",
+          "confidence": 0.6538456908813691
+        },
+        {
+          "text": "RUBBER",
+          "confidence": 0.8639984223888018
+        },
+        {
+          "text": "JLY2026",
+          "confidence": 0.6487585555660185
+        },
+        {
+          "text": "MANUFACTURING",
+          "confidence": 0.9550722419446774
+        },
+        {
+          "text": "CONTENT",
+          "confidence": 0.9951976704343234
+        },
+        {
+          "text": "9",
+          "confidence": 0.9038788550578971
+        },
+        {
+          "text": "632",
+          "confidence": 0.9993549951451655
+        },
+        {
+          "text": "Ca",
+          "confidence": 0.4248027193482915
+        },
+        {
+          "text": "Ii",
+          "confidence": 0.36413215592237647
+        },
+        {
+          "text": "4",
+          "confidence": 0.7786905192576263
+        },
+        {
+          "text": "8",
+          "confidence": 0.935985034306416
+        },
+        {
+          "text": "8",
+          "confidence": 0.9901158693182879
+        },
+        {
+          "text": "YEAR",
+          "confidence": 0.9917020201683044
+        },
+        {
+          "text": "COMMOD",
+          "confidence": 0.5749580835350797
+        },
+        {
+          "text": "PACK",
+          "confidence": 0.9988192915916443
+        },
+        {
+          "text": "58",
+          "confidence": 0.9999340829652656
+        },
+        {
+          "text": "5",
+          "confidence": 0.9890017603432035
+        },
+        {
+          "text": "ple",
+          "confidence": 0.9999898826560913
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Maxi plush",
+      "confidence": 15.63,
+      "all_probabilities": {
+        "Dual harmony": 11.62,
+        "Gravite": 10.54,
+        "Maxi plush": 15.63,
+        "Maxi pro": 13.99,
+        "Memorise": 6.92,
+        "Ortholex": 13.83,
+        "Purity plus": 13.67,
+        "Velvet": 13.8
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2QQQ-Q1-Q1 00444-",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Purity  Mattress",
+      "side_ocr_summary": "VANUFACTURED | Ranipet | 2 | 5 | 1 | 1 | 4 | MoNth AND | 8 | 4RXETed | MRp | '77 | RUBBER | JLY2026 | MANUFACTURING | CONTENT | 9 | 632 | Ca | Ii | 4 | 8 | 8 | YEAR | COMMOD | PACK | 58 | 5 | ple",
+      "side_ocr_similarity": 41.4,
+      "texture_category": "Maxi plush",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Purity  Mattress",
+          "detected": "Maxi plush (Similarity: 28%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Purity  Mattress",
+          "detected": "VANUFACTURED | Ranipet | 2 | 5 | 1 | 1 | 4 | MoNth AND | 8 | 4RXETed | MRp | '77 | RUBBER | JLY2026 | MANUFACTURING | CONTENT | 9 | 632 | Ca | Ii | 4 | 8 | 8 | YEAR | COMMOD | PACK | 58 | 5 | ple (Similarity: 41%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Purity  Mattress",
+          "detected": "Not Detected (Raw Text: 2QQQ-Q1-Q1 00444-)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_074001\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_074001\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_074001\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_074001\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_074001\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_074001\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_074001\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_073849",
+    "timestamp": "2026-08-05T07:38:49.035741",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Memorise",
+      "confidence": 15.79,
+      "all_probabilities": {
+        "Dual harmony": 11.63,
+        "Gravite": 9.83,
+        "Maxi plush": 13.68,
+        "Maxi pro": 10.78,
+        "Memorise": 15.79,
+        "Ortholex": 15.15,
+        "Purity plus": 10.71,
+        "Velvet": 12.42
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2Q0Q-01-Q1 00.433",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Memorise",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Memorise (Similarity: 0%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "No OCR Text Detected (Similarity: 0%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 2Q0Q-01-Q1 00.433)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_073849\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_073849\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_073849\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_073849\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_073849\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_073849\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_073849\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_073840",
+    "timestamp": "2026-08-05T07:38:40.427727",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Maxi plush",
+      "confidence": 18.97,
+      "all_probabilities": {
+        "Dual harmony": 13.42,
+        "Gravite": 8.83,
+        "Maxi plush": 18.97,
+        "Maxi pro": 11.99,
+        "Memorise": 13.15,
+        "Ortholex": 15.17,
+        "Purity plus": 9.77,
+        "Velvet": 8.71
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2Q0Q-Q1-Q1 00.43*2",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Maxi plush",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Maxi plush (Similarity: 41%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "No OCR Text Detected (Similarity: 0%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 2Q0Q-Q1-Q1 00.43*2)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_073840\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_073840\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_073840\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_073840\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_073840\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_073840\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_073840\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_073832",
+    "timestamp": "2026-08-05T07:38:32.697696",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 20.83,
+      "all_probabilities": {
+        "Dual harmony": 10.94,
+        "Gravite": 11.48,
+        "Maxi plush": 16.64,
+        "Maxi pro": 10.96,
+        "Memorise": 8.76,
+        "Ortholex": 20.83,
+        "Purity plus": 7.52,
+        "Velvet": 12.86
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2Q0Q-01-01 00.43*1",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Ortholex (Similarity: 0%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "No OCR Text Detected (Similarity: 0%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 2Q0Q-01-01 00.43*1)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_073832\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_073832\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_073832\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_073832\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_073832\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_073832\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_073832\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_073814",
+    "timestamp": "2026-08-05T07:38:14.400451",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Memorise",
+      "confidence": 16.02,
+      "all_probabilities": {
+        "Dual harmony": 13.12,
+        "Gravite": 10.65,
+        "Maxi plush": 12.27,
+        "Maxi pro": 10.75,
+        "Memorise": 16.02,
+        "Ortholex": 13.96,
+        "Purity plus": 8.81,
+        "Velvet": 14.41
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "20Q0-01-01 0043*0",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Memorise",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Memorise (Similarity: 0%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "No OCR Text Detected (Similarity: 0%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 20Q0-01-01 0043*0)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_073814\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_073814\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_073814\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_073814\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_073814\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_073814\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_073814\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_073812",
+    "timestamp": "2026-08-05T07:38:12.922526",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 16.26,
+      "all_probabilities": {
+        "Dual harmony": 12.02,
+        "Gravite": 11.03,
+        "Maxi plush": 15.04,
+        "Maxi pro": 10.58,
+        "Memorise": 10.43,
+        "Ortholex": 16.26,
+        "Purity plus": 11.46,
+        "Velvet": 13.17
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2QQQ-01-01 0042*5",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Ortholex (Similarity: 0%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "No OCR Text Detected (Similarity: 0%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 2QQQ-01-01 0042*5)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_073812\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_073812\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_073812\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_073812\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_073812\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_073812\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_073812\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_073811",
+    "timestamp": "2026-08-05T07:38:11.646483",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 18.77,
+      "all_probabilities": {
+        "Dual harmony": 12.95,
+        "Gravite": 10.82,
+        "Maxi plush": 17.72,
+        "Maxi pro": 9.36,
+        "Memorise": 9.42,
+        "Ortholex": 18.77,
+        "Purity plus": 9.88,
+        "Velvet": 11.08
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2Q0Q-01-Q1 00.42*5",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Ortholex (Similarity: 0%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "No OCR Text Detected (Similarity: 0%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 2Q0Q-01-Q1 00.42*5)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_073811\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_073811\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_073811\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_073811\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_073811\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_073811\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_073811\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_073809",
+    "timestamp": "2026-08-05T07:38:09.765183",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 19.01,
+      "all_probabilities": {
+        "Dual harmony": 9.03,
+        "Gravite": 12.14,
+        "Maxi plush": 15.83,
+        "Maxi pro": 10.77,
+        "Memorise": 10.55,
+        "Ortholex": 19.01,
+        "Purity plus": 9.69,
+        "Velvet": 12.98
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2Q00-01-01 00.42*5",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Ortholex (Similarity: 0%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "No OCR Text Detected (Similarity: 0%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 2Q00-01-01 00.42*5)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_073809\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_073809\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_073809\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_073809\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_073809\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_073809\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_073809\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_073806",
+    "timestamp": "2026-08-05T07:38:06.497428",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Maxi plush",
+      "confidence": 18.52,
+      "all_probabilities": {
+        "Dual harmony": 13.69,
+        "Gravite": 12.22,
+        "Maxi plush": 18.52,
+        "Maxi pro": 8.52,
+        "Memorise": 14.21,
+        "Ortholex": 13.83,
+        "Purity plus": 9.45,
+        "Velvet": 9.56
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2Q00-01-01 00.42*5",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Maxi plush",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Maxi plush (Similarity: 41%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "No OCR Text Detected (Similarity: 0%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 2Q00-01-01 00.42*5)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_073806\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_073806\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_073806\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_073806\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_073806\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_073806\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_073806\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_073804",
+    "timestamp": "2026-08-05T07:38:04.662888",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 16.17,
+      "all_probabilities": {
+        "Dual harmony": 13.33,
+        "Gravite": 10.65,
+        "Maxi plush": 14.98,
+        "Maxi pro": 10.7,
+        "Memorise": 15.0,
+        "Ortholex": 16.17,
+        "Purity plus": 11.04,
+        "Velvet": 8.12
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2Q00-01-01 00.425",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Ortholex (Similarity: 0%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "No OCR Text Detected (Similarity: 0%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 2Q00-01-01 00.425)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_073804\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_073804\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_073804\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_073804\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_073804\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_073804\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_073804\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_073801",
+    "timestamp": "2026-08-05T07:38:01.509504",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Maxi plush",
+      "confidence": 15.34,
+      "all_probabilities": {
+        "Dual harmony": 14.64,
+        "Gravite": 15.06,
+        "Maxi plush": 15.34,
+        "Maxi pro": 10.23,
+        "Memorise": 10.43,
+        "Ortholex": 14.18,
+        "Purity plus": 11.35,
+        "Velvet": 8.77
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2000-01-01 00.42.4",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Maxi plush",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Maxi plush (Similarity: 41%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "No OCR Text Detected (Similarity: 0%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 2000-01-01 00.42.4)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_073801\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_073801\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_073801\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_073801\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_073801\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_073801\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_073801\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_073758",
+    "timestamp": "2026-08-05T07:37:58.292038",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Maxi plush",
+      "confidence": 15.41,
+      "all_probabilities": {
+        "Dual harmony": 13.36,
+        "Gravite": 8.46,
+        "Maxi plush": 15.41,
+        "Maxi pro": 7.96,
+        "Memorise": 14.14,
+        "Ortholex": 15.01,
+        "Purity plus": 11.6,
+        "Velvet": 14.06
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2000-01-01 00.42.4",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Maxi plush",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Maxi plush (Similarity: 41%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "No OCR Text Detected (Similarity: 0%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 2000-01-01 00.42.4)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_073758\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_073758\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_073758\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_073758\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_073758\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_073758\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_073758\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_073748",
+    "timestamp": "2026-08-05T07:37:48.670134",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Maxi plush",
+      "confidence": 18.64,
+      "all_probabilities": {
+        "Dual harmony": 8.94,
+        "Gravite": 12.38,
+        "Maxi plush": 18.64,
+        "Maxi pro": 9.96,
+        "Memorise": 12.07,
+        "Ortholex": 13.58,
+        "Purity plus": 14.28,
+        "Velvet": 10.16
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "200Q-01-01 00.42*3",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Maxi plush",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Maxi plush (Similarity: 41%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "No OCR Text Detected (Similarity: 0%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 200Q-01-01 00.42*3)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_073748\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_073748\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_073748\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_073748\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_073748\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_073748\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_073748\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_072116",
+    "timestamp": "2026-08-05T07:21:16.117202",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "FAIL",
+    "product_variety": "Maxipro Mattress - South",
+    "item_id": "1600001",
+    "batch_number": "5531",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Maxipro_Mattress_-_South&batchNo=5531&inventoryItemId=1600001",
+      "product_name": "Maxipro Mattress - South",
+      "batch_no": "5531",
+      "inventory_item_id": "1600001"
+    },
+    "side_ocr_data": {
+      "full_text": "Eo | OF | 4 | \"dav | 1 | 1 | 2 | MANUFACTURING | MAXIPLUSH | 4 | 905 | nipet | MA | 1 | CONTENT | IUFA | 2026 | 3 | AND | TTRESS | 8 | PRO | CTURED | 1 | ,2c9 | 8 | 21 | YEAR | 403 | XWXT): | .15500_ | 3 | 1 | XW | PRO | 1 | 8 | 15 | 88 | 3",
+      "average_confidence": 83.5,
+      "items": [
+        {
+          "text": "Eo",
+          "confidence": 0.32097684277825156
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9990331196715668
+        },
+        {
+          "text": "4",
+          "confidence": 0.9951295695604045
+        },
+        {
+          "text": "\"dav",
+          "confidence": 0.7815335392951965
+        },
+        {
+          "text": "1",
+          "confidence": 0.9758133749170526
+        },
+        {
+          "text": "1",
+          "confidence": 0.979787888249465
+        },
+        {
+          "text": "2",
+          "confidence": 0.9997255990420086
+        },
+        {
+          "text": "MANUFACTURING",
+          "confidence": 0.9997998553485936
+        },
+        {
+          "text": "MAXIPLUSH",
+          "confidence": 0.9990551226196922
+        },
+        {
+          "text": "4",
+          "confidence": 0.6634489499094833
+        },
+        {
+          "text": "905",
+          "confidence": 0.9999598748323679
+        },
+        {
+          "text": "nipet",
+          "confidence": 0.37005169681211975
+        },
+        {
+          "text": "MA",
+          "confidence": 0.9102598949071217
+        },
+        {
+          "text": "1",
+          "confidence": 0.8448551210979218
+        },
+        {
+          "text": "CONTENT",
+          "confidence": 0.9964125647852088
+        },
+        {
+          "text": "IUFA",
+          "confidence": 0.9937004446983337
+        },
+        {
+          "text": "2026",
+          "confidence": 0.9999909400939941
+        },
+        {
+          "text": "3",
+          "confidence": 0.9999983310706426
+        },
+        {
+          "text": "AND",
+          "confidence": 0.9999885061477758
+        },
+        {
+          "text": "TTRESS",
+          "confidence": 0.9997851787259547
+        },
+        {
+          "text": "8",
+          "confidence": 0.7545401190641456
+        },
+        {
+          "text": "PRO",
+          "confidence": 0.9920729073228093
+        },
+        {
+          "text": "CTURED",
+          "confidence": 0.6320667271379364
+        },
+        {
+          "text": "1",
+          "confidence": 0.7778785252312446
+        },
+        {
+          "text": ",2c9",
+          "confidence": 0.3179047107696533
+        },
+        {
+          "text": "8",
+          "confidence": 0.9901369835570364
+        },
+        {
+          "text": "21",
+          "confidence": 0.7585991432029799
+        },
+        {
+          "text": "YEAR",
+          "confidence": 0.9996792155321836
+        },
+        {
+          "text": "403",
+          "confidence": 0.9999979352348233
+        },
+        {
+          "text": "XWXT):",
+          "confidence": 0.25259529550408466
+        },
+        {
+          "text": ".15500_",
+          "confidence": 0.5717509175798707
+        },
+        {
+          "text": "3",
+          "confidence": 0.5574667009509007
+        },
+        {
+          "text": "1",
+          "confidence": 0.9124382718135884
+        },
+        {
+          "text": "XW",
+          "confidence": 0.9640998613744012
+        },
+        {
+          "text": "PRO",
+          "confidence": 0.9959758949637303
+        },
+        {
+          "text": "1",
+          "confidence": 0.9725960338067949
+        },
+        {
+          "text": "8",
+          "confidence": 0.9999330055013758
+        },
+        {
+          "text": "15",
+          "confidence": 0.644785338296764
+        },
+        {
+          "text": "88",
+          "confidence": 0.7438959685840896
+        },
+        {
+          "text": "3",
+          "confidence": 0.7319699688997048
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 19.44,
+      "all_probabilities": {
+        "Dual harmony": 13.81,
+        "Gravite": 10.12,
+        "Maxi plush": 18.61,
+        "Maxi pro": 11.27,
+        "Memorise": 9.68,
+        "Ortholex": 19.44,
+        "Purity plus": 8.56,
+        "Velvet": 8.51
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 645.4,
+        "width_cm": 329.4,
+        "thickness_cm": 39.5
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2000-01-01 0025*5",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "FAIL",
+      "qr_product": "Maxipro Mattress - South",
+      "side_ocr_summary": "Eo | OF | 4 | \"dav | 1 | 1 | 2 | MANUFACTURING | MAXIPLUSH | 4 | 905 | nipet | MA | 1 | CONTENT | IUFA | 2026 | 3 | AND | TTRESS | 8 | PRO | CTURED | 1 | ,2c9 | 8 | 21 | YEAR | 403 | XWXT): | .15500_ | 3 | 1 | XW | PRO | 1 | 8 | 15 | 88 | 3",
+      "side_ocr_similarity": 50.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 645.4,
+        "width_cm": 329.4,
+        "thickness_cm": 39.5
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Ortholex (Similarity: 0%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Eo | OF | 4 | \"dav | 1 | 1 | 2 | MANUFACTURING | MAXIPLUSH | 4 | 905 | nipet | MA | 1 | CONTENT | IUFA | 2026 | 3 | AND | TTRESS | 8 | PRO | CTURED | 1 | ,2c9 | 8 | 21 | YEAR | 403 | XWXT): | .15500_ | 3 | 1 | XW | PRO | 1 | 8 | 15 | 88 | 3 (Similarity: 50%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Maxipro Mattress - South",
+          "detected": "Not Detected (Raw Text: 2000-01-01 0025*5)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_072116\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_072116\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_072116\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_072116\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_072116\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_072116\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_072116\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_070547",
+    "timestamp": "2026-08-05T07:05:47.592173",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "FAIL",
+    "product_variety": "Not Detected",
+    "item_id": "N/A",
+    "batch_number": "N/A",
+    "qr_code_data": {
+      "raw_text": "",
+      "product_name": "Not Detected",
+      "batch_no": "N/A",
+      "inventory_item_id": "N/A"
+    },
+    "side_ocr_data": {
+      "full_text": "4 | 1 | 1 | ThikVisiun | Ya",
+      "average_confidence": 52.04,
+      "items": [
+        {
+          "text": "4",
+          "confidence": 0.41347882658485346
+        },
+        {
+          "text": "1",
+          "confidence": 0.4188197604665369
+        },
+        {
+          "text": "1",
+          "confidence": 0.5704665430535591
+        },
+        {
+          "text": "ThikVisiun",
+          "confidence": 0.4259552454979828
+        },
+        {
+          "text": "Ya",
+          "confidence": 0.7733666417883506
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Velvet",
+      "confidence": 16.93,
+      "all_probabilities": {
+        "Dual harmony": 13.08,
+        "Gravite": 13.9,
+        "Maxi plush": 13.1,
+        "Maxi pro": 9.3,
+        "Memorise": 7.18,
+        "Ortholex": 15.44,
+        "Purity plus": 11.07,
+        "Velvet": 16.93
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 639.8,
+        "width_cm": 288.2,
+        "thickness_cm": 34.6
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2QQQ-Q1-Q1 0200\"0",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "FAIL",
+      "qr_product": "Not Detected",
+      "side_ocr_summary": "4 | 1 | 1 | ThikVisiun | Ya",
+      "side_ocr_similarity": 16.7,
+      "texture_category": "Velvet",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 639.8,
+        "width_cm": 288.2,
+        "thickness_cm": 34.6
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "QR Code Mismatch",
+          "expected": "Valid Product QR",
+          "detected": "Unreadable / Missing QR"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_070547\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_070547\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_070547\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_070547\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_070547\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_070547\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_070547\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_070537",
+    "timestamp": "2026-08-05T07:05:37.048259",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "FAIL",
+    "product_variety": "Not Detected",
+    "item_id": "N/A",
+    "batch_number": "N/A",
+    "qr_code_data": {
+      "raw_text": "",
+      "product_name": "Not Detected",
+      "batch_no": "N/A",
+      "inventory_item_id": "N/A"
+    },
+    "side_ocr_data": {
+      "full_text": "0 | ThmkVisiun",
+      "average_confidence": 38.96,
+      "items": [
+        {
+          "text": "0",
+          "confidence": 0.41282453423718835
+        },
+        {
+          "text": "ThmkVisiun",
+          "confidence": 0.36634751404827887
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Velvet",
+      "confidence": 16.4,
+      "all_probabilities": {
+        "Dual harmony": 13.54,
+        "Gravite": 14.1,
+        "Maxi plush": 13.11,
+        "Maxi pro": 9.35,
+        "Memorise": 7.3,
+        "Ortholex": 15.31,
+        "Purity plus": 10.89,
+        "Velvet": 16.4
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 639.8,
+        "width_cm": 288.2,
+        "thickness_cm": 34.6
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2QQQ-Q1-Q1 0200\"0",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "FAIL",
+      "qr_product": "Not Detected",
+      "side_ocr_summary": "0 | ThmkVisiun",
+      "side_ocr_similarity": 13.3,
+      "texture_category": "Velvet",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 639.8,
+        "width_cm": 288.2,
+        "thickness_cm": 34.6
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "QR Code Mismatch",
+          "expected": "Valid Product QR",
+          "detected": "Unreadable / Missing QR"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_070537\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_070537\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_070537\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_070537\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_070537\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_070537\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_070537\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260805_065722",
+    "timestamp": "2026-08-05T06:57:22.451812",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "FAIL",
+    "product_variety": "Not Detected",
+    "item_id": "N/A",
+    "batch_number": "N/A",
+    "qr_code_data": {
+      "raw_text": "",
+      "product_name": "Not Detected",
+      "batch_no": "N/A",
+      "inventory_item_id": "N/A"
+    },
+    "side_ocr_data": {
+      "full_text": "",
+      "average_confidence": 0.0,
+      "items": []
+    },
+    "texture_data": {
+      "predicted_category": "Maxi plush",
+      "confidence": 17.24,
+      "all_probabilities": {
+        "Dual harmony": 16.89,
+        "Gravite": 10.76,
+        "Maxi plush": 17.24,
+        "Maxi pro": 11.75,
+        "Memorise": 11.06,
+        "Ortholex": 12.61,
+        "Purity plus": 10.27,
+        "Velvet": 9.41
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 639.8,
+        "width_cm": 288.2,
+        "thickness_cm": 34.6
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "2QQQ-Q1-Q1 0200\"0",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "FAIL",
+      "qr_product": "Not Detected",
+      "side_ocr_summary": "N/A",
+      "side_ocr_similarity": 0.0,
+      "texture_category": "Maxi plush",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 639.8,
+        "width_cm": 288.2,
+        "thickness_cm": 34.6
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "QR Code Mismatch",
+          "expected": "Valid Product QR",
+          "detected": "Unreadable / Missing QR"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260805_065722\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260805_065722\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260805_065722\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260805_065722\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260805_065722\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260805_065722\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260805_065722\\corner_label_crop.jpg"
+    }
+  }
+]

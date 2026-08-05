@@ -58,3 +58,34 @@ def process_bill_ocr(frame):
         "avg_confidence": round(avg_conf * 100, 2),
         "annotated_frame": annotated
     }
+
+
+def detect_ocr_presence_fast(frame):
+    """
+    Fast lightweight text region detector (<2ms) for live video stream aiming.
+    Uses morphological gradient to detect dense text/character clusters without full OCR model pass.
+    """
+    gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+    # Morphological gradient to highlight text edges
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 3))
+    grad = cv2.morphologyEx(gray, cv2.MORPH_GRADIENT, kernel)
+    _, thresh = cv2.threshold(grad, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+    
+    # Close horizontal gaps between letters
+    close_kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (15, 5))
+    closed = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, close_kernel)
+    
+    contours, _ = cv2.findContours(closed, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+    
+    text_boxes = []
+    h, w = gray.shape[:2]
+    for c in contours:
+        x, y, bw, bh = cv2.boundingRect(c)
+        aspect = bw / float(bh) if bh > 0 else 0
+        area = bw * bh
+        # Filter for typical text bounding box dimensions
+        if area > 300 and area < (h * w * 0.25) and aspect > 1.2 and bh > 10:
+            text_boxes.append((x, y, bw, bh))
+            
+    return text_boxes
+

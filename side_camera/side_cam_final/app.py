@@ -7,9 +7,9 @@ from flask import Flask, render_template, Response, jsonify, send_from_directory
 from config import RESULTS_DIR, BASE_DIR
 from camera_manager import init_cameras, qr_cam_stream, bill_cam_stream, top_cam_stream
 from qr_module import scan_qr, parse_qr_payload, draw_qr_overlay, detect_qr_presence
-from ocr_module import process_bill_ocr
+from ocr_module import process_bill_ocr, detect_ocr_presence_fast
 from texture_module import predict_texture
-from top_camera_module import process_top_camera
+from top_camera_module import process_top_camera, detect_and_crop_corner_label
 from verification_engine import verify_full_inspection
 from storage_manager import save_full_inspection_record, get_all_records
 
@@ -38,9 +38,16 @@ def generate_qr_feed():
 
 
 def generate_bill_feed():
-    """MJPEG Generator for Camera 2 (Side Bill OCR & Texture)."""
+    """MJPEG Generator for Camera 2 (Side Bill OCR & Texture) with live text region detection."""
     while True:
         frame = bill_cam_stream.read_frame()
+        boxes = detect_ocr_presence_fast(frame)
+        if boxes:
+            for (bx, by, bw, bh) in boxes[:5]:
+                cv2.rectangle(frame, (bx, by), (bx + bw, by + bh), (0, 255, 255), 2)
+            cv2.putText(frame, f"Bill OCR Region ({len(boxes)} detected)", (20, 35),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
+
         ret, buffer = cv2.imencode('.jpg', frame, [int(cv2.IMWRITE_JPEG_QUALITY), 80])
         if ret:
             yield (b'--frame\r\n'
@@ -48,13 +55,19 @@ def generate_bill_feed():
 
 
 def generate_top_feed():
-    """MJPEG Generator for Camera 3 (Top Camera Dimensions & Corner Label)."""
+    """MJPEG Generator for Camera 3 (Top Camera Dimensions & Corner Label) with live label region box."""
     while True:
         frame = top_cam_stream.read_frame()
+        _, (xmin, ymin, xmax, ymax) = detect_and_crop_corner_label(frame)
+        cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 255, 255), 2)
+        cv2.putText(frame, "Corner Label Region", (xmin, max(25, ymin - 8)),
+                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
+
         ret, buffer = cv2.imencode('.jpg', frame, [int(cv2.IMWRITE_JPEG_QUALITY), 80])
         if ret:
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
+
 
 
 @app.route('/')

@@ -177,7 +177,10 @@
         <!-- Bottom Section: Searchable Inspection History -->
         <section class="history-section">
             <div class="section-header">
-                <h2>AUDIT TRAIL & INSPECTION HISTORY</h2>
+                <div>
+                    <h2>AUDIT TRAIL & INSPECTION HISTORY</h2>
+                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">Click any row to view complete inspection details, verification breakdown, & annotated images.</p>
+                </div>
                 <div class="search-box">
                     <input type="text" id="history-search" placeholder="Search by Inspection ID, Item ID, Variety, or Batch...">
                 </div>
@@ -207,15 +210,18 @@
         </section>
     </div>
 
-    <!-- Image Detail Modal -->
+    <!-- Comprehensive Inspection Details & Artifacts Modal -->
     <div class="modal-backdrop hidden" id="image-modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 id="modal-title">Inspection Artifacts</h3>
+                <div>
+                    <h3 id="modal-title">Inspection Details & Artifacts</h3>
+                    <span id="modal-subtitle" style="font-size: 0.8rem; color: var(--accent-blue);"></span>
+                </div>
                 <button class="close-btn" id="modal-close">&times;</button>
             </div>
             <div class="modal-body" id="modal-body">
-                <!-- Images rendered dynamically -->
+                <!-- Details & Images rendered dynamically -->
             </div>
         </div>
     </div>
@@ -223,3 +229,4 @@
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>
+
