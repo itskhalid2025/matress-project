@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mattress Dimension QC System</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- Header Banner -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="icon">📐</span>
+            <h1>MATTRESSQC <span class="badge">PRO</span></h1>
+        </div>
+        <div class="status-pill" id="system-status">
+            <span class="dot yellow"></span>
+            <span id="status-text">STEP 1: DETECTING BLACK BORDER</span>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="main-container">
+
+        <!-- Left Column: Video Stream & Main Action -->
+        <div class="video-section">
+            <div class="card video-card">
+                <div class="card-header">
+                    <h2>Live Inspection Camera</h2>
+                    <span class="cam-tag">USB WEBCAM (INDEX 0)</span>
+                </div>
+                <div class="stream-wrapper">
+                    <img src="{{ url_for('video_feed') }}" alt="Live Camera Feed" id="video-stream">
+                </div>
+                <div class="action-bar">
+                    <button id="btn-process" class="btn btn-primary" onclick="processMattress()">
+                        <span class="btn-icon">⚡</span> PROCESS MATTRESS
+                    </button>
+                    <button id="btn-reset" class="btn btn-secondary" onclick="resetSystem()">
+                        🔄 RESET BORDER
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: 4-Edge Calibration & Results -->
+        <div class="control-section">
+
+            <!-- Card 1: 4-Edge Step-by-Step Calibration -->
+            <div class="card calibration-card">
+                <div class="card-header">
+                    <h2>Step 2: 4-Edge Length Inputs</h2>
+                    <span class="step-num">STEP 2</span>
+                </div>
+                <p class="desc">Provide physical metric length (cm) for all 4 edges one-by-one:</p>
+
+                <div class="edge-inputs">
+                    <div class="input-group">
+                        <label for="input-top">
+                            <span class="edge-dot yellow"></span> 1. Top Edge (cm)
+                        </label>
+                        <input type="number" id="input-top" value="100.0" step="0.1" onfocus="setActiveEdge('top')">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="input-right">
+                            <span class="edge-dot orange"></span> 2. Right Edge (cm)
+                        </label>
+                        <input type="number" id="input-right" value="120.0" step="0.1" onfocus="setActiveEdge('right')">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="input-bottom">
+                            <span class="edge-dot magenta"></span> 3. Bottom Edge (cm)
+                        </label>
+                        <input type="number" id="input-bottom" value="100.0" step="0.1" onfocus="setActiveEdge('bottom')">
+                    </div>
+
+                    <div class="input-group">
+                        <label for="input-left">
+                            <span class="edge-dot cyan"></span> 4. Left Edge (cm)
+                        </label>
+                        <input type="number" id="input-left" value="120.0" step="0.1" onfocus="setActiveEdge('left')">
+                    </div>
+                </div>
+
+                <button class="btn btn-success" onclick="saveCalibration()">
+                    💾 SAVE 4-EDGE CALIBRATION
+                </button>
+            </div>
+
+            <!-- Card 2: Measurement Results Panel -->
+            <div class="card results-card">
+                <div class="card-header">
+                    <h2>Step 3: Dimension Results</h2>
+                    <span class="step-num">STEP 3</span>
+                </div>
+
+                <div class="metrics-grid">
+                    <div class="metric-box">
+                        <span class="metric-label">BREADTH (WIDTH)</span>
+                        <div class="metric-val" id="res-breadth">-- cm</div>
+                        <span class="metric-sub" id="res-breadth-in">-- in</span>
+                    </div>
+
+                    <div class="metric-box">
+                        <span class="metric-label">LENGTH</span>
+                        <div class="metric-val" id="res-length">-- cm</div>
+                        <span class="metric-sub" id="res-length-in">-- in</span>
+                    </div>
+
+                    <div class="metric-box">
+                        <span class="metric-label">SURFACE AREA</span>
+                        <div class="metric-val" id="res-area">-- sq.m</div>
+                    </div>
+
+                    <div class="metric-box">
+                        <span class="metric-label">QUALITY STATUS</span>
+                        <div class="metric-val status-pass" id="res-status">READY</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
