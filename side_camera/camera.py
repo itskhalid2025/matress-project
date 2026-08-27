@@ -6,6 +6,7 @@ using OpenCV as a fallback. Runs a background loop to continuously fetch the lat
 frames and minimize capture latency.
 """
 
+import sys
 import threading
 import time
 import cv2
@@ -97,15 +98,40 @@ class ThreadedCamera:
                     self.use_basler = False
                     self.basler_cam = None
 
-            # 2. Fallback to standard OpenCV webcam capture
-            print(f"[camera] Attempting to open webcam index {self.index}...")
-            self.cap = cv2.VideoCapture(self.index)
-            if not self.cap.isOpened():
-                # Fallback to explicit CAP_V4L2 for Linux compatibility
-                self.cap = cv2.VideoCapture(self.index, cv2.CAP_V4L2)
+            # 2. Fallback to standard OpenCV webcam capture with Windows multi-backend support (CAP_DSHOW, CAP_MSMF)
+            indices_to_try = [self.index] + [i for i in range(5) if i != self.index]
+            for idx in indices_to_try:
+                print(f"[camera] Attempting to open webcam index {idx}...")
+                backends = [None, cv2.CAP_DSHOW, cv2.CAP_MSMF] if sys.platform.startswith('win') else [None, cv2.CAP_V4L2]
+                for backend in backends:
+                    if backend is None:
+                        cap = cv2.VideoCapture(idx)
+                    else:
+                        cap = cv2.VideoCapture(idx, backend)
+                    
+                    if cap is not None and cap.isOpened():
+                        cap.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*"MJPG"))
+                        cap.set(cv2.CAP_PROP_FRAME_WIDTH, self.width)
+                        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self.height)
+                        
+                        ret, test_frame = cap.read()
+                        if not ret or test_frame is None or test_frame.size == 0:
+                            cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+                            cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+                            ret, test_frame = cap.read()
 
-            if not self.cap.isOpened():
-                self.error_msg = f"Failed to open webcam index {self.index}"
+                        if ret and test_frame is not None and test_frame.size > 0:
+                            self.cap = cap
+                            self.index = idx
+                            print(f"[camera] Successfully opened webcam index {idx}!")
+                            break
+                        else:
+                            cap.release()
+                if self.cap is not None and self.cap.isOpened():
+                    break
+
+            if self.cap is None or not self.cap.isOpened():
+                self.error_msg = f"Failed to open webcam across indices 0-4"
                 print(f"[camera] ERROR: {self.error_msg}")
                 self.cap = None
                 return False

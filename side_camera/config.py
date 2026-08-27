@@ -22,9 +22,9 @@ OCR_ENGINE = 'tesseract'
 OCR_LANG = 'eng'
 OCR_MIN_CONF = 40           # tesseract per-word confidence (0-100) to keep a token
 
-# PLACEHOLDER: You will need to manually recalibrate this for the new camera's Field of View.
-# Take a test frame and measure the (x0, y0, x1, y1) fractions of where the label sits.
-LABEL_CROP_FRAC = (0.35, 0.10, 1.00, 0.90)
+# Label crop: capture the full label region (left half of frame, full height).
+# The VARIETY column appears around x: 10%-50%, y: 10%-90% in the live feed.
+LABEL_CROP_FRAC = (0.05, 0.05, 0.65, 0.95)
 
 import cv2 as _cv2
 # RESET: Standard webcams are typically mounted upright. Set to None to prevent 

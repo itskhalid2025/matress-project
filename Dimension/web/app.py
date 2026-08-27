@@ -197,6 +197,8 @@ def process_dimension():
                 "width_in": res.get("width_in"),
                 "length_in": res.get("length_in"),
                 "area_sq_m": res.get("area_sq_m"),
+                "pixels_per_cm": res.get("pixels_per_cm"),
+                "mattress_distance_cm": res.get("mattress_distance_cm", 116.0),
                 "pixel_gaps": res.get("pixel_gaps"),
                 "metric_gaps_cm": res.get("metric_gaps_cm")
             }

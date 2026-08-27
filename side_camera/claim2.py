@@ -218,10 +218,10 @@ class LabelOCRReader:
     def __init__(self):
         try:
             import pytesseract
-            # Tesseract Path Configuration
-            # If tesseract is in your system PATH, this works out of the box.
-            # If you encounter 'tesseract is not installed' errors, uncomment and update the path below:
-            # pytesseract.pytesseract.tesseract_cmd = '/opt/homebrew/bin/tesseract'
+            # Windows Tesseract Executable Auto-Detection
+            tess_win_path = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+            if os.path.exists(tess_win_path):
+                pytesseract.pytesseract.tesseract_cmd = tess_win_path
             self._pytesseract = pytesseract
             self._available = True
         except ImportError:
@@ -244,29 +244,126 @@ class LabelOCRReader:
     def read(self, frame_bgr) -> Optional[OCRClaim]:
         if not self._available:
             return None
-            
+
         crop = self._label_crop(frame_bgr)
         gray = cv2.cvtColor(crop, cv2.COLOR_BGR2GRAY)
-        gray = self._orient(gray)
-        _, binar = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
 
-        try:
-            data = self._pytesseract.image_to_data(
-                binar, lang=cfg.OCR_LANG,
-                output_type=self._pytesseract.Output.DICT)
-        except Exception as e:
-            print(f"[OCR Warning] Tesseract engine failed to execute: {e}")
-            return None 
+        # Try all 4 orientations — label may be rotated 0°, 90°, 180°, 270°
+        rotations = [
+            (None, gray),
+            (cv2.ROTATE_90_CLOCKWISE, cv2.rotate(gray, cv2.ROTATE_90_CLOCKWISE)),
+            (cv2.ROTATE_180, cv2.rotate(gray, cv2.ROTATE_180)),
+            (cv2.ROTATE_90_COUNTERCLOCKWISE, cv2.rotate(gray, cv2.ROTATE_90_COUNTERCLOCKWISE)),
+        ]
 
-        kept = [t for t, c in zip(data['text'], data['conf'])
-                if t.strip() and int(float(c)) >= cfg.OCR_MIN_CONF]
-        raw_text = ' '.join(kept)
-        if not raw_text:
-            return None
+        # Override: if config sets a specific rotate code, try that first
+        if cfg.LABEL_ROTATE_CODE is not None:
+            fixed = cv2.rotate(gray, cfg.LABEL_ROTATE_CODE)
+            rotations = [(cfg.LABEL_ROTATE_CODE, fixed)] + rotations
 
-        matched_sku = _match_sku_in_text(raw_text)
+        best_result = None
 
-        return OCRClaim(sku=matched_sku, matched_text=raw_text[:60], raw_text=raw_text)
+        for rot_code, rot_img in rotations:
+            # Upscale for better OCR accuracy
+            scale = 2.0
+            upscaled = cv2.resize(rot_img, None, fx=scale, fy=scale, interpolation=cv2.INTER_CUBIC)
+
+            # Binarise — try both Otsu and adaptive
+            _, otsu = cv2.threshold(upscaled, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+            adaptive = cv2.adaptiveThreshold(upscaled, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+                                             cv2.THRESH_BINARY, 31, 10)
+
+            for binar in [otsu, adaptive]:
+                try:
+                    data = self._pytesseract.image_to_data(
+                        binar, lang=cfg.OCR_LANG,
+                        output_type=self._pytesseract.Output.DICT,
+                        config='--psm 6')
+                except Exception as e:
+                    print(f"[OCR Warning] {e}")
+                    continue
+
+                texts = data['text']
+                confs = data['conf']
+                tops  = data['top']
+                lefts = data['left']
+
+                # Locate VARIETY (or VARIETY:) keyword with fuzzy tolerance
+                variety_idx = None
+                for i, t in enumerate(texts):
+                    clean_t = re.sub(r'[^A-Z]', '', t.upper().strip())
+                    if 'VARIETY' in clean_t or clean_t in ('VARIETY', 'VARIET', 'VARIE'):
+                        variety_idx = i
+                        break
+
+                if variety_idx is not None:
+                    variety_top = tops[variety_idx]
+                    variety_left = lefts[variety_idx]
+
+                    # Check 1: Text on SAME LINE after 'VARIETY:' (e.g. 'VARIETY: ORTHOLEX')
+                    same_line_words = []
+                    for i, t in enumerate(texts):
+                        if i == variety_idx or not t.strip():
+                            continue
+                        if abs(tops[i] - variety_top) < 25 and lefts[i] > variety_left:
+                            same_line_words.append((lefts[i], t))
+
+                    if same_line_words:
+                        same_line_words.sort(key=lambda x: x[0])
+                        same_line_text = " ".join([w for _, w in same_line_words]).strip()
+                        matched_sku = _match_sku_in_text(same_line_text)
+                        if same_line_text and len(same_line_text) >= 3:
+                            result = OCRClaim(
+                                sku=matched_sku,
+                                matched_text=f"VARIETY: {same_line_text}",
+                                raw_text=same_line_text
+                            )
+                            if matched_sku:
+                                return result
+                            if best_result is None:
+                                best_result = result
+
+                    # Check 2: Text on NEXT LINE directly below 'VARIETY:'
+                    line_height_est = 20
+                    below_words = []
+                    for i, t in enumerate(texts):
+                        if not t.strip():
+                            continue
+                        c = int(float(confs[i])) if confs[i] != '-1' else 0
+                        if (tops[i] > variety_top + line_height_est
+                                and abs(lefts[i] - variety_left) < upscaled.shape[1] * 0.6):
+                            below_words.append((tops[i], t, c))
+
+                    if below_words:
+                        below_words.sort(key=lambda x: x[0])
+                        min_top = below_words[0][0]
+                        variety_line = [t for top, t, c in below_words if abs(top - min_top) < 40]
+                        variety_text = ' '.join(variety_line).strip()
+                        matched_sku = _match_sku_in_text(variety_text)
+                        result = OCRClaim(
+                            sku=matched_sku,
+                            matched_text=f"VARIETY: {variety_text}",
+                            raw_text=variety_text
+                        )
+                        if matched_sku:
+                            return result
+                        if best_result is None:
+                            best_result = result
+                    continue
+
+                # Fallback: no VARIETY found — try full text SKU match
+                kept = [t for t, c in zip(texts, confs)
+                        if t.strip() and int(float(c)) >= cfg.OCR_MIN_CONF]
+                raw_text = ' '.join(kept)
+                matched_sku = _match_sku_in_text(raw_text)
+                if matched_sku and best_result is None:
+                    best_result = OCRClaim(
+                        sku=matched_sku,
+                        matched_text=raw_text[:60],
+                        raw_text=raw_text
+                    )
+
+        return best_result
 
 
 def _match_sku_in_text(norm_spaced: str) -> Optional[str]:

@@ -55,6 +55,7 @@ function processMattress() {
             document.getElementById('res-length-in').innerText = r.length_in + " in";
             
             document.getElementById('res-area').innerText = r.area_sq_m + " sq.m";
+            document.getElementById('res-px-cm').innerText = (r.pixels_per_cm || "--") + " px/cm";
             document.getElementById('res-status').innerText = "MEASURED PASS";
             document.getElementById('res-status').className = "metric-val status-pass";
             

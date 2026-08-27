@@ -70,9 +70,9 @@ class MattressDimensionEngine:
         # Step 2: Multi-Channel Filter & Fusion on warped frame
         fused_mask, debug_channels = self.processor.process_pipeline(warped)
 
-        # Mask out outer 3% perimeter of fused_mask to clear any residual reference tape
-        tape_margin_h = int(warped.shape[0] * 0.03)
-        tape_margin_w = int(warped.shape[1] * 0.03)
+        # Mask out outer 5% perimeter of fused_mask to clear any residual reference tape/border
+        tape_margin_h = int(warped.shape[0] * 0.05)
+        tape_margin_w = int(warped.shape[1] * 0.05)
         fused_mask[:tape_margin_h, :] = 0
         fused_mask[-tape_margin_h:, :] = 0
         fused_mask[:, :tape_margin_w] = 0
@@ -109,8 +109,9 @@ class MattressDimensionEngine:
         annotated_warped = warped_img.copy()
 
         if res.get("success"):
-            box_pts = np.int32(res["rotated_box"]["box_points"])
-            cv2.drawContours(annotated_warped, [box_pts], 0, (0, 255, 0), 3)
+            # Draw clean rectangular bounding box from scan-line algorithm (green)
+            bx, by, bw, bh = res["bounding_rect"]
+            cv2.rectangle(annotated_warped, (bx, by), (bx + bw, by + bh), (0, 255, 0), 3)
 
             w_cm = res["width_cm"]
             l_cm = res["length_cm"]
@@ -128,13 +129,14 @@ class MattressDimensionEngine:
             cv2.putText(annotated_warped, label_l, (cx - 130, cy + 22),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 255, 0), 2)
 
-            # Draw Mattress Contour on Original Frame
-            contour = res["contour"]
-            if isinstance(contour, list):
-                contour = np.array(contour, dtype=np.int32)
-            elif not isinstance(contour, np.ndarray):
-                contour = np.array(contour, dtype=np.int32)
-            cv2.drawContours(annotated_warped, [contour], -1, (0, 0, 255), 2)
+            # Draw scan-line detected contour outline (red)
+            contour = res.get("contour")
+            if contour is not None:
+                if isinstance(contour, list):
+                    contour = np.array(contour, dtype=np.int32)
+                elif not isinstance(contour, np.ndarray):
+                    contour = np.array(contour, dtype=np.int32)
+                cv2.drawContours(annotated_warped, [contour], -1, (0, 0, 255), 2)
 
         # Create 4-Quadrant Multi-Channel Debug Grid
         h_w, w_w = warped_img.shape[:2]

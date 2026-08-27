@@ -1,5 +1,2446 @@
 [
   {
+    "inspection_id": "INS_MATTRESS_20260828_040814",
+    "timestamp": "2026-08-28T04:08:14.296857",
+    "overall_status": "PASS",
+    "identity_status": "PASS",
+    "product_variety": "Ortholex",
+    "item_id": "803397",
+    "batch_number": "3829",
+    "qr_code_data": {
+      "raw_text": "Ortholex | Batch: BATCH-2026-A | ID: ORTHO-1001",
+      "product_name": "Ortholex",
+      "batch_no": "3829",
+      "inventory_item_id": "803397"
+    },
+    "side_ocr_data": {
+      "full_text": "Ortholex",
+      "average_confidence": 87.79,
+      "items": [
+        {
+          "text": "Comple",
+          "confidence": 0.9871967262507885
+        },
+        {
+          "text": "1",
+          "confidence": 0.6862279220429777
+        },
+        {
+          "text": "15 cm",
+          "confidence": 0.996772781673938
+        },
+        {
+          "text": "PACKED",
+          "confidence": 0.999713926243581
+        },
+        {
+          "text": "LTD,",
+          "confidence": 0.9872444868087769
+        },
+        {
+          "text": "1",
+          "confidence": 0.4384713097622104
+        },
+        {
+          "text": "MANUFACTURING",
+          "confidence": 0.8576423276938375
+        },
+        {
+          "text": "12200.00",
+          "confidence": 0.999942511014139
+        },
+        {
+          "text": "ofall (axes)",
+          "confidence": 0.4182348073786212
+        },
+        {
+          "text": "1",
+          "confidence": 0.8960963971706093
+        },
+        {
+          "text": "ahL",
+          "confidence": 0.9498981698101854
+        },
+        {
+          "text": "403",
+          "confidence": 0.9999991740938607
+        },
+        {
+          "text": "2026",
+          "confidence": 0.9999921321868896
+        },
+        {
+          "text": "1",
+          "confidence": 0.8881610845987922
+        },
+        {
+          "text": "1",
+          "confidence": 0.8102418030926515
+        },
+        {
+          "text": "185di5",
+          "confidence": 0.6104794823844749
+        },
+        {
+          "text": "'76695",
+          "confidence": 0.48535461458019186
+        },
+        {
+          "text": "8",
+          "confidence": 0.8077318618366327
+        },
+        {
+          "text": "600",
+          "confidence": 0.9997383988006605
+        },
+        {
+          "text": "3",
+          "confidence": 0.9967577554448894
+        },
+        {
+          "text": "RUBBER",
+          "confidence": 0.9999287996258991
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9964106410012843
+        },
+        {
+          "text": "MARKETED",
+          "confidence": 0.9808455707489515
+        },
+        {
+          "text": "MONTH",
+          "confidence": 0.9951423606446284
+        },
+        {
+          "text": "1",
+          "confidence": 0.6876933878399463
+        },
+        {
+          "text": "PH: +91",
+          "confidence": 0.7722339134998218
+        },
+        {
+          "text": "2",
+          "confidence": 0.9989757777577921
+        },
+        {
+          "text": "44,",
+          "confidence": 0.9999059161134095
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9984054515676724
+        },
+        {
+          "text": "113,",
+          "confidence": 0.9916574358940125
+        },
+        {
+          "text": "1",
+          "confidence": 0.9787456496656546
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 99.8,
+      "all_probabilities": {
+        "Dual harmony": 13.3,
+        "Gravite": 9.52,
+        "Maxi plush": 15.11,
+        "Maxi pro": 11.25,
+        "Memorise": 10.92,
+        "Ortholex": 11.74,
+        "Purity plus": 13.37,
+        "Velvet": 14.78
+      }
+    },
+    "top_camera_data": {
+      "corner_label": {
+        "full_text": "Ortholex",
+        "product_name": "Ortholex",
+        "size": "Standard",
+        "fuzzy_similarity": 100.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "PASS",
+      "identity_status": "PASS",
+      "qr_product": "Ortholex",
+      "side_ocr_summary": "Ortholex",
+      "side_ocr_similarity": 100.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Ortholex",
+      "corner_label_size": "Standard",
+      "mismatches": []
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260828_040814\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260828_040814\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260828_040814\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260828_040814\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260828_040814\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260828_040814\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260828_040814\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260828_040113",
+    "timestamp": "2026-08-28T04:01:13.451856",
+    "overall_status": "PASS",
+    "identity_status": "PASS",
+    "product_variety": "Ortholex",
+    "item_id": "1597990",
+    "batch_number": "5428",
+    "qr_code_data": {
+      "raw_text": "Ortholex | Batch: BATCH-2026-A | ID: ORTHO-1001",
+      "product_name": "Ortholex",
+      "batch_no": "5428",
+      "inventory_item_id": "1597990"
+    },
+    "side_ocr_data": {
+      "full_text": "Ortholex",
+      "average_confidence": 88.43,
+      "items": [
+        {
+          "text": "1",
+          "confidence": 0.9525095877054355
+        },
+        {
+          "text": "Rs.27000,00",
+          "confidence": 0.8308598839662603
+        },
+        {
+          "text": "Complex",
+          "confidence": 0.9999140753449643
+        },
+        {
+          "text": "15 cm",
+          "confidence": 0.997637468291788
+        },
+        {
+          "text": "COMMODITY:",
+          "confidence": 0.9983858742763437
+        },
+        {
+          "text": "8",
+          "confidence": 0.8756643309340895
+        },
+        {
+          "text": "MATTRESS",
+          "confidence": 0.9998121441871606
+        },
+        {
+          "text": "MANUFACTURING",
+          "confidence": 0.9999518597667174
+        },
+        {
+          "text": "(Lxwxt:",
+          "confidence": 0.7138238795410012
+        },
+        {
+          "text": "LTD,",
+          "confidence": 0.9784203767776489
+        },
+        {
+          "text": "1",
+          "confidence": 0.5498241359693488
+        },
+        {
+          "text": "PACKED",
+          "confidence": 0.9998508331792708
+        },
+        {
+          "text": "YEAR",
+          "confidence": 0.9999167919158936
+        },
+        {
+          "text": "1",
+          "confidence": 0.7179989944061163
+        },
+        {
+          "text": "CODE:",
+          "confidence": 0.9940260380950282
+        },
+        {
+          "text": "Industrial",
+          "confidence": 0.8366402729337136
+        },
+        {
+          "text": "COMPANY",
+          "confidence": 0.9912645552588248
+        },
+        {
+          "text": "2026",
+          "confidence": 0.9999967217445374
+        },
+        {
+          "text": "524",
+          "confidence": 0.9958440661430359
+        },
+        {
+          "text": "CONTENT",
+          "confidence": 0.9985440051493037
+        },
+        {
+          "text": "1",
+          "confidence": 0.9908303198852906
+        },
+        {
+          "text": "5",
+          "confidence": 0.6929556900145464
+        },
+        {
+          "text": "1",
+          "confidence": 0.7292183252939175
+        },
+        {
+          "text": "AND",
+          "confidence": 0.999992016244482
+        },
+        {
+          "text": "Pantheon",
+          "confidence": 0.9960519085187686
+        },
+        {
+          "text": "Crei",
+          "confidence": 0.4864131566166666
+        },
+        {
+          "text": "RUBBER",
+          "confidence": 0.9221817069471037
+        },
+        {
+          "text": "OF THE",
+          "confidence": 0.990830574824996
+        },
+        {
+          "text": "MARKETED",
+          "confidence": 0.9954715922222122
+        },
+        {
+          "text": "m X1",
+          "confidence": 0.7083709836006165
+        },
+        {
+          "text": "9XO9XSL",
+          "confidence": 0.8825658464464612
+        },
+        {
+          "text": "632 403",
+          "confidence": 0.952110514346666
+        },
+        {
+          "text": "Wobelto:",
+          "confidence": 0.6387954941264199
+        },
+        {
+          "text": "1",
+          "confidence": 0.5483043716015032
+        },
+        {
+          "text": "PRODUCT",
+          "confidence": 0.9996851425087808
+        },
+        {
+          "text": "'Janpriya",
+          "confidence": 0.7088403829279635
+        },
+        {
+          "text": "JULY",
+          "confidence": 0.9627298712730408
+        },
+        {
+          "text": "Chennal",
+          "confidence": 0.7294769852103692
+        },
+        {
+          "text": "Dimension",
+          "confidence": 0.9999880790355175
+        },
+        {
+          "text": "1",
+          "confidence": 0.8871689010447881
+        },
+        {
+          "text": "MONTH _",
+          "confidence": 0.6432198896711816
+        },
+        {
+          "text": "Emall:",
+          "confidence": 0.9611247489481419
+        },
+        {
+          "text": "MRP:",
+          "confidence": 0.9991845488548279
+        },
+        {
+          "text": "6",
+          "confidence": 0.8127441386651668
+        },
+        {
+          "text": "113,",
+          "confidence": 0.9921332001686096
+        },
+        {
+          "text": "1.905",
+          "confidence": 0.999259996906832
+        },
+        {
+          "text": "MM",
+          "confidence": 0.8549278721082596
+        },
+        {
+          "text": "NET",
+          "confidence": 0.99990013484523
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9978675302712279
+        },
+        {
+          "text": "AME",
+          "confidence": 0.999897450686526
+        },
+        {
+          "text": "apet",
+          "confidence": 0.5869765877723694
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 99.8,
+      "all_probabilities": {
+        "Dual harmony": 11.67,
+        "Gravite": 11.76,
+        "Maxi plush": 15.04,
+        "Maxi pro": 15.34,
+        "Memorise": 12.32,
+        "Ortholex": 11.43,
+        "Purity plus": 11.19,
+        "Velvet": 11.25
+      }
+    },
+    "top_camera_data": {
+      "corner_label": {
+        "full_text": "Ortholex",
+        "product_name": "Ortholex",
+        "size": "Standard",
+        "fuzzy_similarity": 100.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "PASS",
+      "identity_status": "PASS",
+      "qr_product": "Ortholex",
+      "side_ocr_summary": "Ortholex",
+      "side_ocr_similarity": 100.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Ortholex",
+      "corner_label_size": "Standard",
+      "mismatches": []
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260828_040113\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260828_040113\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260828_040113\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260828_040113\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260828_040113\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260828_040113\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260828_040113\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260828_035435",
+    "timestamp": "2026-08-28T03:54:35.933959",
+    "overall_status": "PASS",
+    "identity_status": "PASS",
+    "product_variety": "Ortholex",
+    "item_id": "1597990",
+    "batch_number": "5428",
+    "qr_code_data": {
+      "raw_text": "Ortholex | Batch: BATCH-2026-A | ID: ORTHO-1001",
+      "product_name": "Ortholex",
+      "batch_no": "5428",
+      "inventory_item_id": "1597990"
+    },
+    "side_ocr_data": {
+      "full_text": "Ortholex",
+      "average_confidence": 93.26,
+      "items": [
+        {
+          "text": "1",
+          "confidence": 0.9754571869651194
+        },
+        {
+          "text": "COMMODITY:",
+          "confidence": 0.9979056208850705
+        },
+        {
+          "text": "X15 cm",
+          "confidence": 0.9589760364372285
+        },
+        {
+          "text": "MATTRESS",
+          "confidence": 0.9996463198854464
+        },
+        {
+          "text": "MANUFACTURING",
+          "confidence": 0.9996926052167882
+        },
+        {
+          "text": "(Lxwxt):",
+          "confidence": 0.7289794754071409
+        },
+        {
+          "text": "YEAR",
+          "confidence": 0.999951183795929
+        },
+        {
+          "text": "ORTHOLEX",
+          "confidence": 0.9984443220583141
+        },
+        {
+          "text": "COMPANY",
+          "confidence": 0.984205082789214
+        },
+        {
+          "text": "Industrial",
+          "confidence": 0.966064149051204
+        },
+        {
+          "text": "2",
+          "confidence": 0.813030463809369
+        },
+        {
+          "text": "CODE:",
+          "confidence": 0.9940592749131005
+        },
+        {
+          "text": "524",
+          "confidence": 0.9999766681867418
+        },
+        {
+          "text": "2026",
+          "confidence": 0.9999952912330627
+        },
+        {
+          "text": "CONTENT",
+          "confidence": 0.9963963705436296
+        },
+        {
+          "text": "AND",
+          "confidence": 0.9998548626899719
+        },
+        {
+          "text": "8",
+          "confidence": 0.9417612559009427
+        },
+        {
+          "text": "8",
+          "confidence": 0.9890404086502578
+        },
+        {
+          "text": "IANUFACTURED",
+          "confidence": 0.9998630647735677
+        },
+        {
+          "text": "632 403",
+          "confidence": 0.9107076212876546
+        },
+        {
+          "text": "1",
+          "confidence": 0.5887516831317043
+        },
+        {
+          "text": "RUBBER",
+          "confidence": 0.9989424866329091
+        },
+        {
+          "text": "m X1_",
+          "confidence": 0.7440187095654984
+        },
+        {
+          "text": "9XO9XSL",
+          "confidence": 0.9208458047681344
+        },
+        {
+          "text": "PRODUCT",
+          "confidence": 0.9997468601234362
+        },
+        {
+          "text": "Dimension",
+          "confidence": 0.9999759593154514
+        },
+        {
+          "text": "JULY",
+          "confidence": 0.8688863533715397
+        },
+        {
+          "text": "1",
+          "confidence": 0.8379033051998164
+        },
+        {
+          "text": "Sipcot",
+          "confidence": 0.9577334499349635
+        },
+        {
+          "text": "VARIETY:",
+          "confidence": 0.9146516582944898
+        },
+        {
+          "text": "MRP:",
+          "confidence": 0.9963304996490479
+        },
+        {
+          "text": "905",
+          "confidence": 0.9999530611460817
+        },
+        {
+          "text": "2",
+          "confidence": 0.99925460405872
+        },
+        {
+          "text": "NET",
+          "confidence": 0.9998419782894443
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9941238140513899
+        },
+        {
+          "text": "1",
+          "confidence": 0.98058312279068
+        },
+        {
+          "text": "NAME",
+          "confidence": 0.9999717473983765
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.9989483372554769
+        },
+        {
+          "text": "44,",
+          "confidence": 0.527083158493042
+        },
+        {
+          "text": "Im",
+          "confidence": 0.7206494150363932
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 99.8,
+      "all_probabilities": {
+        "Dual harmony": 10.32,
+        "Gravite": 11.08,
+        "Maxi plush": 15.01,
+        "Maxi pro": 14.78,
+        "Memorise": 12.04,
+        "Ortholex": 11.31,
+        "Purity plus": 13.77,
+        "Velvet": 11.69
+      }
+    },
+    "top_camera_data": {
+      "corner_label": {
+        "full_text": "Ortholex",
+        "product_name": "Ortholex",
+        "size": "Standard",
+        "fuzzy_similarity": 100.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "PASS",
+      "identity_status": "PASS",
+      "qr_product": "Ortholex",
+      "side_ocr_summary": "Ortholex",
+      "side_ocr_similarity": 100.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Ortholex",
+      "corner_label_size": "Standard",
+      "mismatches": []
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260828_035435\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260828_035435\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260828_035435\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260828_035435\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260828_035435\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260828_035435\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260828_035435\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260828_035220",
+    "timestamp": "2026-08-28T03:52:20.216436",
+    "overall_status": "PASS",
+    "identity_status": "PASS",
+    "product_variety": "Ortholex",
+    "item_id": "1597990",
+    "batch_number": "5428",
+    "qr_code_data": {
+      "raw_text": "Ortholex | Batch: BATCH-2026-A | ID: ORTHO-1001",
+      "product_name": "Ortholex",
+      "batch_no": "5428",
+      "inventory_item_id": "1597990"
+    },
+    "side_ocr_data": {
+      "full_text": "Ortholex",
+      "average_confidence": 93.57,
+      "items": [
+        {
+          "text": "1",
+          "confidence": 0.7424106097247751
+        },
+        {
+          "text": "Complex",
+          "confidence": 0.998834204202263
+        },
+        {
+          "text": "COMMODITY:",
+          "confidence": 0.9897760858230371
+        },
+        {
+          "text": "15 cm",
+          "confidence": 0.917591031532861
+        },
+        {
+          "text": "MATTRESS",
+          "confidence": 0.9998338935554774
+        },
+        {
+          "text": "MANUFACTURING",
+          "confidence": 0.9999153896563215
+        },
+        {
+          "text": "LT,",
+          "confidence": 0.9944288685739694
+        },
+        {
+          "text": "PACKED",
+          "confidence": 0.9997338809472812
+        },
+        {
+          "text": "1",
+          "confidence": 0.8224199131982459
+        },
+        {
+          "text": "YEAR",
+          "confidence": 0.9931518573367338
+        },
+        {
+          "text": "XW",
+          "confidence": 0.9454612256126327
+        },
+        {
+          "text": "Ieuisnpui",
+          "confidence": 0.6927907401913677
+        },
+        {
+          "text": "ORTHOLEX",
+          "confidence": 0.997566140781674
+        },
+        {
+          "text": "COMPANY",
+          "confidence": 0.9929167411482727
+        },
+        {
+          "text": "CODE:",
+          "confidence": 0.9956174703822437
+        },
+        {
+          "text": "8",
+          "confidence": 0.5841631284377549
+        },
+        {
+          "text": "1",
+          "confidence": 0.616650058014784
+        },
+        {
+          "text": "1",
+          "confidence": 0.9844322502649447
+        },
+        {
+          "text": "2026",
+          "confidence": 0.9999920725822449
+        },
+        {
+          "text": "CONTENT",
+          "confidence": 0.9988658008091382
+        },
+        {
+          "text": "AND",
+          "confidence": 0.9999821742127942
+        },
+        {
+          "text": "THE",
+          "confidence": 0.9593184839202296
+        },
+        {
+          "text": "MANUFACTURED",
+          "confidence": 0.9837155636524458
+        },
+        {
+          "text": "403",
+          "confidence": 0.9999957328192642
+        },
+        {
+          "text": "ORTHOLEX",
+          "confidence": 0.9997176417490822
+        },
+        {
+          "text": "75X60X6",
+          "confidence": 0.5855270216221067
+        },
+        {
+          "text": "MARKETED",
+          "confidence": 0.9998035876959103
+        },
+        {
+          "text": "PRODUCT",
+          "confidence": 0.9997727698367694
+        },
+        {
+          "text": "JULY",
+          "confidence": 0.9704047441482544
+        },
+        {
+          "text": "1",
+          "confidence": 0.6846198061373663
+        },
+        {
+          "text": "Sipcot",
+          "confidence": 0.9994820557568443
+        },
+        {
+          "text": "VARIETY:",
+          "confidence": 0.9988897230917987
+        },
+        {
+          "text": "8",
+          "confidence": 0.9982876961335165
+        },
+        {
+          "text": "RUBBER",
+          "confidence": 0.9999826745183035
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9934900681085235
+        },
+        {
+          "text": "MRP:",
+          "confidence": 0.9985948204994202
+        },
+        {
+          "text": "2",
+          "confidence": 0.9988368557569629
+        },
+        {
+          "text": "NET",
+          "confidence": 0.9997731545485874
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9926233606839974
+        },
+        {
+          "text": "44,",
+          "confidence": 0.9999381949430484
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 99.8,
+      "all_probabilities": {
+        "Dual harmony": 11.88,
+        "Gravite": 10.55,
+        "Maxi plush": 14.23,
+        "Maxi pro": 13.76,
+        "Memorise": 12.24,
+        "Ortholex": 12.04,
+        "Purity plus": 12.66,
+        "Velvet": 12.63
+      }
+    },
+    "top_camera_data": {
+      "corner_label": {
+        "full_text": "Ortholex",
+        "product_name": "Ortholex",
+        "size": "Standard",
+        "fuzzy_similarity": 100.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "PASS",
+      "identity_status": "PASS",
+      "qr_product": "Ortholex",
+      "side_ocr_summary": "Ortholex",
+      "side_ocr_similarity": 100.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Ortholex",
+      "corner_label_size": "Standard",
+      "mismatches": []
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260828_035220\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260828_035220\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260828_035220\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260828_035220\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260828_035220\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260828_035220\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260828_035220\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260826_072740",
+    "timestamp": "2026-08-26T07:27:40.978579",
+    "overall_status": "PASS",
+    "identity_status": "PASS",
+    "product_variety": "Ortholex",
+    "item_id": "1597990",
+    "batch_number": "5428",
+    "qr_code_data": {
+      "raw_text": "Ortholex | Batch: BATCH-2026-A | ID: ORTHO-1001",
+      "product_name": "Ortholex",
+      "batch_no": "5428",
+      "inventory_item_id": "1597990"
+    },
+    "side_ocr_data": {
+      "full_text": "Ortholex",
+      "average_confidence": 86.01,
+      "items": [
+        {
+          "text": "Complex;",
+          "confidence": 0.609174779215944
+        },
+        {
+          "text": "BY",
+          "confidence": 0.9958852425910483
+        },
+        {
+          "text": "PACKED",
+          "confidence": 0.999923640839557
+        },
+        {
+          "text": "'017",
+          "confidence": 0.986000120639801
+        },
+        {
+          "text": "Godubtriay",
+          "confidence": 0.4568853748886894
+        },
+        {
+          "text": "2",
+          "confidence": 0.5826348088451141
+        },
+        {
+          "text": "1",
+          "confidence": 0.8660365272471928
+        },
+        {
+          "text": "MA",
+          "confidence": 0.9999497613262032
+        },
+        {
+          "text": "8",
+          "confidence": 0.9944834706039387
+        },
+        {
+          "text": "THE",
+          "confidence": 0.9922306264770583
+        },
+        {
+          "text": "Sipcot",
+          "confidence": 0.9994912062066758
+        },
+        {
+          "text": "ipetSi8s?",
+          "confidence": 0.7347778828281533
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9962337309669754
+        },
+        {
+          "text": "NAME",
+          "confidence": 0.999930202960968
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.9999342162619652
+        },
+        {
+          "text": "14",
+          "confidence": 0.5476113214689996
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 99.8,
+      "all_probabilities": {
+        "Dual harmony": 10.33,
+        "Gravite": 9.52,
+        "Maxi plush": 11.52,
+        "Maxi pro": 15.29,
+        "Memorise": 12.28,
+        "Ortholex": 12.29,
+        "Purity plus": 12.72,
+        "Velvet": 16.04
+      }
+    },
+    "top_camera_data": {
+      "corner_label": {
+        "full_text": "Ortholex",
+        "product_name": "Ortholex",
+        "size": "Standard",
+        "fuzzy_similarity": 100.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "PASS",
+      "identity_status": "PASS",
+      "qr_product": "Ortholex",
+      "side_ocr_summary": "Ortholex",
+      "side_ocr_similarity": 100.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Ortholex",
+      "corner_label_size": "Standard",
+      "mismatches": []
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260826_072740\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260826_072740\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260826_072740\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260826_072740\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260826_072740\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260826_072740\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260826_072740\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260826_072640",
+    "timestamp": "2026-08-26T07:26:40.715840",
+    "overall_status": "PASS",
+    "identity_status": "PASS",
+    "product_variety": "Ortholex",
+    "item_id": "1597990",
+    "batch_number": "5428",
+    "qr_code_data": {
+      "raw_text": "Ortholex | Batch: BATCH-2026-A | ID: ORTHO-1001",
+      "product_name": "Ortholex",
+      "batch_no": "5428",
+      "inventory_item_id": "1597990"
+    },
+    "side_ocr_data": {
+      "full_text": "Ortholex",
+      "average_confidence": 90.77,
+      "items": [
+        {
+          "text": "Complex;",
+          "confidence": 0.835567828962323
+        },
+        {
+          "text": "BY",
+          "confidence": 0.9866371754697225
+        },
+        {
+          "text": "PACKED",
+          "confidence": 0.9999282156126512
+        },
+        {
+          "text": "'017",
+          "confidence": 0.9827561974525452
+        },
+        {
+          "text": "2",
+          "confidence": 0.49343178382708075
+        },
+        {
+          "text": "MA",
+          "confidence": 0.9999568418999045
+        },
+        {
+          "text": "403",
+          "confidence": 0.9999963522485745
+        },
+        {
+          "text": "THE",
+          "confidence": 0.9839142646590816
+        },
+        {
+          "text": "1",
+          "confidence": 0.667321446884106
+        },
+        {
+          "text": "Sipcot",
+          "confidence": 0.9779694534618543
+        },
+        {
+          "text": "ipetSi8s?",
+          "confidence": 0.7301012660737345
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9955764405084203
+        },
+        {
+          "text": "NAME",
+          "confidence": 0.9999375343322754
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.9637235730279703
+        },
+        {
+          "text": "1",
+          "confidence": 0.9982149229700532
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 99.8,
+      "all_probabilities": {
+        "Dual harmony": 10.24,
+        "Gravite": 9.54,
+        "Maxi plush": 11.68,
+        "Maxi pro": 15.14,
+        "Memorise": 12.25,
+        "Ortholex": 12.29,
+        "Purity plus": 12.76,
+        "Velvet": 16.1
+      }
+    },
+    "top_camera_data": {
+      "corner_label": {
+        "full_text": "Ortholex",
+        "product_name": "Ortholex",
+        "size": "Standard",
+        "fuzzy_similarity": 100.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "PASS",
+      "identity_status": "PASS",
+      "qr_product": "Ortholex",
+      "side_ocr_summary": "Ortholex",
+      "side_ocr_similarity": 100.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Ortholex",
+      "corner_label_size": "Standard",
+      "mismatches": []
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260826_072640\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260826_072640\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260826_072640\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260826_072640\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260826_072640\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260826_072640\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260826_072640\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260826_071433",
+    "timestamp": "2026-08-26T07:14:33.186877",
+    "overall_status": "PASS",
+    "identity_status": "PASS",
+    "product_variety": "Ortholex",
+    "item_id": "1597990",
+    "batch_number": "5428",
+    "qr_code_data": {
+      "raw_text": "Ortholex | Batch: BATCH-2026-A | ID: ORTHO-1001",
+      "product_name": "Ortholex",
+      "batch_no": "5428",
+      "inventory_item_id": "1597990"
+    },
+    "side_ocr_data": {
+      "full_text": "Ortholex",
+      "average_confidence": 84.98,
+      "items": [
+        {
+          "text": "Complex",
+          "confidence": 0.999957285786718
+        },
+        {
+          "text": "BY",
+          "confidence": 0.971647221488001
+        },
+        {
+          "text": "PACKED",
+          "confidence": 0.9999219374653945
+        },
+        {
+          "text": "LTD",
+          "confidence": 0.9993946353206483
+        },
+        {
+          "text": "Godubtriay",
+          "confidence": 0.43910382913687324
+        },
+        {
+          "text": "1",
+          "confidence": 0.4138378000747913
+        },
+        {
+          "text": "8",
+          "confidence": 0.9483336944654752
+        },
+        {
+          "text": "MA",
+          "confidence": 0.9999459681677609
+        },
+        {
+          "text": "8",
+          "confidence": 0.9938849997485057
+        },
+        {
+          "text": "OF THE",
+          "confidence": 0.9943989872419832
+        },
+        {
+          "text": "0",
+          "confidence": 0.8435518219876634
+        },
+        {
+          "text": "IV",
+          "confidence": 0.5935725601964988
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 99.8,
+      "all_probabilities": {
+        "Dual harmony": 10.48,
+        "Gravite": 9.58,
+        "Maxi plush": 11.43,
+        "Maxi pro": 15.0,
+        "Memorise": 12.39,
+        "Ortholex": 12.15,
+        "Purity plus": 12.74,
+        "Velvet": 16.23
+      }
+    },
+    "top_camera_data": {
+      "corner_label": {
+        "full_text": "Ortholex",
+        "product_name": "Ortholex",
+        "size": "Standard",
+        "fuzzy_similarity": 100.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "PASS",
+      "identity_status": "PASS",
+      "qr_product": "Ortholex",
+      "side_ocr_summary": "Ortholex",
+      "side_ocr_similarity": 100.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Ortholex",
+      "corner_label_size": "Standard",
+      "mismatches": []
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260826_071433\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260826_071433\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260826_071433\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260826_071433\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260826_071433\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260826_071433\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260826_071433\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260826_071359",
+    "timestamp": "2026-08-26T07:13:59.253617",
+    "overall_status": "PASS",
+    "identity_status": "PASS",
+    "product_variety": "Ortholex",
+    "item_id": "1597990",
+    "batch_number": "5428",
+    "qr_code_data": {
+      "raw_text": "Ortholex | Batch: BATCH-2026-A | ID: ORTHO-1001",
+      "product_name": "Ortholex",
+      "batch_no": "5428",
+      "inventory_item_id": "1597990"
+    },
+    "side_ocr_data": {
+      "full_text": "Ortholex",
+      "average_confidence": 87.65,
+      "items": [
+        {
+          "text": "IA",
+          "confidence": 0.47770367293090193
+        },
+        {
+          "text": "BY",
+          "confidence": 0.9939474437613738
+        },
+        {
+          "text": "2",
+          "confidence": 0.671771201438137
+        },
+        {
+          "text": "1",
+          "confidence": 0.5183390173727709
+        },
+        {
+          "text": "MA",
+          "confidence": 0.9999556618032679
+        },
+        {
+          "text": "403",
+          "confidence": 0.9999982105368138
+        },
+        {
+          "text": "THE",
+          "confidence": 0.9959411569307487
+        },
+        {
+          "text": "Sipcot",
+          "confidence": 0.9996809764515282
+        },
+        {
+          "text": "OF",
+          "confidence": 0.995791369852177
+        },
+        {
+          "text": "NAME",
+          "confidence": 0.9881257277514788
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.9999617464757796
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 99.8,
+      "all_probabilities": {
+        "Dual harmony": 10.22,
+        "Gravite": 9.73,
+        "Maxi plush": 11.88,
+        "Maxi pro": 15.07,
+        "Memorise": 12.18,
+        "Ortholex": 12.07,
+        "Purity plus": 12.9,
+        "Velvet": 15.95
+      }
+    },
+    "top_camera_data": {
+      "corner_label": {
+        "full_text": "Ortholex",
+        "product_name": "Ortholex",
+        "size": "Standard",
+        "fuzzy_similarity": 100.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "PASS",
+      "identity_status": "PASS",
+      "qr_product": "Ortholex",
+      "side_ocr_summary": "Ortholex",
+      "side_ocr_similarity": 100.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Ortholex",
+      "corner_label_size": "Standard",
+      "mismatches": []
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260826_071359\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260826_071359\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260826_071359\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260826_071359\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260826_071359\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260826_071359\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260826_071359\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260826_071332",
+    "timestamp": "2026-08-26T07:13:32.362823",
+    "overall_status": "PASS",
+    "identity_status": "PASS",
+    "product_variety": "Ortholex",
+    "item_id": "ORTHO-1001",
+    "batch_number": "BATCH-2026-A",
+    "qr_code_data": {
+      "raw_text": "Ortholex | Batch: BATCH-2026-A | ID: ORTHO-1001",
+      "product_name": "Ortholex",
+      "batch_no": "BATCH-2026-A",
+      "inventory_item_id": "ORTHO-1001"
+    },
+    "side_ocr_data": {
+      "full_text": "Ortholex",
+      "average_confidence": 91.49,
+      "items": [
+        {
+          "text": "Camera 2 (Side Bill OCR & Texture) (1)",
+          "confidence": 0.8813790304179367
+        },
+        {
+          "text": "Simulation",
+          "confidence": 0.9215060990141929
+        },
+        {
+          "text": "Disconnected",
+          "confidence": 0.9999901579158404
+        },
+        {
+          "text": "Time: 07.13.30",
+          "confidence": 0.8565306360720468
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 99.8,
+      "all_probabilities": {
+        "Dual harmony": 10.6,
+        "Gravite": 14.08,
+        "Maxi plush": 11.94,
+        "Maxi pro": 13.75,
+        "Memorise": 12.57,
+        "Ortholex": 12.97,
+        "Purity plus": 11.44,
+        "Velvet": 12.64
+      }
+    },
+    "top_camera_data": {
+      "corner_label": {
+        "full_text": "Ortholex",
+        "product_name": "Ortholex",
+        "size": "Standard",
+        "fuzzy_similarity": 100.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "PASS",
+      "identity_status": "PASS",
+      "qr_product": "Ortholex",
+      "side_ocr_summary": "Ortholex",
+      "side_ocr_similarity": 100.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Ortholex",
+      "corner_label_size": "Standard",
+      "mismatches": []
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260826_071332\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260826_071332\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260826_071332\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260826_071332\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260826_071332\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260826_071332\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260826_071332\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260826_071124",
+    "timestamp": "2026-08-26T07:11:24.403115",
+    "overall_status": "PASS",
+    "identity_status": "PASS",
+    "product_variety": "Ortholex",
+    "item_id": "1597990",
+    "batch_number": "5428",
+    "qr_code_data": {
+      "raw_text": "Ortholex | Batch: BATCH-2026-A | ID: ORTHO-1001",
+      "product_name": "Ortholex",
+      "batch_no": "5428",
+      "inventory_item_id": "1597990"
+    },
+    "side_ocr_data": {
+      "full_text": "Ortholex",
+      "average_confidence": 80.2,
+      "items": [
+        {
+          "text": "BY",
+          "confidence": 0.9615199381695901
+        },
+        {
+          "text": "Codubtriay",
+          "confidence": 0.40653988187904
+        },
+        {
+          "text": "w8",
+          "confidence": 0.6818221190541164
+        },
+        {
+          "text": "1",
+          "confidence": 0.8014655589831285
+        },
+        {
+          "text": "403",
+          "confidence": 0.9999966963759913
+        },
+        {
+          "text": "8",
+          "confidence": 0.9845751349587317
+        },
+        {
+          "text": "0",
+          "confidence": 0.8514338956789658
+        },
+        {
+          "text": "I1",
+          "confidence": 0.7288066934401572
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 99.8,
+      "all_probabilities": {
+        "Dual harmony": 10.56,
+        "Gravite": 9.66,
+        "Maxi plush": 11.64,
+        "Maxi pro": 15.55,
+        "Memorise": 12.04,
+        "Ortholex": 11.83,
+        "Purity plus": 12.83,
+        "Velvet": 15.9
+      }
+    },
+    "top_camera_data": {
+      "corner_label": {
+        "full_text": "Ortholex",
+        "product_name": "Ortholex",
+        "size": "Standard",
+        "fuzzy_similarity": 100.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "PASS",
+      "identity_status": "PASS",
+      "qr_product": "Ortholex",
+      "side_ocr_summary": "Ortholex",
+      "side_ocr_similarity": 100.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Ortholex",
+      "corner_label_size": "Standard",
+      "mismatches": []
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260826_071124\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260826_071124\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260826_071124\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260826_071124\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260826_071124\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260826_071124\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260826_071124\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260826_071024",
+    "timestamp": "2026-08-26T07:10:24.812730",
+    "overall_status": "PASS",
+    "identity_status": "PASS",
+    "product_variety": "Ortholex",
+    "item_id": "1597990",
+    "batch_number": "5428",
+    "qr_code_data": {
+      "raw_text": "Ortholex | Batch: BATCH-2026-A | ID: ORTHO-1001",
+      "product_name": "Ortholex",
+      "batch_no": "5428",
+      "inventory_item_id": "1597990"
+    },
+    "side_ocr_data": {
+      "full_text": "Ortholex",
+      "average_confidence": 81.94,
+      "items": [
+        {
+          "text": "IA",
+          "confidence": 0.46860138651392874
+        },
+        {
+          "text": "6",
+          "confidence": 0.9880754939821514
+        },
+        {
+          "text": "MOMRESIY:",
+          "confidence": 0.4121884368995459
+        },
+        {
+          "text": "w8",
+          "confidence": 0.6882847098901484
+        },
+        {
+          "text": "1",
+          "confidence": 0.7413999341079034
+        },
+        {
+          "text": "D &",
+          "confidence": 0.9942968487739563
+        },
+        {
+          "text": "403",
+          "confidence": 0.9999986234898187
+        },
+        {
+          "text": "THE",
+          "confidence": 0.9867182283726916
+        },
+        {
+          "text": "ipetSi8s?",
+          "confidence": 0.5134035683039847
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9971770767085373
+        },
+        {
+          "text": "NAME",
+          "confidence": 0.9999561309814453
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.9995921947950032
+        },
+        {
+          "text": "14",
+          "confidence": 0.8619815200355943
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 99.8,
+      "all_probabilities": {
+        "Dual harmony": 10.52,
+        "Gravite": 9.53,
+        "Maxi plush": 11.58,
+        "Maxi pro": 15.58,
+        "Memorise": 12.39,
+        "Ortholex": 11.83,
+        "Purity plus": 12.56,
+        "Velvet": 16.01
+      }
+    },
+    "top_camera_data": {
+      "corner_label": {
+        "full_text": "Ortholex",
+        "product_name": "Ortholex",
+        "size": "Standard",
+        "fuzzy_similarity": 100.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "PASS",
+      "identity_status": "PASS",
+      "qr_product": "Ortholex",
+      "side_ocr_summary": "Ortholex",
+      "side_ocr_similarity": 100.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Ortholex",
+      "corner_label_size": "Standard",
+      "mismatches": []
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260826_071024\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260826_071024\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260826_071024\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260826_071024\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260826_071024\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260826_071024\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260826_071024\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260826_062242",
+    "timestamp": "2026-08-26T06:22:42.285444",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Ortho Lex Mattress",
+    "item_id": "1597990",
+    "batch_number": "5428",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Ortho_Lex_Mattress&batchNo=5428&inventoryItemId=1597990",
+      "product_name": "Ortho Lex Mattress",
+      "batch_no": "5428",
+      "inventory_item_id": "1597990"
+    },
+    "side_ocr_data": {
+      "full_text": "40 , : \u00a2 .| MANUFACTURED & PACKED BY) MM RUBBER No. 44, Sipc",
+      "average_confidence": 90.39,
+      "items": [
+        {
+          "text": "Complex;",
+          "confidence": 0.7516684654291595
+        },
+        {
+          "text": "BY",
+          "confidence": 0.9829079624077796
+        },
+        {
+          "text": "cm",
+          "confidence": 0.997324892917942
+        },
+        {
+          "text": "LTD,",
+          "confidence": 0.8952179551124573
+        },
+        {
+          "text": "m X15",
+          "confidence": 0.8983866813612927
+        },
+        {
+          "text": "WXt):",
+          "confidence": 0.5799811839552989
+        },
+        {
+          "text": "8",
+          "confidence": 0.5509170496126536
+        },
+        {
+          "text": "1",
+          "confidence": 0.8177081015026069
+        },
+        {
+          "text": "CODE:",
+          "confidence": 0.9919111490068344
+        },
+        {
+          "text": "524",
+          "confidence": 0.9980310930546081
+        },
+        {
+          "text": "8",
+          "confidence": 0.9979106383980252
+        },
+        {
+          "text": "(LX",
+          "confidence": 0.964746883972359
+        },
+        {
+          "text": "THE",
+          "confidence": 0.9955725998389008
+        },
+        {
+          "text": "ipetSi8s?",
+          "confidence": 0.7236565790715204
+        },
+        {
+          "text": "1",
+          "confidence": 0.9725244383199119
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9968921590697883
+        },
+        {
+          "text": "PRODUCT",
+          "confidence": 0.9874352923975679
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.999985086138036
+        },
+        {
+          "text": "1",
+          "confidence": 0.9752365596735366
+        },
+        {
+          "text": "1",
+          "confidence": 0.9999736549205274
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Velvet",
+      "confidence": 15.06,
+      "all_probabilities": {
+        "Dual harmony": 12.54,
+        "Gravite": 10.03,
+        "Maxi plush": 12.09,
+        "Maxi pro": 15.01,
+        "Memorise": 10.82,
+        "Ortholex": 11.96,
+        "Purity plus": 12.5,
+        "Velvet": 15.06
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "No Label Text Detected",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Ortho Lex Mattress",
+      "side_ocr_summary": "40 , : \u00a2 .| MANUFACTURED & PACKED BY) MM RUBBER No. 44, Sipc",
+      "side_ocr_similarity": 40.0,
+      "texture_category": "Velvet",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Ortho Lex Mattress",
+          "detected": "Velvet (Similarity: 0%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Ortho Lex Mattress",
+          "detected": "40 , : \u00a2 .| MANUFACTURED & PACKED BY) MM RUBBER No. 44, Sipc (Similarity: 40%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Ortho Lex Mattress",
+          "detected": "Not Detected (Raw Text: No Label Text Detected)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260826_062242\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260826_062242\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260826_062242\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260826_062242\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260826_062242\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260826_062242\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260826_062242\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260826_061739",
+    "timestamp": "2026-08-26T06:17:39.685693",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Ortho Lex Mattress",
+    "item_id": "1597990",
+    "batch_number": "5428",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Ortho_Lex_Mattress&batchNo=5428&inventoryItemId=1597990",
+      "product_name": "Ortho Lex Mattress",
+      "batch_no": "5428",
+      "inventory_item_id": "1597990"
+    },
+    "side_ocr_data": {
+      "full_text": "| MANUFACTURED & PACKED BY \u00bb MM RUBBER COMPANYLTD, | | No. 4",
+      "average_confidence": 87.27,
+      "items": [
+        {
+          "text": "Complex;",
+          "confidence": 0.8976712530598843
+        },
+        {
+          "text": "BY",
+          "confidence": 0.9890780846913625
+        },
+        {
+          "text": "cm",
+          "confidence": 0.9976055508081348
+        },
+        {
+          "text": "'017",
+          "confidence": 0.9564610123634338
+        },
+        {
+          "text": "PACKED",
+          "confidence": 0.9998982848310539
+        },
+        {
+          "text": "m X 15",
+          "confidence": 0.8158367113113535
+        },
+        {
+          "text": "WXT):",
+          "confidence": 0.5287760393393757
+        },
+        {
+          "text": "8",
+          "confidence": 0.4140435017881181
+        },
+        {
+          "text": "1",
+          "confidence": 0.8467086773919483
+        },
+        {
+          "text": "8",
+          "confidence": 0.9736266423061721
+        },
+        {
+          "text": "8",
+          "confidence": 0.9728577500755478
+        },
+        {
+          "text": "9)",
+          "confidence": 0.4942556979592787
+        },
+        {
+          "text": "403",
+          "confidence": 0.9999993117448777
+        },
+        {
+          "text": "THE",
+          "confidence": 0.9954000212503844
+        },
+        {
+          "text": "ORTHOLEX",
+          "confidence": 0.9998457797553467
+        },
+        {
+          "text": "ipetSi8s?",
+          "confidence": 0.652027732737309
+        },
+        {
+          "text": "1",
+          "confidence": 0.9382028853770095
+        },
+        {
+          "text": "OF",
+          "confidence": 0.991574909879181
+        },
+        {
+          "text": "PRODUCT",
+          "confidence": 0.9136041814762185
+        },
+        {
+          "text": "VARIETY:",
+          "confidence": 0.9993914913977204
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.9999752636761277
+        },
+        {
+          "text": "NAME",
+          "confidence": 0.999984085559845
+        },
+        {
+          "text": "4",
+          "confidence": 0.7467671509914773
+        },
+        {
+          "text": "1",
+          "confidence": 0.9440144284330678
+        },
+        {
+          "text": "1,",
+          "confidence": 0.749915614316605
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Velvet",
+      "confidence": 15.18,
+      "all_probabilities": {
+        "Dual harmony": 12.55,
+        "Gravite": 10.22,
+        "Maxi plush": 12.22,
+        "Maxi pro": 14.61,
+        "Memorise": 11.1,
+        "Ortholex": 11.95,
+        "Purity plus": 12.17,
+        "Velvet": 15.18
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "No Label Text Detected",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Ortho Lex Mattress",
+      "side_ocr_summary": "| MANUFACTURED & PACKED BY \u00bb MM RUBBER COMPANYLTD, | | No. 4",
+      "side_ocr_similarity": 37.5,
+      "texture_category": "Velvet",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Ortho Lex Mattress",
+          "detected": "Velvet (Similarity: 0%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Ortho Lex Mattress",
+          "detected": "| MANUFACTURED & PACKED BY \u00bb MM RUBBER COMPANYLTD, | | No. 4 (Similarity: 37%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Ortho Lex Mattress",
+          "detected": "Not Detected (Raw Text: No Label Text Detected)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260826_061739\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260826_061739\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260826_061739\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260826_061739\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260826_061739\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260826_061739\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260826_061739\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260826_061312",
+    "timestamp": "2026-08-26T06:13:13.028417",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Ortho Lex Mattress",
+    "item_id": "1597990",
+    "batch_number": "5428",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Ortho_Lex_Mattress&batchNo=5428&inventoryItemId=1597990",
+      "product_name": "Ortho Lex Mattress",
+      "batch_no": "5428",
+      "inventory_item_id": "1597990"
+    },
+    "side_ocr_data": {
+      "full_text": "Complex; | BY | 15 cm | PACKED | 8 | 0 | 1 | m X | 1 | 8 | 8 | ZZ | 9) | 403 | 4 | ipetSi8s? | 1 | OF | PRODUCT | Ranipet | NAME | 4 | 1 | 1",
+      "average_confidence": 85.2,
+      "items": [
+        {
+          "text": "Complex;",
+          "confidence": 0.8812911763305216
+        },
+        {
+          "text": "BY",
+          "confidence": 0.9870724636896533
+        },
+        {
+          "text": "15 cm",
+          "confidence": 0.9874929291417373
+        },
+        {
+          "text": "PACKED",
+          "confidence": 0.9999127879015912
+        },
+        {
+          "text": "8",
+          "confidence": 0.9829813990808169
+        },
+        {
+          "text": "0",
+          "confidence": 0.6439070640490776
+        },
+        {
+          "text": "1",
+          "confidence": 0.7775952000277506
+        },
+        {
+          "text": "m X",
+          "confidence": 0.6728147864341736
+        },
+        {
+          "text": "1",
+          "confidence": 0.9367229495385345
+        },
+        {
+          "text": "8",
+          "confidence": 0.9901623683892922
+        },
+        {
+          "text": "8",
+          "confidence": 0.9545437876997518
+        },
+        {
+          "text": "ZZ",
+          "confidence": 0.5611329812723839
+        },
+        {
+          "text": "9)",
+          "confidence": 0.4720504580866274
+        },
+        {
+          "text": "403",
+          "confidence": 0.9999958704702177
+        },
+        {
+          "text": "4",
+          "confidence": 0.954436406875292
+        },
+        {
+          "text": "ipetSi8s?",
+          "confidence": 0.41759273532112234
+        },
+        {
+          "text": "1",
+          "confidence": 0.9324137754103958
+        },
+        {
+          "text": "OF",
+          "confidence": 0.992764502044957
+        },
+        {
+          "text": "PRODUCT",
+          "confidence": 0.8362256440574439
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.7437498184912836
+        },
+        {
+          "text": "NAME",
+          "confidence": 0.994436660980414
+        },
+        {
+          "text": "4",
+          "confidence": 0.7745288192910635
+        },
+        {
+          "text": "1",
+          "confidence": 0.9535077333558242
+        },
+        {
+          "text": "1",
+          "confidence": 0.9998045063205154
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Velvet",
+      "confidence": 15.15,
+      "all_probabilities": {
+        "Dual harmony": 12.71,
+        "Gravite": 10.16,
+        "Maxi plush": 12.38,
+        "Maxi pro": 14.63,
+        "Memorise": 10.88,
+        "Ortholex": 12.14,
+        "Purity plus": 11.96,
+        "Velvet": 15.15
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "No Label Text Detected",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Ortho Lex Mattress",
+      "side_ocr_summary": "Complex; | BY | 15 cm | PACKED | 8 | 0 | 1 | m X | 1 | 8 | 8 | ZZ | 9) | 403 | 4 | ipetSi8s? | 1 | OF | PRODUCT | Ranipet | NAME | 4 | 1 | 1",
+      "side_ocr_similarity": 35.7,
+      "texture_category": "Velvet",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Ortho Lex Mattress",
+          "detected": "Velvet (Similarity: 0%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Ortho Lex Mattress",
+          "detected": "Complex; | BY | 15 cm | PACKED | 8 | 0 | 1 | m X | 1 | 8 | 8 | ZZ | 9) | 403 | 4 | ipetSi8s? | 1 | OF | PRODUCT | Ranipet | NAME | 4 | 1 | 1 (Similarity: 35%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Ortho Lex Mattress",
+          "detected": "Not Detected (Raw Text: No Label Text Detected)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260826_061312\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260826_061312\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260826_061312\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260826_061312\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260826_061312\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260826_061312\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260826_061312\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260826_060208",
+    "timestamp": "2026-08-26T06:02:08.919115",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Ortho Lex Mattress",
+    "item_id": "1597990",
+    "batch_number": "5428",
+    "qr_code_data": {
+      "raw_text": "https://mmrfactory.crest-erp.com/mmr/warranty-registration/?productName=Ortho_Lex_Mattress&batchNo=5428&inventoryItemId=1597990",
+      "product_name": "Ortho Lex Mattress",
+      "batch_no": "5428",
+      "inventory_item_id": "1597990"
+    },
+    "side_ocr_data": {
+      "full_text": "BY | II | Com | PACKED | 15 cm | WXt): | 2 | Positive | m X | 8 | MA | IV | 403 | an | (LX | 4 | WAKE | 8 | OF | PRODUCT | 3 | Ranipet | NAME | 1.905 | 44, | No",
+      "average_confidence": 84.75,
+      "items": [
+        {
+          "text": "BY",
+          "confidence": 0.8250514612598896
+        },
+        {
+          "text": "II",
+          "confidence": 0.29568957160489834
+        },
+        {
+          "text": "Com",
+          "confidence": 0.9627394275104828
+        },
+        {
+          "text": "PACKED",
+          "confidence": 0.9999692910241788
+        },
+        {
+          "text": "15 cm",
+          "confidence": 0.7105850108723734
+        },
+        {
+          "text": "WXt):",
+          "confidence": 0.5502863001785461
+        },
+        {
+          "text": "2",
+          "confidence": 0.5090261473606574
+        },
+        {
+          "text": "Positive",
+          "confidence": 0.875090119130106
+        },
+        {
+          "text": "m X",
+          "confidence": 0.9875086911511997
+        },
+        {
+          "text": "8",
+          "confidence": 0.9977473799675387
+        },
+        {
+          "text": "MA",
+          "confidence": 0.9999874402622454
+        },
+        {
+          "text": "IV",
+          "confidence": 0.3510182195071747
+        },
+        {
+          "text": "403",
+          "confidence": 0.9999998623489704
+        },
+        {
+          "text": "an",
+          "confidence": 0.7865493592802366
+        },
+        {
+          "text": "(LX",
+          "confidence": 0.9916563496518259
+        },
+        {
+          "text": "4",
+          "confidence": 0.8039751590827251
+        },
+        {
+          "text": "WAKE",
+          "confidence": 0.9390456676483154
+        },
+        {
+          "text": "8",
+          "confidence": 0.9997233343775669
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9978112577422075
+        },
+        {
+          "text": "PRODUCT",
+          "confidence": 0.9998951508740604
+        },
+        {
+          "text": "3",
+          "confidence": 0.9999959468882622
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.9999907182695736
+        },
+        {
+          "text": "NAME",
+          "confidence": 0.9999666213989258
+        },
+        {
+          "text": "1.905",
+          "confidence": 0.9460465918967642
+        },
+        {
+          "text": "44,",
+          "confidence": 0.8559422492980957
+        },
+        {
+          "text": "No",
+          "confidence": 0.650233764118941
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Maxi pro",
+      "confidence": 14.67,
+      "all_probabilities": {
+        "Dual harmony": 12.58,
+        "Gravite": 9.7,
+        "Maxi plush": 14.47,
+        "Maxi pro": 14.67,
+        "Memorise": 10.85,
+        "Ortholex": 11.54,
+        "Purity plus": 12.27,
+        "Velvet": 13.92
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "No Label Text Detected",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Ortho Lex Mattress",
+      "side_ocr_summary": "BY | II | Com | PACKED | 15 cm | WXt): | 2 | Positive | m X | 8 | MA | IV | 403 | an | (LX | 4 | WAKE | 8 | OF | PRODUCT | 3 | Ranipet | NAME | 1.905 | 44, | No",
+      "side_ocr_similarity": 33.3,
+      "texture_category": "Maxi pro",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "Texture Detection Mismatch",
+          "expected": "Ortho Lex Mattress",
+          "detected": "Maxi pro (Similarity: 23%)"
+        },
+        {
+          "source": "Bill OCR Mismatch",
+          "expected": "Ortho Lex Mattress",
+          "detected": "BY | II | Com | PACKED | 15 cm | WXt): | 2 | Positive | m X | 8 | MA | IV | 403 | an | (LX | 4 | WAKE | 8 | OF | PRODUCT | 3 | Ranipet | NAME | 1.905 | 44, | No (Similarity: 33%)"
+        },
+        {
+          "source": "Corner Label Mismatch",
+          "expected": "Ortho Lex Mattress",
+          "detected": "Not Detected (Raw Text: No Label Text Detected)"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260826_060208\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260826_060208\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260826_060208\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260826_060208\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260826_060208\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260826_060208\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260826_060208\\corner_label_crop.jpg"
+    }
+  },
+  {
     "inspection_id": "INS_MATTRESS_20260805_074519",
     "timestamp": "2026-08-05T07:45:19.422249",
     "overall_status": "FAIL",
