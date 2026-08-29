@@ -11,6 +11,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let allRecords = [];
 
+    // Camera Function Dropdowns & Real-time Live Stream Re-binding
+    const functionSelects = document.querySelectorAll('.feed-function-select');
+
+    async function syncFeedConfig() {
+        try {
+            const res = await fetch('/api/config/camera_functions');
+            const feedConfig = await res.json();
+            for (const [feedId, func] of Object.entries(feedConfig)) {
+                const selectEl = document.querySelector(`.feed-function-select[data-feed="${feedId}"]`);
+                if (selectEl) {
+                    selectEl.value = func;
+                }
+            }
+        } catch (err) {
+            console.error('Failed to sync feed config:', err);
+        }
+    }
+    syncFeedConfig();
+
+    functionSelects.forEach(select => {
+        select.addEventListener('change', async (e) => {
+            const feedId = e.target.getAttribute('data-feed');
+            const selectedFunction = e.target.value;
+
+            try {
+                const res = await fetch('/api/config/camera_functions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ feed_id: feedId, function: selectedFunction })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    const img = document.getElementById(`img-${feedId.replace('_', '-')}`);
+                    if (img) {
+                        const baseUrl = img.src.split('?')[0];
+                        img.src = `${baseUrl}?t=${Date.now()}`;
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to update feed function:', err);
+            }
+        });
+    });
+
     // Check 3 Camera Connection Statuses
     async function checkCameraStatus() {
         try {

@@ -1,5 +1,180 @@
 [
   {
+    "inspection_id": "INS_MATTRESS_20260829_162504",
+    "timestamp": "2026-08-29T16:25:04.093681",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Not Detected",
+    "item_id": "N/A",
+    "batch_number": "N/A",
+    "qr_code_data": {
+      "raw_text": "",
+      "product_name": "Not Detected",
+      "batch_no": "N/A",
+      "inventory_item_id": "N/A"
+    },
+    "side_ocr_data": {
+      "full_text": "1 | 1 | 1 | 1 | 4 | 1 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 3 | 1 | 1 | 1",
+      "average_confidence": 61.81,
+      "items": [
+        {
+          "text": "1",
+          "confidence": 0.747764364969953
+        },
+        {
+          "text": "1",
+          "confidence": 0.9117853404152356
+        },
+        {
+          "text": "1",
+          "confidence": 0.30103176372017515
+        },
+        {
+          "text": "1",
+          "confidence": 0.975846583189707
+        },
+        {
+          "text": "4",
+          "confidence": 0.4975823347219297
+        },
+        {
+          "text": "1",
+          "confidence": 0.5593211687662212
+        },
+        {
+          "text": "0",
+          "confidence": 0.9731657173968564
+        },
+        {
+          "text": "1",
+          "confidence": 0.27942064581566584
+        },
+        {
+          "text": "1",
+          "confidence": 0.30323419720303946
+        },
+        {
+          "text": "1",
+          "confidence": 0.29672233949870375
+        },
+        {
+          "text": "1",
+          "confidence": 0.8723363211730693
+        },
+        {
+          "text": "1",
+          "confidence": 0.8933807793849589
+        },
+        {
+          "text": "1",
+          "confidence": 0.8833083359164107
+        },
+        {
+          "text": "1",
+          "confidence": 0.7383916028835671
+        },
+        {
+          "text": "1",
+          "confidence": 0.5858116007644334
+        },
+        {
+          "text": "1",
+          "confidence": 0.5713655649083762
+        },
+        {
+          "text": "1",
+          "confidence": 0.31198449484328705
+        },
+        {
+          "text": "3",
+          "confidence": 0.354184075911931
+        },
+        {
+          "text": "1",
+          "confidence": 0.45028338047251254
+        },
+        {
+          "text": "1",
+          "confidence": 0.7222647763048826
+        },
+        {
+          "text": "1",
+          "confidence": 0.7506683832652925
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Maxi plush",
+      "confidence": 20.93,
+      "all_probabilities": {
+        "Dual harmony": 11.84,
+        "Gravite": 8.47,
+        "Maxi plush": 20.93,
+        "Maxi pro": 11.34,
+        "Memorise": 11.42,
+        "Ortholex": 13.48,
+        "Purity plus": 9.41,
+        "Velvet": 13.1
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "No Label Text Detected",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Not Detected",
+      "side_ocr_summary": "1 | 1 | 1 | 1 | 4 | 1 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 3 | 1 | 1 | 1",
+      "side_ocr_similarity": 13.3,
+      "texture_category": "Maxi plush",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "QR Code Mismatch",
+          "expected": "Valid Product QR",
+          "detected": "Unreadable / Missing QR"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260829_162504\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260829_162504\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260829_162504\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260829_162504\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260829_162504\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260829_162504\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260829_162504\\corner_label_crop.jpg"
+    }
+  },
+  {
     "inspection_id": "INS_MATTRESS_20260805_074519",
     "timestamp": "2026-08-05T07:45:19.422249",
     "overall_status": "FAIL",

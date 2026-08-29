@@ -7,7 +7,7 @@ from flask import Flask, render_template, Response, jsonify, send_from_directory
 from config import RESULTS_DIR, BASE_DIR
 from camera_manager import init_cameras, qr_cam_stream, bill_cam_stream, top_cam_stream
 from qr_module import scan_qr, parse_qr_payload, draw_qr_overlay, detect_qr_presence
-from ocr_module import process_bill_ocr, detect_ocr_presence_fast
+from ocr_module import process_bill_ocr, detect_ocr_presence_fast      
 from texture_module import predict_texture
 from top_camera_module import process_top_camera, detect_and_crop_corner_label
 from verification_engine import verify_full_inspection
@@ -19,55 +19,64 @@ app = Flask(__name__, template_folder="templates", static_folder="static")
 init_cameras()
 
 
-def generate_qr_feed():
-    """MJPEG Generator for Camera 1 (QR Scanner) with live aiming box."""
-    while True:
-        frame = qr_cam_stream.read_frame()
-        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+# Global Camera Feed to Inspection Function Mapping
+FEED_CONFIG = {
+    "feed_1": "qr",
+    "feed_2": "bill",
+    "feed_3": "top"
+}
 
-        for pts in detect_qr_presence(gray):
-            for i in range(4):
-                cv2.line(frame, tuple(pts[i]), tuple(pts[(i + 1) % 4]), (0, 255, 255), 2)
-            cv2.putText(frame, "QR Detected - Click Process", (pts[0][0], max(20, pts[0][1] - 8)),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+FEED_STREAMS = {
+    "feed_1": qr_cam_stream,
+    "feed_2": bill_cam_stream,
+    "feed_3": top_cam_stream
+}
+
+
+def generate_feed(feed_id):
+    """Dynamic MJPEG Generator for camera feed based on active algorithm in FEED_CONFIG."""
+    stream = FEED_STREAMS.get(feed_id, qr_cam_stream)
+    while True:
+        frame = stream.read_frame()
+        func = FEED_CONFIG.get(feed_id, "disabled")
+
+        if func == "qr":
+            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+            for pts in detect_qr_presence(gray):
+                for i in range(4):
+                    cv2.line(frame, tuple(pts[i]), tuple(pts[(i + 1) % 4]), (0, 255, 255), 2)
+                cv2.putText(frame, "QR Detected - Click Process", (pts[0][0], max(20, pts[0][1] - 8)),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+        elif func == "bill":
+            boxes = detect_ocr_presence_fast(frame)
+            if boxes:
+                for (bx, by, bw, bh) in boxes[:5]:
+                    cv2.rectangle(frame, (bx, by), (bx + bw, by + bh), (0, 255, 255), 2)
+                cv2.putText(frame, f"Bill OCR Region ({len(boxes)} detected)", (20, 35),
+                            cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
+        elif func == "top":
+            _, (xmin, ymin, xmax, ymax) = detect_and_crop_corner_label(frame)
+            cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 255, 255), 2)
+            cv2.putText(frame, "Corner Label Region", (xmin, max(25, ymin - 8)),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
+        elif func == "disabled":
+            cv2.putText(frame, "Feed Disabled", (40, 360),
+                        cv2.FONT_HERSHEY_SIMPLEX, 0.9, (128, 128, 128), 2)
 
         ret, buffer = cv2.imencode('.jpg', frame, [int(cv2.IMWRITE_JPEG_QUALITY), 80])
         if ret:
             yield (b'--frame\r\n'
                    b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
 
+
+def generate_qr_feed():
+    yield from generate_feed("feed_1")
 
 def generate_bill_feed():
-    """MJPEG Generator for Camera 2 (Side Bill OCR & Texture) with live text region detection."""
-    while True:
-        frame = bill_cam_stream.read_frame()
-        boxes = detect_ocr_presence_fast(frame)
-        if boxes:
-            for (bx, by, bw, bh) in boxes[:5]:
-                cv2.rectangle(frame, (bx, by), (bx + bw, by + bh), (0, 255, 255), 2)
-            cv2.putText(frame, f"Bill OCR Region ({len(boxes)} detected)", (20, 35),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
-
-        ret, buffer = cv2.imencode('.jpg', frame, [int(cv2.IMWRITE_JPEG_QUALITY), 80])
-        if ret:
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
-
+    yield from generate_feed("feed_2")
 
 def generate_top_feed():
-    """MJPEG Generator for Camera 3 (Top Camera Dimensions & Corner Label) with live label region box."""
-    while True:
-        frame = top_cam_stream.read_frame()
-        _, (xmin, ymin, xmax, ymax) = detect_and_crop_corner_label(frame)
-        cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 255, 255), 2)
-        cv2.putText(frame, "Corner Label Region", (xmin, max(25, ymin - 8)),
-                    cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
-
-        ret, buffer = cv2.imencode('.jpg', frame, [int(cv2.IMWRITE_JPEG_QUALITY), 80])
-        if ret:
-            yield (b'--frame\r\n'
-                   b'Content-Type: image/jpeg\r\n\r\n' + buffer.tobytes() + b'\r\n')
-
+    yield from generate_feed("feed_3")
 
 
 @app.route('/')
@@ -75,19 +84,38 @@ def index():
     return render_template('index.html')
 
 
+@app.route('/video_feed/<feed_id>')
+def video_feed(feed_id):
+    return Response(generate_feed(feed_id), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
 @app.route('/video_feed/qr')
 def video_feed_qr():
-    return Response(generate_qr_feed(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(generate_feed("feed_1"), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.route('/video_feed/bill')
 def video_feed_bill():
-    return Response(generate_bill_feed(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(generate_feed("feed_2"), mimetype='multipart/x-mixed-replace; boundary=frame')
 
 
 @app.route('/video_feed/top')
 def video_feed_top():
-    return Response(generate_top_feed(), mimetype='multipart/x-mixed-replace; boundary=frame')
+    return Response(generate_feed("feed_3"), mimetype='multipart/x-mixed-replace; boundary=frame')
+
+
+@app.route('/api/config/camera_functions', methods=['GET', 'POST'])
+def camera_functions_config():
+    if request.method == 'POST':
+        data = request.get_json(silent=True) or {}
+        if "feed_id" in data and "function" in data:
+            FEED_CONFIG[data["feed_id"]] = data["function"]
+        elif isinstance(data, dict):
+            for k, v in data.items():
+                if k in FEED_CONFIG:
+                    FEED_CONFIG[k] = v
+        return jsonify({"success": True, "feed_config": FEED_CONFIG})
+    return jsonify(FEED_CONFIG)
 
 
 @app.route('/api/camera_status')
@@ -109,10 +137,14 @@ def process_inspection():
     - Evaluates 4-way identity verification + dimension tolerance checks
     - Saves DB record and image archives.
     """
-    # 1. Simultaneous Capture
-    raw_qr_frame = qr_cam_stream.read_frame()
-    raw_bill_frame = bill_cam_stream.read_frame()
-    raw_top_frame = top_cam_stream.read_frame()
+    # 1. Simultaneous Dynamic Frame Capture based on FEED_CONFIG
+    qr_feed_id = next((k for k, v in FEED_CONFIG.items() if v == "qr"), "feed_1")
+    bill_feed_id = next((k for k, v in FEED_CONFIG.items() if v == "bill"), "feed_2")
+    top_feed_id = next((k for k, v in FEED_CONFIG.items() if v == "top"), "feed_3")
+
+    raw_qr_frame = FEED_STREAMS.get(qr_feed_id, qr_cam_stream).read_frame()
+    raw_bill_frame = FEED_STREAMS.get(bill_feed_id, bill_cam_stream).read_frame()
+    raw_top_frame = FEED_STREAMS.get(top_feed_id, top_cam_stream).read_frame()
 
     annotated_qr_frame = raw_qr_frame.copy()
 

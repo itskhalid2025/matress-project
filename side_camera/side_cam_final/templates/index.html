@@ -34,42 +34,66 @@
             <!-- Left & Middle Column: 3 Live Camera Feeds -->
             <section class="feeds-section">
                 <div class="feeds-grid-3">
-                    <div class="feed-card">
+                    <div class="feed-card" id="card-feed-1">
                         <div class="card-header">
                             <div class="header-title">
                                 <svg class="icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M3 3h8v8H3V3zm2 2v4h4V5H5zm8-2h8v8h-8V3zm2 2v4h4V5h-4zM3 13h8v8H3v-8zm2 2v4h4v-4H5zm13-2h3v2h-3v-2zm-3 3h3v3h-3v-3zm3 3h3v3h-3v-3zm-3-3h-3v-2h3v2zm0 3h-3v3h-3v-3h3v-2h3v2z"/></svg>
-                                <span>Camera 1: QR Scanner</span>
+                                <span>Camera Feed 1</span>
                             </div>
-                            <span class="live-tag">LIVE</span>
+                            <div class="header-controls">
+                                <select class="feed-function-select" data-feed="feed_1" id="select-feed-1">
+                                    <option value="qr" selected>QR Scanner</option>
+                                    <option value="bill">Side Bill & Texture AI</option>
+                                    <option value="top">Top Dims & Corner Label</option>
+                                    <option value="disabled">Disabled</option>
+                                </select>
+                                <span class="live-tag">LIVE</span>
+                            </div>
                         </div>
                         <div class="feed-wrapper">
-                            <img src="{{ url_for('video_feed_qr') }}" alt="Camera 1 Stream" class="video-feed">
+                            <img src="{{ url_for('video_feed', feed_id='feed_1') }}" alt="Camera 1 Stream" class="video-feed" id="img-feed-1">
                         </div>
                     </div>
 
-                    <div class="feed-card">
+                    <div class="feed-card" id="card-feed-2">
                         <div class="card-header">
                             <div class="header-title">
                                 <svg class="icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z"/></svg>
-                                <span>Camera 2: Side Bill & Texture AI</span>
+                                <span>Camera Feed 2</span>
                             </div>
-                            <span class="live-tag">LIVE</span>
+                            <div class="header-controls">
+                                <select class="feed-function-select" data-feed="feed_2" id="select-feed-2">
+                                    <option value="qr">QR Scanner</option>
+                                    <option value="bill" selected>Side Bill & Texture AI</option>
+                                    <option value="top">Top Dims & Corner Label</option>
+                                    <option value="disabled">Disabled</option>
+                                </select>
+                                <span class="live-tag">LIVE</span>
+                            </div>
                         </div>
                         <div class="feed-wrapper">
-                            <img src="{{ url_for('video_feed_bill') }}" alt="Camera 2 Stream" class="video-feed">
+                            <img src="{{ url_for('video_feed', feed_id='feed_2') }}" alt="Camera 2 Stream" class="video-feed" id="img-feed-2">
                         </div>
                     </div>
 
-                    <div class="feed-card">
+                    <div class="feed-card" id="card-feed-3">
                         <div class="card-header">
                             <div class="header-title">
                                 <svg class="icon" viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
-                                <span>Camera 3: Top Dimensions & Corner Label</span>
+                                <span>Camera Feed 3</span>
                             </div>
-                            <span class="live-tag">LIVE</span>
+                            <div class="header-controls">
+                                <select class="feed-function-select" data-feed="feed_3" id="select-feed-3">
+                                    <option value="qr">QR Scanner</option>
+                                    <option value="bill">Side Bill & Texture AI</option>
+                                    <option value="top" selected>Top Dims & Corner Label</option>
+                                    <option value="disabled">Disabled</option>
+                                </select>
+                                <span class="live-tag">LIVE</span>
+                            </div>
                         </div>
                         <div class="feed-wrapper">
-                            <img src="{{ url_for('video_feed_top') }}" alt="Camera 3 Stream" class="video-feed">
+                            <img src="{{ url_for('video_feed', feed_id='feed_3') }}" alt="Camera 3 Stream" class="video-feed" id="img-feed-3">
                         </div>
                     </div>
                 </div>
