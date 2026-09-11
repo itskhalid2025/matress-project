@@ -7,28 +7,45 @@ from config import CAMERA_QR_INDEX, CAMERA_BILL_TEXTURE_INDEX, CAMERA_TOP_INDEX,
 
 
 class CameraStream:
-    def __init__(self, source, label="Camera"):
+    def __init__(self, source, label="Camera", fallback_source=None):
         self.source = source
+        self.fallback_source = fallback_source
         self.label = label
         self.cap = None
         self.running = False
         self.lock = threading.Lock()
         self.current_frame = None
 
-    def start(self):
-        backend = cv2.CAP_DSHOW if (platform.system() == "Windows" and isinstance(self.source, int)) else cv2.CAP_V4L2
-        if isinstance(self.source, str) and self.source.startswith("rtsp"):
+    def _try_open(self, src):
+        if src is None:
+            return None
+        backend = cv2.CAP_DSHOW if (platform.system() == "Windows" and isinstance(src, int)) else cv2.CAP_V4L2
+        if isinstance(src, str) and src.startswith("rtsp"):
             backend = cv2.CAP_FFMPEG
 
-        self.cap = cv2.VideoCapture(self.source, backend)
+        cap = cv2.VideoCapture(src, backend)
+        if cap.isOpened():
+            if isinstance(src, int):
+                cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
+                cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
+                cap.set(cv2.CAP_PROP_AUTOFOCUS, 1)
+            ret, frame = cap.read()
+            if ret and frame is not None and frame.size > 0:
+                return cap
+            cap.release()
+        return None
 
-        if self.cap.isOpened():
-            if isinstance(self.source, int):
-                self.cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1280)
-                self.cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 720)
-                self.cap.set(cv2.CAP_PROP_AUTOFOCUS, 1)
+    def start(self):
+        self.cap = self._try_open(self.source)
+        active_src = self.source
+        if not self.cap and self.fallback_source is not None:
+            print(f"[INFO] Primary source '{self.source}' failed for {self.label}, trying fallback source: '{self.fallback_source}'...")
+            self.cap = self._try_open(self.fallback_source)
+            active_src = self.fallback_source
+
+        if self.cap and self.cap.isOpened():
             self.running = True
-            print(f"[INFO] Started {self.label} on Source: {self.source}")
+            print(f"[INFO] Started {self.label} on Source: {active_src}")
         else:
             print(f"[WARN] Could not open {self.label} on Source {self.source}. Using synthetic placeholder.")
             self.running = False
@@ -75,7 +92,7 @@ class CameraStream:
 # 3-Camera Manager Instances
 qr_cam_stream = CameraStream(CAMERA_QR_INDEX, "Camera 1 (QR Scanner)")
 bill_cam_stream = CameraStream(CAMERA_BILL_TEXTURE_INDEX, "Camera 2 (Side Bill OCR & Texture)")
-top_cam_stream = CameraStream(DEFAULT_RTSP, "Camera 3 (Top Camera Dimensions & Corner Label)")
+top_cam_stream = CameraStream(CAMERA_TOP_INDEX, "Camera 3 (Top Camera Dimensions & Corner Label)", fallback_source=DEFAULT_RTSP)
 
 
 def init_cameras():
