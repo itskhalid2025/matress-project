@@ -1,5 +1,397 @@
 [
   {
+    "inspection_id": "INS_MATTRESS_20260915_113507",
+    "timestamp": "2026-09-15T11:35:07.862885",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "FAIL",
+    "product_variety": "Not Detected",
+    "item_id": "N/A",
+    "batch_number": "N/A",
+    "qr_code_data": {
+      "raw_text": "",
+      "product_name": "Not Detected",
+      "batch_no": "N/A",
+      "inventory_item_id": "N/A"
+    },
+    "side_ocr_data": {
+      "full_text": "Camera | 2 (Side Bill OCR & Texture) (1) | Disconnected | Simulation | Time: | 11.35.07",
+      "average_confidence": 84.81,
+      "parsed_fields": {
+        "variety": "Not Detected",
+        "metric_dimension": "Not Detected",
+        "inches_code": "Not Detected",
+        "price_mrp": "Not Detected",
+        "match_confidence": 0.0,
+        "dual_unit_validation": {
+          "valid": true,
+          "notes": "Single format present"
+        }
+      },
+      "items": [
+        {
+          "text": "Camera",
+          "confidence": 0.7762136734091488
+        },
+        {
+          "text": "2 (Side Bill OCR & Texture) (1)",
+          "confidence": 0.9213750076238417
+        },
+        {
+          "text": "Disconnected",
+          "confidence": 0.6967994336463266
+        },
+        {
+          "text": "Simulation",
+          "confidence": 0.9998791382522597
+        },
+        {
+          "text": "Time:",
+          "confidence": 0.9962493616750635
+        },
+        {
+          "text": "11.35.07",
+          "confidence": 0.6980082917102329
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Gravite",
+      "confidence": 14.08,
+      "all_probabilities": {
+        "Dual harmony": 10.57,
+        "Gravite": 14.08,
+        "Maxi plush": 11.94,
+        "Maxi pro": 13.84,
+        "Memorise": 12.55,
+        "Ortholex": 12.94,
+        "Purity plus": 11.46,
+        "Velvet": 12.61
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 311.0,
+        "width_cm": 184.1,
+        "thickness_cm": 22.1
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "No Label Text Detected",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "FAIL",
+      "qr_product": "Not Detected",
+      "side_ocr_summary": "Camera | 2 (Side Bill OCR & Texture) (1) | Disconnected | Simulation | Time: | 11.35.07",
+      "side_ocr_similarity": 53.8,
+      "texture_category": "Gravite",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 311.0,
+        "width_cm": 184.1,
+        "thickness_cm": 22.1
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "QR Code Mismatch",
+          "expected": "Valid Product QR",
+          "detected": "Unreadable / Missing QR"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260915_113507\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260915_113507\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260915_113507\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260915_113507\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260915_113507\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260915_113507\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260915_113507\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260915_113357",
+    "timestamp": "2026-09-15T11:33:57.585877",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Not Detected",
+    "item_id": "N/A",
+    "batch_number": "N/A",
+    "qr_code_data": {
+      "raw_text": "",
+      "product_name": "Not Detected",
+      "batch_no": "N/A",
+      "inventory_item_id": "N/A"
+    },
+    "side_ocr_data": {
+      "full_text": "mn | Foam | Wake | Pobitive | MANUFACTURED & PACKED BY | MM RUBBER COMPANY LTD, | No_ | Sipcot Industrial Complex, | Ranipet | 632 403 | NAME OF THE COMMODITY: | GRAVITE MATTRESS | VARIETY: | GRAVITE | 44, | Dimension (LXWXT): | 1.905 m X1.524 m X 12.5 cm | PRODUCT CODE: | 75X60X5 | NET CONTENT | MONTH AND YEAR | OF | MANUFACTURING | JUNE 2026 | MRP: | Rs.18400.00 | (Inel: | MARKETED | MM | RUBBER | 'Janpriya Cru | 113,Pantheo | Chernai | 60( | PH;+91 7669 | 48 | above: | Customor care | re@mmfoam | In; | addroze",
+      "average_confidence": 77.4,
+      "parsed_fields": {
+        "variety": "Gravite",
+        "metric_dimension": "1.905 m X1.524 m X 12.5 cm",
+        "inches_code": "75X60X5",
+        "price_mrp": "Rs. 18400.00",
+        "match_confidence": 100.0,
+        "dual_unit_validation": {
+          "valid": true,
+          "notes": "Validated: 75.0\"x60.0\" (1.905m x 1.524m) matches metric read"
+        }
+      },
+      "items": [
+        {
+          "text": "mn",
+          "confidence": 0.8487419888370367
+        },
+        {
+          "text": "Foam",
+          "confidence": 0.563317596912384
+        },
+        {
+          "text": "Wake",
+          "confidence": 0.34440693259239197
+        },
+        {
+          "text": "Pobitive",
+          "confidence": 0.6096123815770708
+        },
+        {
+          "text": "MANUFACTURED & PACKED BY",
+          "confidence": 0.8310508438221673
+        },
+        {
+          "text": "MM RUBBER COMPANY LTD,",
+          "confidence": 0.6811401575839842
+        },
+        {
+          "text": "No_",
+          "confidence": 0.9992552762602451
+        },
+        {
+          "text": "Sipcot Industrial Complex,",
+          "confidence": 0.8665237443941866
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.9945581390401987
+        },
+        {
+          "text": "632 403",
+          "confidence": 0.5012908776526028
+        },
+        {
+          "text": "NAME OF THE COMMODITY:",
+          "confidence": 0.9905383453223192
+        },
+        {
+          "text": "GRAVITE MATTRESS",
+          "confidence": 0.997615575490902
+        },
+        {
+          "text": "VARIETY:",
+          "confidence": 0.9936978488410078
+        },
+        {
+          "text": "GRAVITE",
+          "confidence": 0.9997683539357365
+        },
+        {
+          "text": "44,",
+          "confidence": 0.9982027005492163
+        },
+        {
+          "text": "Dimension (LXWXT):",
+          "confidence": 0.9857719080761226
+        },
+        {
+          "text": "1.905 m X1.524 m X 12.5 cm",
+          "confidence": 0.8281552534082576
+        },
+        {
+          "text": "PRODUCT CODE:",
+          "confidence": 0.994939829511503
+        },
+        {
+          "text": "75X60X5",
+          "confidence": 0.6407686728368169
+        },
+        {
+          "text": "NET CONTENT",
+          "confidence": 0.9444168983797476
+        },
+        {
+          "text": "MONTH AND YEAR",
+          "confidence": 0.8323038576941674
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9982001300058625
+        },
+        {
+          "text": "MANUFACTURING",
+          "confidence": 0.8303411833115482
+        },
+        {
+          "text": "JUNE 2026",
+          "confidence": 0.9998482408165438
+        },
+        {
+          "text": "MRP:",
+          "confidence": 0.9997863173484802
+        },
+        {
+          "text": "Rs.18400.00",
+          "confidence": 0.6621654457373166
+        },
+        {
+          "text": "(Inel:",
+          "confidence": 0.3290407402687589
+        },
+        {
+          "text": "MARKETED",
+          "confidence": 0.9999611402929234
+        },
+        {
+          "text": "MM",
+          "confidence": 0.9991821119627653
+        },
+        {
+          "text": "RUBBER",
+          "confidence": 0.6841263967022634
+        },
+        {
+          "text": "'Janpriya Cru",
+          "confidence": 0.5547322725752099
+        },
+        {
+          "text": "113,Pantheo",
+          "confidence": 0.9995527319259174
+        },
+        {
+          "text": "Chernai",
+          "confidence": 0.9195808004115856
+        },
+        {
+          "text": "60(",
+          "confidence": 0.9316191777553556
+        },
+        {
+          "text": "PH;+91 7669",
+          "confidence": 0.5723319081222464
+        },
+        {
+          "text": "48",
+          "confidence": 0.5893201667095603
+        },
+        {
+          "text": "above:",
+          "confidence": 0.5590543136834508
+        },
+        {
+          "text": "Customor care",
+          "confidence": 0.4369204205011759
+        },
+        {
+          "text": "re@mmfoam",
+          "confidence": 0.5064542585986435
+        },
+        {
+          "text": "In;",
+          "confidence": 0.44308885996893344
+        },
+        {
+          "text": "addroze",
+          "confidence": 0.27217789016577765
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Maxi plush",
+      "confidence": 13.9,
+      "all_probabilities": {
+        "Dual harmony": 10.78,
+        "Gravite": 12.9,
+        "Maxi plush": 13.9,
+        "Maxi pro": 13.75,
+        "Memorise": 12.95,
+        "Ortholex": 11.26,
+        "Purity plus": 13.24,
+        "Velvet": 11.23
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "No Label Text Detected",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Not Detected",
+      "side_ocr_summary": "mn | Foam | Wake | Pobitive | MANUFACTURED & PACKED BY | MM RUBBER COMPANY LTD, | No_ | Sipcot Industrial Complex, | Ranipet | 632 403 | NAME OF THE COMMODITY: | GRAVITE MATTRESS | VARIETY: | GRAVITE | 44, | Dimension (LXWXT): | 1.905 m X1.524 m X 12.5 cm | PRODUCT CODE: | 75X60X5 | NET CONTENT | MONTH AND YEAR | OF | MANUFACTURING | JUNE 2026 | MRP: | Rs.18400.00 | (Inel: | MARKETED | MM | RUBBER | 'Janpriya Cru | 113,Pantheo | Chernai | 60( | PH;+91 7669 | 48 | above: | Customor care | re@mmfoam | In; | addroze",
+      "side_ocr_similarity": 21.1,
+      "texture_category": "Maxi plush",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "QR Code Mismatch",
+          "expected": "Valid Product QR",
+          "detected": "Unreadable / Missing QR"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260915_113357\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260915_113357\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260915_113357\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260915_113357\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260915_113357\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260915_113357\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260915_113357\\corner_label_crop.jpg"
+    }
+  },
+  {
     "inspection_id": "INS_MATTRESS_20260915_111835",
     "timestamp": "2026-09-15T11:18:35.432233",
     "overall_status": "FAIL",
