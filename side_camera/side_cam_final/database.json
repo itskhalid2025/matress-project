@@ -1,5 +1,271 @@
 [
   {
+    "inspection_id": "INS_MATTRESS_20260915_111835",
+    "timestamp": "2026-09-15T11:18:35.432233",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Not Detected",
+    "item_id": "N/A",
+    "batch_number": "N/A",
+    "qr_code_data": {
+      "raw_text": "",
+      "product_name": "Not Detected",
+      "batch_no": "N/A",
+      "inventory_item_id": "N/A"
+    },
+    "side_ocr_data": {
+      "full_text": "AME | mm | FoAM | ARIE | MAS | MANUFACTURED | & PACKED BY | RUBBER COMPANY LTD; | ner | MM | Industrial Complex, | 905 | No. 44 , Sipcot | Ranipet | 632 403 | OF THE COMMODITY: | NGRACFTEMATTRESS | JNT | VAEVTE | \"P= | X1.524 m | PRODUCT CODE: | 75x60x5 | NET | CONTENT | OF | 00 | Rs | Quove | GRA | 1905 | YEAR | AND | MONTH | MANUFACTURING | 2026 | JUNE | 18400, | MRP: | MM | cuni",
+      "average_confidence": 77.38,
+      "parsed_fields": {
+        "variety": "Velvet",
+        "metric_dimension": "Not Detected",
+        "inches_code": "75x60x5",
+        "price_mrp": "Not Detected",
+        "match_confidence": 66.7,
+        "dual_unit_validation": {
+          "valid": true,
+          "notes": "Single format present"
+        }
+      },
+      "items": [
+        {
+          "text": "AME",
+          "confidence": 0.29025813873039863
+        },
+        {
+          "text": "mm",
+          "confidence": 0.9997901151462144
+        },
+        {
+          "text": "FoAM",
+          "confidence": 0.4992055296897888
+        },
+        {
+          "text": "ARIE",
+          "confidence": 0.30550610680851603
+        },
+        {
+          "text": "MAS",
+          "confidence": 0.30172185638748406
+        },
+        {
+          "text": "MANUFACTURED",
+          "confidence": 0.9998400745532863
+        },
+        {
+          "text": "& PACKED BY",
+          "confidence": 0.7612366582152488
+        },
+        {
+          "text": "RUBBER COMPANY LTD;",
+          "confidence": 0.7018275081521225
+        },
+        {
+          "text": "ner",
+          "confidence": 0.9959654391426673
+        },
+        {
+          "text": "MM",
+          "confidence": 0.9992383228492207
+        },
+        {
+          "text": "Industrial Complex,",
+          "confidence": 0.9144851012442373
+        },
+        {
+          "text": "905",
+          "confidence": 0.9860620129037474
+        },
+        {
+          "text": "No. 44 , Sipcot",
+          "confidence": 0.6307160300270971
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.9947785478377983
+        },
+        {
+          "text": "632 403",
+          "confidence": 0.8789123140231635
+        },
+        {
+          "text": "OF THE COMMODITY:",
+          "confidence": 0.8761901679643959
+        },
+        {
+          "text": "NGRACFTEMATTRESS",
+          "confidence": 0.5975428953694354
+        },
+        {
+          "text": "JNT",
+          "confidence": 0.6852388565172708
+        },
+        {
+          "text": "VAEVTE",
+          "confidence": 0.45046046211924684
+        },
+        {
+          "text": "\"P=",
+          "confidence": 0.302456223392507
+        },
+        {
+          "text": "X1.524 m",
+          "confidence": 0.9725322005191047
+        },
+        {
+          "text": "PRODUCT CODE:",
+          "confidence": 0.684546187062588
+        },
+        {
+          "text": "75x60x5",
+          "confidence": 0.3290652508920016
+        },
+        {
+          "text": "NET",
+          "confidence": 0.9996997891397926
+        },
+        {
+          "text": "CONTENT",
+          "confidence": 0.9974739368731953
+        },
+        {
+          "text": "OF",
+          "confidence": 0.863024015532511
+        },
+        {
+          "text": "00",
+          "confidence": 0.9829446972902631
+        },
+        {
+          "text": "Rs",
+          "confidence": 0.9999639224882906
+        },
+        {
+          "text": "Quove",
+          "confidence": 0.32071355864664797
+        },
+        {
+          "text": "GRA",
+          "confidence": 0.741108775138855
+        },
+        {
+          "text": "1905",
+          "confidence": 0.9621089696884155
+        },
+        {
+          "text": "YEAR",
+          "confidence": 0.9866577386856079
+        },
+        {
+          "text": "AND",
+          "confidence": 0.9999136244779484
+        },
+        {
+          "text": "MONTH",
+          "confidence": 0.9846629553950099
+        },
+        {
+          "text": "MANUFACTURING",
+          "confidence": 0.9943168566168485
+        },
+        {
+          "text": "2026",
+          "confidence": 0.9999796748161316
+        },
+        {
+          "text": "JUNE",
+          "confidence": 0.9988267345299852
+        },
+        {
+          "text": "18400,",
+          "confidence": 0.7130037560268537
+        },
+        {
+          "text": "MRP:",
+          "confidence": 0.5982641577720642
+        },
+        {
+          "text": "MM",
+          "confidence": 0.9996386520457231
+        },
+        {
+          "text": "cuni",
+          "confidence": 0.4258655309677124
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Maxi pro",
+      "confidence": 18.23,
+      "all_probabilities": {
+        "Dual harmony": 8.99,
+        "Gravite": 9.81,
+        "Maxi plush": 13.75,
+        "Maxi pro": 18.23,
+        "Memorise": 12.64,
+        "Ortholex": 10.57,
+        "Purity plus": 16.11,
+        "Velvet": 9.91
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "No Label Text Detected",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Not Detected",
+      "side_ocr_summary": "AME | mm | FoAM | ARIE | MAS | MANUFACTURED | & PACKED BY | RUBBER COMPANY LTD; | ner | MM | Industrial Complex, | 905 | No. 44 , Sipcot | Ranipet | 632 403 | OF THE COMMODITY: | NGRACFTEMATTRESS | JNT | VAEVTE | \"P= | X1.524 m | PRODUCT CODE: | 75x60x5 | NET | CONTENT | OF | 00 | Rs | Quove | GRA | 1905 | YEAR | AND | MONTH | MANUFACTURING | 2026 | JUNE | 18400, | MRP: | MM | cuni",
+      "side_ocr_similarity": 22.2,
+      "texture_category": "Maxi pro",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "QR Code Mismatch",
+          "expected": "Valid Product QR",
+          "detected": "Unreadable / Missing QR"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260915_111835\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260915_111835\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260915_111835\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260915_111835\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260915_111835\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260915_111835\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260915_111835\\corner_label_crop.jpg"
+    }
+  },
+  {
     "inspection_id": "INS_MATTRESS_20260829_162504",
     "timestamp": "2026-08-29T16:25:04.093681",
     "overall_status": "FAIL",

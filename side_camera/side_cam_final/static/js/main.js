@@ -132,8 +132,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('res-qr-itemid').textContent = rec.qr_code_data?.inventory_item_id || 'N/A';
 
         // 2. Side OCR Card
-        document.getElementById('res-ocr-conf').textContent = `${rec.verification_result?.side_ocr_similarity ?? 0}%`;
-        document.getElementById('res-ocr-text').textContent = rec.side_ocr_data?.full_text || 'No Text Extracted';
+        const parsedSide = rec.side_ocr_data?.parsed_fields || {};
+        document.getElementById('res-ocr-variety').textContent = parsedSide.variety || 'Not Detected';
+        document.getElementById('res-ocr-metric').textContent = parsedSide.metric_dimension || 'Not Detected';
+        document.getElementById('res-ocr-inches').textContent = parsedSide.inches_code || 'Not Detected';
+        document.getElementById('res-ocr-price').textContent = parsedSide.price_mrp || 'Not Detected';
 
         // 3. Texture Card
         document.getElementById('res-texture-pred').textContent = rec.texture_data?.predicted_category || 'N/A';
@@ -237,6 +240,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const qr = rec.qr_code_data || {};
         const sideOcr = rec.side_ocr_data || {};
+        const parsedSide = sideOcr.parsed_fields || {};
         const texture = rec.texture_data || {};
 
         const mismatches = rec.verification_result?.mismatches || [];
@@ -311,10 +315,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         <h3>Side Bill OCR</h3>
                     </div>
                     <div class="res-card-body">
-                        <div class="res-row"><label>Similarity Score:</label> <strong>${rec.verification_result?.side_ocr_similarity ?? 0}%</strong></div>
-                        <div class="res-row"><label>Extracted Text:</label> <span class="text-truncate" style="max-width: 140px;">${sideOcr.full_text || 'None'}</span></div>
-                        <div class="res-row"><label>Items Count:</label> <span>${(sideOcr.items || sideOcr.extracted_items || []).length} items</span></div>
-
+                        <div class="res-row"><label>Variety:</label> <strong>${parsedSide.variety || 'Not Detected'}</strong></div>
+                        <div class="res-row"><label>Metric Dims:</label> <span>${parsedSide.metric_dimension || 'Not Detected'}</span></div>
+                        <div class="res-row"><label>Inches Code:</label> <span>${parsedSide.inches_code || 'Not Detected'}</span></div>
+                        <div class="res-row"><label>Price / MRP:</label> <strong style="color: #52c41a;">${parsedSide.price_mrp || 'Not Detected'}</strong></div>
                     </div>
                 </div>
 

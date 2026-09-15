@@ -52,6 +52,7 @@ def save_full_inspection_record(raw_qr_frame, raw_bill_frame, raw_top_frame,
         "side_ocr_data": {
             "full_text": ocr_data.get("full_text", ""),
             "average_confidence": ocr_data.get("avg_confidence", 0.0),
+            "parsed_fields": ocr_data.get("parsed_fields", {}),
             "items": ocr_data.get("extracted_items", [])
         },
         "texture_data": texture_data,

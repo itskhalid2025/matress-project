@@ -74,12 +74,20 @@ def verify_full_inspection(qr_data, side_ocr_data, texture_data, top_data, fuzzy
         })
 
     # 2. QR vs Side Bill OCR
-    side_ocr_score = fuzzy_match_score(norm_qr, norm_side_ocr)
+    parsed_side_fields = side_ocr_data.get("parsed_fields", {})
+    extracted_bill_variety = parsed_side_fields.get("variety", "Not Detected")
+    
+    if extracted_bill_variety != "Not Detected":
+        side_ocr_score = fuzzy_match_score(norm_qr, normalize_string(extracted_bill_variety))
+    else:
+        side_ocr_score = fuzzy_match_score(norm_qr, norm_side_ocr)
+
     if side_ocr_score < fuzzy_threshold and norm_qr not in ("n/a", "not detected"):
+        display_detected = extracted_bill_variety if extracted_bill_variety != "Not Detected" else (side_ocr_text if side_ocr_text else 'No OCR Text Detected')
         mismatches.append({
             "source": "Bill OCR Mismatch",
             "expected": qr_product,
-            "detected": f"{side_ocr_text if side_ocr_text else 'No OCR Text Detected'} (Similarity: {int(side_ocr_score * 100)}%)"
+            "detected": f"{display_detected} (Similarity: {int(side_ocr_score * 100)}%)"
         })
 
     # 3. QR vs Corner Label OCR
