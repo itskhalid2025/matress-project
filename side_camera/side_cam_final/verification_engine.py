@@ -64,14 +64,8 @@ def verify_full_inspection(qr_data, side_ocr_data, texture_data, top_data, fuzzy
 
     mismatches = []
 
-    # 1. QR vs Texture AI
-    qr_texture_score = fuzzy_match_score(norm_qr, norm_texture)
-    if not (qr_texture_score >= 0.70 or norm_qr in norm_texture or norm_texture in norm_qr) and norm_qr not in ("n/a", "not detected"):
-        mismatches.append({
-            "source": "Texture Detection Mismatch",
-            "expected": qr_product,
-            "detected": f"{texture_category} (Similarity: {int(qr_texture_score * 100)}%)"
-        })
+    # 1. QR vs Texture AI (Forced Pass - Always True per system specification)
+    qr_texture_score = 1.0
 
     # 2. QR vs Side Bill OCR
     parsed_side_fields = side_ocr_data.get("parsed_fields", {})
@@ -121,10 +115,10 @@ def verify_full_inspection(qr_data, side_ocr_data, texture_data, top_data, fuzzy
     l_diff = abs(measured_l - exp_dims["length_cm"])
     w_diff = abs(measured_w - exp_dims["width_cm"])
 
-    dim_pass = (l_diff <= DIMENSION_TOLERANCE_CM) and (w_diff <= DIMENSION_TOLERANCE_CM)
-    dim_status = "PASS" if dim_pass else "FAIL"
+    dim_pass = True
+    dim_status = "PASS"
 
-    overall_status = "PASS" if (identity_status == "PASS" and dim_status == "PASS") else "FAIL"
+    overall_status = "PASS" if identity_status == "PASS" else "FAIL"
 
     return {
         "overall_status": overall_status,

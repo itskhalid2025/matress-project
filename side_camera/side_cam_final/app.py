@@ -55,10 +55,7 @@ def generate_feed(feed_id):
                 cv2.putText(frame, f"Bill OCR Region ({len(boxes)} detected)", (20, 35),
                             cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
         elif func == "top":
-            _, (xmin, ymin, xmax, ymax) = detect_and_crop_corner_label(frame)
-            cv2.rectangle(frame, (xmin, ymin), (xmax, ymax), (0, 255, 255), 2)
-            cv2.putText(frame, "Corner Label Region", (xmin, max(25, ymin - 8)),
-                        cv2.FONT_HERSHEY_SIMPLEX, 0.6, (0, 255, 255), 2)
+            pass
         elif func == "disabled":
             cv2.putText(frame, "Feed Disabled", (40, 360),
                         cv2.FONT_HERSHEY_SIMPLEX, 0.9, (128, 128, 128), 2)

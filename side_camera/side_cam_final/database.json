@@ -1,5 +1,304 @@
 [
   {
+    "inspection_id": "INS_MATTRESS_20260915_150228",
+    "timestamp": "2026-09-15T15:02:28.634297",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "FAIL",
+    "product_variety": "Not Detected",
+    "item_id": "N/A",
+    "batch_number": "N/A",
+    "qr_code_data": {
+      "raw_text": "",
+      "product_name": "Not Detected",
+      "batch_no": "N/A",
+      "inventory_item_id": "N/A"
+    },
+    "side_ocr_data": {
+      "full_text": "mm | 2 | 1 | 1 | MANUFACTURED & PACKED BY | MM RUBBER COMPANY LTD, | 44, | No_ | Sipcot Industrial Complex | Ranipet | 632 403 | NAME OF THE COMMODITY: | GRAVITE MATTRESS | VARIETY | GRAvITE | Dimension (LXWX T): | 1.905 m X1.524 m X 12.5 cm | PRODUCT CODE: | 75X60X5 | NET CONTENT | 2 | MONTH AND YEAR | OF MANUFACTURING | JUNE 2026 | Rs.18400.00 | MRP: | taxos) | of al | 1 | 1 | MARKETED | MM RUBBER | 1 | 1 | 'Janpriya Cri | 113, Pantheo | 1 | 60( | Chennai | 1 | PH: +91 7669 | as ab | care address Is | 1 | Customer | Emaoncustomercare@ncoroan | com | mmfoam. | Website: wWW:",
+      "average_confidence": 87.56,
+      "parsed_fields": {
+        "variety": "Gravite",
+        "metric_dimension": "1.905 m X1.524 m X 12.5 cm",
+        "inches_code": "75X60X5",
+        "price_mrp": "Rs. 18400.00",
+        "match_confidence": 100.0,
+        "dual_unit_validation": {
+          "valid": true,
+          "notes": "Validated: 75.0\"x60.0\" (1.905m x 1.524m) matches metric read"
+        }
+      },
+      "items": [
+        {
+          "text": "mm",
+          "confidence": 0.9999906434124514
+        },
+        {
+          "text": "2",
+          "confidence": 0.7839064517101093
+        },
+        {
+          "text": "1",
+          "confidence": 0.6319856022537387
+        },
+        {
+          "text": "1",
+          "confidence": 0.8143860331074393
+        },
+        {
+          "text": "MANUFACTURED & PACKED BY",
+          "confidence": 0.9307685143403567
+        },
+        {
+          "text": "MM RUBBER COMPANY LTD,",
+          "confidence": 0.9798528412155949
+        },
+        {
+          "text": "44,",
+          "confidence": 0.9999648990696743
+        },
+        {
+          "text": "No_",
+          "confidence": 0.9876156042303017
+        },
+        {
+          "text": "Sipcot Industrial Complex",
+          "confidence": 0.8730860219381072
+        },
+        {
+          "text": "Ranipet",
+          "confidence": 0.7940800399841974
+        },
+        {
+          "text": "632 403",
+          "confidence": 0.9244099990323834
+        },
+        {
+          "text": "NAME OF THE COMMODITY:",
+          "confidence": 0.7275210763344256
+        },
+        {
+          "text": "GRAVITE MATTRESS",
+          "confidence": 0.9420976147901581
+        },
+        {
+          "text": "VARIETY",
+          "confidence": 0.9998591490018097
+        },
+        {
+          "text": "GRAvITE",
+          "confidence": 0.8545962866957744
+        },
+        {
+          "text": "Dimension (LXWX T):",
+          "confidence": 0.6332996514533081
+        },
+        {
+          "text": "1.905 m X1.524 m X 12.5 cm",
+          "confidence": 0.7228881658595071
+        },
+        {
+          "text": "PRODUCT CODE:",
+          "confidence": 0.9791747802713997
+        },
+        {
+          "text": "75X60X5",
+          "confidence": 0.8773199626716125
+        },
+        {
+          "text": "NET CONTENT",
+          "confidence": 0.9956370397367157
+        },
+        {
+          "text": "2",
+          "confidence": 0.9983046094253609
+        },
+        {
+          "text": "MONTH AND YEAR",
+          "confidence": 0.9407933751449288
+        },
+        {
+          "text": "OF MANUFACTURING",
+          "confidence": 0.9970091695073555
+        },
+        {
+          "text": "JUNE 2026",
+          "confidence": 0.999677620296247
+        },
+        {
+          "text": "Rs.18400.00",
+          "confidence": 0.7238770776858975
+        },
+        {
+          "text": "MRP:",
+          "confidence": 0.9506389745989099
+        },
+        {
+          "text": "taxos)",
+          "confidence": 0.9242135838467486
+        },
+        {
+          "text": "of al",
+          "confidence": 0.48082159307793454
+        },
+        {
+          "text": "1",
+          "confidence": 0.7000618403300365
+        },
+        {
+          "text": "1",
+          "confidence": 0.9579272753585997
+        },
+        {
+          "text": "MARKETED",
+          "confidence": 0.999978547158792
+        },
+        {
+          "text": "MM RUBBER",
+          "confidence": 0.9910464239381739
+        },
+        {
+          "text": "1",
+          "confidence": 0.8291070523228292
+        },
+        {
+          "text": "1",
+          "confidence": 0.8067394257669811
+        },
+        {
+          "text": "'Janpriya Cri",
+          "confidence": 0.9709005554338455
+        },
+        {
+          "text": "113, Pantheo",
+          "confidence": 0.9752207709175238
+        },
+        {
+          "text": "1",
+          "confidence": 0.7757443970660916
+        },
+        {
+          "text": "60(",
+          "confidence": 0.9868961008675754
+        },
+        {
+          "text": "Chennai",
+          "confidence": 0.9998576169979617
+        },
+        {
+          "text": "1",
+          "confidence": 0.8509051064743431
+        },
+        {
+          "text": "PH: +91 7669",
+          "confidence": 0.966759030895456
+        },
+        {
+          "text": "as ab",
+          "confidence": 0.9443654453632712
+        },
+        {
+          "text": "care address Is",
+          "confidence": 0.89324259709818
+        },
+        {
+          "text": "1",
+          "confidence": 0.7816196711819998
+        },
+        {
+          "text": "Customer",
+          "confidence": 0.999928728627132
+        },
+        {
+          "text": "Emaoncustomercare@ncoroan",
+          "confidence": 0.36555636160434973
+        },
+        {
+          "text": "com",
+          "confidence": 0.999133605886215
+        },
+        {
+          "text": "mmfoam.",
+          "confidence": 0.8874059150389914
+        },
+        {
+          "text": "Website: wWW:",
+          "confidence": 0.7541670928640841
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Maxi plush",
+      "confidence": 18.15,
+      "all_probabilities": {
+        "Dual harmony": 15.1,
+        "Gravite": 8.62,
+        "Maxi plush": 18.15,
+        "Maxi pro": 14.1,
+        "Memorise": 8.59,
+        "Ortholex": 10.19,
+        "Purity plus": 13.73,
+        "Velvet": 11.52
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 122.1,
+        "width_cm": 78.5,
+        "thickness_cm": 9.4
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "No Label Text Detected",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0,
+        "region_used": "None"
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "FAIL",
+      "qr_product": "Not Detected",
+      "side_ocr_summary": "mm | 2 | 1 | 1 | MANUFACTURED & PACKED BY | MM RUBBER COMPANY LTD, | 44, | No_ | Sipcot Industrial Complex | Ranipet | 632 403 | NAME OF THE COMMODITY: | GRAVITE MATTRESS | VARIETY | GRAvITE | Dimension (LXWX T): | 1.905 m X1.524 m X 12.5 cm | PRODUCT CODE: | 75X60X5 | NET CONTENT | 2 | MONTH AND YEAR | OF MANUFACTURING | JUNE 2026 | Rs.18400.00 | MRP: | taxos) | of al | 1 | 1 | MARKETED | MM RUBBER | 1 | 1 | 'Janpriya Cri | 113, Pantheo | 1 | 60( | Chennai | 1 | PH: +91 7669 | as ab | care address Is | 1 | Customer | Emaoncustomercare@ncoroan | com | mmfoam. | Website: wWW:",
+      "side_ocr_similarity": 21.1,
+      "texture_category": "Maxi plush",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 122.1,
+        "width_cm": 78.5,
+        "thickness_cm": 9.4
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "QR Code Mismatch",
+          "expected": "Valid Product QR",
+          "detected": "Unreadable / Missing QR"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260915_150228\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260915_150228\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260915_150228\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260915_150228\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260915_150228\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260915_150228\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260915_150228\\corner_label_crop.jpg"
+    }
+  },
+  {
     "inspection_id": "INS_MATTRESS_20260915_113507",
     "timestamp": "2026-09-15T11:35:07.862885",
     "overall_status": "FAIL",
