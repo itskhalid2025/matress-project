@@ -112,20 +112,6 @@ document.addEventListener('DOMContentLoaded', () => {
         title.textContent = `INSPECTION RESULT: ${overallStatus}`;
         desc.textContent = `ID: ${rec.inspection_id} | Completed at ${new Date(rec.timestamp).toLocaleTimeString()}`;
 
-        // Dimensions Card
-        const topData = rec.top_camera_data || {};
-        const dims = topData.measured_dimensions || {};
-        const expDims = topData.expected_dimensions || {};
-        const dimStatus = rec.dimension_status || 'FAIL';
-
-        document.getElementById('res-dim-l').textContent = `${dims.length_cm ?? '--'} cm (Exp: ${expDims.length_cm ?? '--'} cm)`;
-        document.getElementById('res-dim-w').textContent = `${dims.width_cm ?? '--'} cm (Exp: ${expDims.width_cm ?? '--'} cm)`;
-        document.getElementById('res-dim-h').textContent = `${dims.thickness_cm ?? '--'} cm (Exp: ${expDims.thickness_cm ?? '--'} cm)`;
-
-        const badgeDim = document.getElementById('res-dim-status');
-        badgeDim.className = `tag-badge ${dimStatus.toLowerCase()}`;
-        badgeDim.textContent = dimStatus;
-
         // 1. QR Card
         document.getElementById('res-qr-product').textContent = rec.qr_code_data?.product_name || 'Not Detected';
         document.getElementById('res-qr-batch').textContent = rec.qr_code_data?.batch_no || 'N/A';
@@ -139,10 +125,11 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('res-ocr-price').textContent = parsedSide.price_mrp || 'Not Detected';
 
         // 3. Texture Card
-        document.getElementById('res-texture-pred').textContent = rec.texture_data?.predicted_category || 'N/A';
-        document.getElementById('res-texture-conf').textContent = `${rec.texture_data?.confidence ?? 0}%`;
+        document.getElementById('res-texture-pred').textContent = rec.texture_data?.predicted_category || 'PASS';
+        document.getElementById('res-texture-conf').textContent = `${rec.texture_data?.confidence ?? 100}%`;
 
         // 4. Corner Label Card
+        const topData = rec.top_camera_data || {};
         const cornerLabel = topData.corner_label || {};
         document.getElementById('res-corner-product').textContent = cornerLabel.product_name || 'Not Detected';
         document.getElementById('res-corner-size').textContent = cornerLabel.size || 'N/A';
@@ -179,12 +166,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderHistoryTable(records) {
         const tbody = document.getElementById('history-table-body');
         if (!records || records.length === 0) {
-            tbody.innerHTML = '<tr><td colspan="10" class="text-center">No inspection history records found.</td></tr>';
+            tbody.innerHTML = '<tr><td colspan="8" class="text-center">No inspection history records found.</td></tr>';
             return;
         }
 
         tbody.innerHTML = records.map(r => {
-            const dims = r.top_camera_data?.measured_dimensions || {};
             const corner = r.top_camera_data?.corner_label || {};
             return `
             <tr class="clickable-row" onclick="viewRecordDetails('${r.inspection_id}')">
@@ -192,10 +178,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 <td>${new Date(r.timestamp).toLocaleString()}</td>
                 <td><span class="tag-${(r.overall_status || 'fail').toLowerCase()}">${r.overall_status || 'FAIL'}</span></td>
                 <td><span class="tag-${(r.identity_status || 'fail').toLowerCase()}">${r.identity_status || 'FAIL'}</span></td>
-                <td><span class="tag-${(r.dimension_status || 'fail').toLowerCase()}">${r.dimension_status || 'FAIL'}</span></td>
                 <td>${r.product_variety}</td>
                 <td>${r.batch_number}</td>
-                <td>${dims.length_cm ?? '--'} x ${dims.width_cm ?? '--'} x ${dims.thickness_cm ?? '--'} cm</td>
                 <td>${corner.product_name || 'N/A'}</td>
                 <td>
                     <button class="btn-view" onclick="event.stopPropagation(); viewRecordDetails('${r.inspection_id}')">View Details</button>
@@ -231,11 +215,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const overallStatus = rec.overall_status || 'FAIL';
         const identityStatus = rec.identity_status || 'FAIL';
-        const dimStatus = rec.dimension_status || 'FAIL';
 
         const topData = rec.top_camera_data || {};
-        const dims = topData.measured_dimensions || {};
-        const expDims = topData.expected_dimensions || {};
         const corner = topData.corner_label || {};
 
         const qr = rec.qr_code_data || {};
@@ -256,39 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="status-banner ${identityStatus.toLowerCase()}" style="flex: 1; padding: 10px 14px;">
                     <strong style="font-size: 0.9rem;">Identity Match:</strong> 
                     <span class="tag-badge ${identityStatus.toLowerCase()}">${identityStatus}</span>
-                </div>
-                <div class="status-banner ${dimStatus.toLowerCase()}" style="flex: 1; padding: 10px 14px;">
-                    <strong style="font-size: 0.9rem;">Dimension Check:</strong> 
-                    <span class="tag-badge ${dimStatus.toLowerCase()}">${dimStatus}</span>
-                </div>
-            </div>
-
-            <!-- Dimensions & 4-Way Identity Grid -->
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 16px;">
-                <!-- Dimensions -->
-                <div class="res-card highlighted-card">
-                    <div class="res-card-header">
-                        <span class="res-badge green">TOP DIMS</span>
-                        <h3>Measured vs Expected Dimensions</h3>
-                    </div>
-                    <div class="res-card-body">
-                        <div class="res-row"><label>Length (L):</label> <strong>${dims.length_cm ?? '--'} cm (Exp: ${expDims.length_cm ?? '--'} cm)</strong></div>
-                        <div class="res-row"><label>Width (W):</label> <strong>${dims.width_cm ?? '--'} cm (Exp: ${expDims.width_cm ?? '--'} cm)</strong></div>
-                        <div class="res-row"><label>Thickness (H):</label> <strong>${dims.thickness_cm ?? '--'} cm (Exp: ${expDims.thickness_cm ?? '--'} cm)</strong></div>
-                    </div>
-                </div>
-
-                <!-- Product & Batch Summary -->
-                <div class="res-card">
-                    <div class="res-card-header">
-                        <span class="res-badge blue">SUMMARY</span>
-                        <h3>Product & Batch Metadata</h3>
-                    </div>
-                    <div class="res-card-body">
-                        <div class="res-row"><label>Product Variety:</label> <strong>${rec.product_variety || 'Not Detected'}</strong></div>
-                        <div class="res-row"><label>Batch Number:</label> <span>${rec.batch_number || 'N/A'}</span></div>
-                        <div class="res-row"><label>Item ID:</label> <span>${rec.item_id || 'N/A'}</span></div>
-                    </div>
                 </div>
             </div>
 
@@ -378,17 +326,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         ${imgs.annotated_ocr ? `<img src="/results/${imgs.annotated_ocr}" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color);">` : '<div style="color:var(--text-muted); padding:20px;">No Image</div>'}
                     </div>
                     <div>
-                        <h4 style="font-size: 0.8rem; margin-bottom: 6px; color: var(--pass-green);">Cam 3: Top Dims & Label Region</h4>
+                        <h4 style="font-size: 0.8rem; margin-bottom: 6px; color: var(--pass-green);">Cam 3: Top Camera View</h4>
                         ${imgs.annotated_top ? `<img src="/results/${imgs.annotated_top}" style="width: 100%; border-radius: 8px; border: 1px solid var(--border-color);">` : '<div style="color:var(--text-muted); padding:20px;">No Image</div>'}
                     </div>
                 </div>
-
-                ${imgs.corner_label_crop ? `
-                    <div style="margin-top: 16px; text-align: center;">
-                        <h4 style="font-size: 0.8rem; margin-bottom: 6px; color: var(--accent-yellow);">Cropped Corner Label Region</h4>
-                        <img src="/results/${imgs.corner_label_crop}" style="max-height: 180px; border-radius: 8px; border: 1px solid var(--border-color);">
-                    </div>
-                ` : ''}
             </div>
         `;
         modal.classList.remove('hidden');

@@ -46,8 +46,34 @@ def preprocess_qr_variants(gray):
     return [gray, clahe.apply(gray), sharp]
 
 
-def _scan_fast_cascade(variants):
-    """Pass 1: ArUco -> OpenCV classic -> pyzbar across image variants."""
+def remap_rotated_pts(pts, angle, orig_h, orig_w):
+    """Remaps polygon coordinates from rotated image space back to original image space."""
+    if pts is None or len(pts) == 0:
+        return pts
+    if angle == 0:
+        return np.array(pts, dtype=np.int32)
+
+    pts = np.array(pts, dtype=np.float32)
+    remapped = np.zeros_like(pts)
+
+    if angle == 90:  # Clockwise rotation
+        remapped[:, 0] = pts[:, 1]
+        remapped[:, 1] = orig_h - 1 - pts[:, 0]
+    elif angle == 180:  # 180 deg rotation
+        remapped[:, 0] = orig_w - 1 - pts[:, 0]
+        remapped[:, 1] = orig_h - 1 - pts[:, 1]
+    elif angle == 270:  # Counter-clockwise rotation
+        remapped[:, 0] = orig_w - 1 - pts[:, 1]
+        remapped[:, 1] = pts[:, 0]
+
+    return remapped.astype(np.int32)
+
+
+def _scan_single_orientation(gray):
+    """Cascade QR decode on a single image orientation."""
+    variants = preprocess_qr_variants(gray)
+
+    # Pass 1: Classical cascade
     for variant in variants:
         if aruco_detector is not None:
             ok, decoded_info, points, _ = aruco_detector.detectAndDecodeMulti(variant)
@@ -71,93 +97,87 @@ def _scan_fast_cascade(variants):
                     pts = np.array([[x, y], [x + w, y], [x + w, y + h], [x, y + h]], dtype=np.int32)
                     hits.append((c.data.decode("utf-8"), pts))
                 return hits
+
+    # Pass 2: WeChatQRCode DNN
+    if wechat_detector is not None:
+        img = gray
+        if img.ndim == 2:
+            img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
+
+        res, points = wechat_detector.detectAndDecode(img)
+        hits = []
+        for text, pts in zip(res, points):
+            if text:
+                hits.append((text, pts.astype(int)))
+        if hits:
+            return hits
+
     return []
 
 
-def _scan_wechat(gray_or_bgr):
-    """Pass 2: WeChatQRCode DNN detector."""
-    if wechat_detector is None:
-        return []
-
-    img = gray_or_bgr
-    if img.ndim == 2:
-        img = cv2.cvtColor(img, cv2.COLOR_GRAY2BGR)
-
-    res, points = wechat_detector.detectAndDecode(img)
-    hits = []
-    for text, pts in zip(res, points):
-        if text:
-            hits.append((text, pts.astype(int)))
-    return hits
-
-
-def _zoom_center(gray, scale=2.0, crop_frac=0.5):
-    """Center-crop frame and upscale for digital zoom fallback."""
-    h, w = gray.shape
-    ch, cw = int(h * crop_frac), int(w * crop_frac)
-    y0, x0 = (h - ch) // 2, (w - cw) // 2
-    crop = gray[y0:y0 + ch, x0:x0 + cw]
-    zoomed = cv2.resize(crop, (int(cw * scale), int(ch * scale)), interpolation=cv2.INTER_CUBIC)
-    return zoomed, x0, y0, scale
-
-
 def scan_qr(gray):
-    """Full multi-stage QR decode cascade."""
-    variants = preprocess_qr_variants(gray)
+    """
+    Multi-Orientation QR Scanner (0 deg, 90 deg, 180 deg, 270 deg).
+    Ensures sideways or upside-down QR codes are detected instantly.
+    """
+    orig_h, orig_w = gray.shape[:2]
 
-    # Pass 1: Classical cascade
-    hits = _scan_fast_cascade(variants)
-    if hits:
-        return hits
+    rotations = [
+        (0, gray),
+        (90, cv2.rotate(gray, cv2.ROTATE_90_CLOCKWISE)),
+        (180, cv2.rotate(gray, cv2.ROTATE_180)),
+        (270, cv2.rotate(gray, cv2.ROTATE_90_COUNTERCLOCKWISE))
+    ]
 
-    # Pass 2: WeChatQRCode DNN
-    hits = _scan_wechat(gray)
-    if hits:
-        return hits
-
-    # Pass 3: Center digital zoom
-    zoomed, x0, y0, scale = _zoom_center(gray)
-    zoomed_variants = preprocess_qr_variants(zoomed)
-
-    hits = _scan_fast_cascade(zoomed_variants)
-    if not hits:
-        hits = _scan_wechat(zoomed)
-
-    if hits:
-        remapped = []
-        for text, pts in hits:
-            full_pts = (pts.astype(float) / scale) + np.array([x0, y0])
-            remapped.append((text, full_pts.astype(int)))
-        return remapped
+    for angle, rot_gray in rotations:
+        hits = _scan_single_orientation(rot_gray)
+        if hits:
+            remapped_hits = []
+            for text, pts in hits:
+                remapped_pts = remap_rotated_pts(pts, angle, orig_h, orig_w)
+                remapped_hits.append((text, remapped_pts))
+            return remapped_hits
 
     return []
 
 
 def detect_qr_presence(gray):
-    """Fast presence check for live aiming box."""
-    pts_list = []
-    try:
-        ok, points = classic_detector.detectMulti(gray)
-        if ok and points is not None:
-            for p in points:
-                pts_list.append(p.astype(int))
-            return pts_list
-    except cv2.error:
-        pass
+    """Multi-Orientation presence check for live stream aiming box."""
+    orig_h, orig_w = gray.shape[:2]
 
-    if HAS_PYZBAR:
+    rotations = [
+        (0, gray),
+        (90, cv2.rotate(gray, cv2.ROTATE_90_CLOCKWISE)),
+        (180, cv2.rotate(gray, cv2.ROTATE_180)),
+        (270, cv2.rotate(gray, cv2.ROTATE_90_COUNTERCLOCKWISE))
+    ]
+
+    for angle, rot_gray in rotations:
+        pts_list = []
         try:
-            codes = decode(gray, symbols=[ZBarSymbol.QRCODE])
-            for c in codes:
-                x, y, w, h = c.rect
-                pts = np.array([[x, y], [x + w, y], [x + w, y + h], [x, y + h]], dtype=np.int32)
-                pts_list.append(pts)
-            if pts_list:
+            ok, points = classic_detector.detectMulti(rot_gray)
+            if ok and points is not None:
+                for p in points:
+                    remapped_pts = remap_rotated_pts(p, angle, orig_h, orig_w)
+                    pts_list.append(remapped_pts)
                 return pts_list
-        except Exception:
+        except cv2.error:
             pass
 
-    return pts_list
+        if HAS_PYZBAR:
+            try:
+                codes = decode(rot_gray, symbols=[ZBarSymbol.QRCODE])
+                for c in codes:
+                    x, y, w, h = c.rect
+                    pts = np.array([[x, y], [x + w, y], [x + w, y + h], [x, y + h]], dtype=np.int32)
+                    remapped_pts = remap_rotated_pts(pts, angle, orig_h, orig_w)
+                    pts_list.append(remapped_pts)
+                if pts_list:
+                    return pts_list
+            except Exception:
+                pass
+
+    return []
 
 
 def parse_qr_payload(text):
@@ -189,10 +209,11 @@ def parse_qr_payload(text):
 
 def draw_qr_overlay(img, pts, qr_data):
     """Renders green bounding polygon and an on-screen QR metadata card."""
-    cv2.polylines(img, [pts], True, (0, 255, 0), 3)
+    pts_int = np.array(pts, dtype=np.int32)
+    cv2.polylines(img, [pts_int], True, (0, 255, 0), 3)
 
-    min_x = max(10, int(np.min(pts[:, 0])))
-    min_y = int(np.min(pts[:, 1]))
+    min_x = max(10, int(np.min(pts_int[:, 0])))
+    min_y = int(np.min(pts_int[:, 1]))
 
     lines = [
         "QR DETECTED",

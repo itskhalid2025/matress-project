@@ -1,5 +1,285 @@
 [
   {
+    "inspection_id": "INS_MATTRESS_20260915_162407",
+    "timestamp": "2026-09-15T16:24:07.384750",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Not Detected",
+    "item_id": "N/A",
+    "batch_number": "N/A",
+    "qr_code_data": {
+      "raw_text": "",
+      "product_name": "Not Detected",
+      "batch_no": "N/A",
+      "inventory_item_id": "N/A"
+    },
+    "side_ocr_data": {
+      "full_text": "Uhiisi | Aci",
+      "average_confidence": 38.73,
+      "parsed_fields": {
+        "variety": "Not Detected",
+        "metric_dimension": "Not Detected",
+        "inches_code": "Not Detected",
+        "price_mrp": "Not Detected",
+        "match_confidence": 0.0,
+        "dual_unit_validation": {
+          "valid": true,
+          "notes": "Single format present"
+        }
+      },
+      "items": [
+        {
+          "text": "Uhiisi",
+          "confidence": 0.5090741355668376
+        },
+        {
+          "text": "Aci",
+          "confidence": 0.26546695252741154
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "PASS",
+      "confidence": 100.0,
+      "all_probabilities": {
+        "PASS": 100.0
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 159.8,
+        "width_cm": 53.1,
+        "thickness_cm": 6.4
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "No Label Text Detected",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0,
+        "region_used": "None"
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Not Detected",
+      "side_ocr_summary": "Uhiisi | Aci",
+      "side_ocr_similarity": 23.5,
+      "texture_category": "PASS",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 159.8,
+        "width_cm": 53.1,
+        "thickness_cm": 6.4
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "QR Code Mismatch",
+          "expected": "Valid Product QR",
+          "detected": "Unreadable / Missing QR"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260915_162407\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260915_162407\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260915_162407\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260915_162407\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260915_162407\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260915_162407\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260915_162407\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260915_153326",
+    "timestamp": "2026-09-15T15:33:26.749947",
+    "overall_status": "FAIL",
+    "identity_status": "FAIL",
+    "dimension_status": "PASS",
+    "product_variety": "Not Detected",
+    "item_id": "N/A",
+    "batch_number": "N/A",
+    "qr_code_data": {
+      "raw_text": "",
+      "product_name": "Not Detected",
+      "batch_no": "N/A",
+      "inventory_item_id": "N/A"
+    },
+    "side_ocr_data": {
+      "full_text": "ress | ncl. | 6 | 1 | 1 | 18400,00 | 1 | of | is | @mmfoam.i | all | 0M | 1 | same | taxes) | 4 | 1 | 1 | as | oqe",
+      "average_confidence": 82.25,
+      "parsed_fields": {
+        "variety": "Not Detected",
+        "metric_dimension": "Not Detected",
+        "inches_code": "Not Detected",
+        "price_mrp": "Not Detected",
+        "match_confidence": 0.0,
+        "dual_unit_validation": {
+          "valid": true,
+          "notes": "Single format present"
+        }
+      },
+      "items": [
+        {
+          "text": "ress",
+          "confidence": 0.9446070790290833
+        },
+        {
+          "text": "ncl.",
+          "confidence": 0.5920093059539795
+        },
+        {
+          "text": "6",
+          "confidence": 0.988193164412511
+        },
+        {
+          "text": "1",
+          "confidence": 0.8630857789450062
+        },
+        {
+          "text": "1",
+          "confidence": 0.9722642949691931
+        },
+        {
+          "text": "18400,00",
+          "confidence": 0.9739394457961562
+        },
+        {
+          "text": "1",
+          "confidence": 0.7421117403198174
+        },
+        {
+          "text": "of",
+          "confidence": 0.9963027761493464
+        },
+        {
+          "text": "is",
+          "confidence": 0.9993504102899651
+        },
+        {
+          "text": "@mmfoam.i",
+          "confidence": 0.5164606025842897
+        },
+        {
+          "text": "all",
+          "confidence": 0.9938161173505629
+        },
+        {
+          "text": "0M",
+          "confidence": 0.32355816150576355
+        },
+        {
+          "text": "1",
+          "confidence": 0.3246067209531702
+        },
+        {
+          "text": "same",
+          "confidence": 0.9987490177154541
+        },
+        {
+          "text": "taxes)",
+          "confidence": 0.6995550838134756
+        },
+        {
+          "text": "4",
+          "confidence": 0.9089294249901378
+        },
+        {
+          "text": "1",
+          "confidence": 0.8832156827246571
+        },
+        {
+          "text": "1",
+          "confidence": 0.7323370762000856
+        },
+        {
+          "text": "as",
+          "confidence": 0.9991049183117212
+        },
+        {
+          "text": "oqe",
+          "confidence": 0.9984623211643013
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "PASS",
+      "confidence": 100.0,
+      "all_probabilities": {
+        "PASS": 100.0
+      }
+    },
+    "top_camera_data": {
+      "measured_dimensions": {
+        "length_cm": 238.0,
+        "width_cm": 144.2,
+        "thickness_cm": 17.3
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "corner_label": {
+        "full_text": "No Label Text Detected",
+        "product_name": "Not Detected",
+        "size": "Standard",
+        "fuzzy_similarity": 0.0,
+        "region_used": "None"
+      }
+    },
+    "verification_result": {
+      "overall_status": "FAIL",
+      "identity_status": "FAIL",
+      "dimension_status": "PASS",
+      "qr_product": "Not Detected",
+      "side_ocr_summary": "ress | ncl. | 6 | 1 | 1 | 18400,00 | 1 | of | is | @mmfoam.i | all | 0M | 1 | same | taxes) | 4 | 1 | 1 | as | oqe",
+      "side_ocr_similarity": 26.7,
+      "texture_category": "PASS",
+      "corner_label_product": "Not Detected",
+      "corner_label_size": "Standard",
+      "measured_dimensions": {
+        "length_cm": 238.0,
+        "width_cm": 144.2,
+        "thickness_cm": 17.3
+      },
+      "expected_dimensions": {
+        "length_cm": 190.0,
+        "width_cm": 160.0,
+        "thickness_cm": 20.0
+      },
+      "mismatches": [
+        {
+          "source": "QR Code Mismatch",
+          "expected": "Valid Product QR",
+          "detected": "Unreadable / Missing QR"
+        }
+      ]
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260915_153326\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260915_153326\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260915_153326\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260915_153326\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260915_153326\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260915_153326\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260915_153326\\corner_label_crop.jpg"
+    }
+  },
+  {
     "inspection_id": "INS_MATTRESS_20260915_150228",
     "timestamp": "2026-09-15T15:02:28.634297",
     "overall_status": "FAIL",

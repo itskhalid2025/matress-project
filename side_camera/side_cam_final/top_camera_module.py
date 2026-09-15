@@ -78,10 +78,6 @@ def measure_mattress_dimensions(frame):
                 width_cm = measured_w
                 thickness_cm = round(width_cm * 0.12, 1)
 
-            cv2.drawContours(annotated, [box], 0, (255, 0, 255), 3)
-            cv2.putText(annotated, f"L: {length_cm} cm | W: {width_cm} cm | H: {thickness_cm} cm",
-                        (10, 40), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 255), 2)
-
     return length_cm, width_cm, thickness_cm, annotated
 
 

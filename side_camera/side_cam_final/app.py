@@ -41,12 +41,21 @@ def generate_feed(feed_id):
         func = FEED_CONFIG.get(feed_id, "disabled")
 
         if func == "qr":
-            gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-            for pts in detect_qr_presence(gray):
-                for i in range(4):
-                    cv2.line(frame, tuple(pts[i]), tuple(pts[(i + 1) % 4]), (0, 255, 255), 2)
-                cv2.putText(frame, "QR Detected - Click Process", (pts[0][0], max(20, pts[0][1] - 8)),
-                            cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+            try:
+                gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+                for pts in detect_qr_presence(gray):
+                    if pts is not None and len(pts) >= 4:
+                        pts_int = np.array(pts, dtype=np.int32)
+                        for i in range(4):
+                            pt1 = (int(pts_int[i][0]), int(pts_int[i][1]))
+                            pt2 = (int(pts_int[(i + 1) % 4][0]), int(pts_int[(i + 1) % 4][1]))
+                            cv2.line(frame, pt1, pt2, (0, 255, 255), 2)
+                        tx = int(pts_int[0][0])
+                        ty = max(20, int(pts_int[0][1]) - 8)
+                        cv2.putText(frame, "QR Detected - Click Process", (tx, ty),
+                                    cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 2)
+            except Exception:
+                pass
         elif func == "bill":
             boxes = detect_ocr_presence_fast(frame)
             if boxes:
@@ -121,6 +130,21 @@ def camera_status():
         "camera_qr": qr_cam_stream.is_connected(),
         "camera_bill": bill_cam_stream.is_connected(),
         "camera_top": top_cam_stream.is_connected()
+    })
+
+
+@app.route('/api/camera_reconnect', methods=['POST'])
+def camera_reconnect():
+    s1 = qr_cam_stream.reconnect()
+    s2 = bill_cam_stream.reconnect()
+    s3 = top_cam_stream.reconnect()
+    return jsonify({
+        "success": True,
+        "status": {
+            "camera_qr": s1,
+            "camera_bill": s2,
+            "camera_top": s3
+        }
     })
 
 
