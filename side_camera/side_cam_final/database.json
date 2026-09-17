@@ -1,5 +1,303 @@
 [
   {
+    "inspection_id": "INS_MATTRESS_20260915_170726",
+    "timestamp": "2026-09-15T17:07:26.084268",
+    "overall_status": "PASS",
+    "identity_status": "PASS",
+    "product_variety": "Ortholex",
+    "item_id": "ORTHO-1001",
+    "batch_number": "BATCH-2026-A",
+    "qr_code_data": {
+      "raw_text": "Ortholex | Batch: BATCH-2026-A | ID: ORTHO-1001",
+      "product_name": "Ortholex",
+      "batch_no": "BATCH-2026-A",
+      "inventory_item_id": "ORTHO-1001"
+    },
+    "side_ocr_data": {
+      "full_text": "Ortholex",
+      "average_confidence": 77.52,
+      "items": [
+        {
+          "text": "3",
+          "confidence": 0.8014928799584062
+        },
+        {
+          "text": "1",
+          "confidence": 0.8067324660887607
+        },
+        {
+          "text": "1",
+          "confidence": 0.7173743724624195
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 99.8,
+      "all_probabilities": {
+        "Dual harmony": 9.34,
+        "Gravite": 8.33,
+        "Maxi plush": 12.28,
+        "Maxi pro": 18.81,
+        "Memorise": 11.94,
+        "Ortholex": 16.74,
+        "Purity plus": 11.79,
+        "Velvet": 10.77
+      }
+    },
+    "top_camera_data": {
+      "corner_label": {
+        "full_text": "Ortholex",
+        "product_name": "Ortholex",
+        "size": "Standard",
+        "fuzzy_similarity": 100.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "PASS",
+      "identity_status": "PASS",
+      "qr_product": "Ortholex",
+      "side_ocr_summary": "Ortholex",
+      "side_ocr_similarity": 100.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Ortholex",
+      "corner_label_size": "Standard",
+      "mismatches": []
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260915_170726\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260915_170726\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260915_170726\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260915_170726\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260915_170726\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260915_170726\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260915_170726\\corner_label_crop.jpg"
+    }
+  },
+  {
+    "inspection_id": "INS_MATTRESS_20260915_165943",
+    "timestamp": "2026-09-15T16:59:43.123258",
+    "overall_status": "PASS",
+    "identity_status": "PASS",
+    "product_variety": "Ortholex",
+    "item_id": "ORTHO-1001",
+    "batch_number": "BATCH-2026-A",
+    "qr_code_data": {
+      "raw_text": "Ortholex | Batch: BATCH-2026-A | ID: ORTHO-1001",
+      "product_name": "Ortholex",
+      "batch_no": "BATCH-2026-A",
+      "inventory_item_id": "ORTHO-1001"
+    },
+    "side_ocr_data": {
+      "full_text": "Ortholex",
+      "average_confidence": 90.99,
+      "items": [
+        {
+          "text": "BY",
+          "confidence": 0.9937482808900955
+        },
+        {
+          "text": "15 cm",
+          "confidence": 0.9957668761588344
+        },
+        {
+          "text": "PACKED",
+          "confidence": 0.6779664035533786
+        },
+        {
+          "text": "LTD",
+          "confidence": 0.9989090576878599
+        },
+        {
+          "text": "8",
+          "confidence": 0.9999995231628986
+        },
+        {
+          "text": "XWXt):",
+          "confidence": 0.5804241095930947
+        },
+        {
+          "text": "3",
+          "confidence": 0.9470899777840067
+        },
+        {
+          "text": "MANUFACTURING",
+          "confidence": 0.9989913112318282
+        },
+        {
+          "text": "XW",
+          "confidence": 0.6822921192794971
+        },
+        {
+          "text": "3",
+          "confidence": 0.9638129552755004
+        },
+        {
+          "text": "YEAR",
+          "confidence": 0.9997434020042419
+        },
+        {
+          "text": "ORTHOLEX",
+          "confidence": 0.9993495021859483
+        },
+        {
+          "text": "1",
+          "confidence": 0.733968699685704
+        },
+        {
+          "text": "8",
+          "confidence": 0.9813400635135281
+        },
+        {
+          "text": "X1.524",
+          "confidence": 0.9992167331961673
+        },
+        {
+          "text": "2",
+          "confidence": 0.8721256781932176
+        },
+        {
+          "text": "Ik",
+          "confidence": 0.472282942046793
+        },
+        {
+          "text": "CONTENT",
+          "confidence": 0.9972399368718919
+        },
+        {
+          "text": "403",
+          "confidence": 0.9999998623489704
+        },
+        {
+          "text": "THE",
+          "confidence": 0.9932765805696483
+        },
+        {
+          "text": "5",
+          "confidence": 0.9807805061032617
+        },
+        {
+          "text": "2026",
+          "confidence": 0.9999982118606567
+        },
+        {
+          "text": "(L",
+          "confidence": 0.9993834472908933
+        },
+        {
+          "text": "ORTHOLEX",
+          "confidence": 0.9996515468548278
+        },
+        {
+          "text": "AND",
+          "confidence": 0.9999943563098699
+        },
+        {
+          "text": "1",
+          "confidence": 0.7433323483310375
+        },
+        {
+          "text": "yoisgosa",
+          "confidence": 0.4805562419002411
+        },
+        {
+          "text": "8",
+          "confidence": 0.9991474777278917
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9977529644258641
+        },
+        {
+          "text": "VARIETY:",
+          "confidence": 0.9996536123476725
+        },
+        {
+          "text": "MONTH",
+          "confidence": 0.9970870634203075
+        },
+        {
+          "text": "JULY",
+          "confidence": 0.9662524461746216
+        },
+        {
+          "text": "NAME",
+          "confidence": 0.9999760985374451
+        },
+        {
+          "text": "1",
+          "confidence": 0.6656970375952511
+        },
+        {
+          "text": "MRP:",
+          "confidence": 0.9818747639656067
+        },
+        {
+          "text": "'v1",
+          "confidence": 0.7285260271105719
+        },
+        {
+          "text": "NET",
+          "confidence": 0.999939709092003
+        },
+        {
+          "text": "OF",
+          "confidence": 0.9980826043542489
+        },
+        {
+          "text": "1",
+          "confidence": 0.9990455998379275
+        },
+        {
+          "text": "8",
+          "confidence": 0.9698932243787226
+        }
+      ]
+    },
+    "texture_data": {
+      "predicted_category": "Ortholex",
+      "confidence": 99.8,
+      "all_probabilities": {
+        "Dual harmony": 10.98,
+        "Gravite": 12.46,
+        "Maxi plush": 13.63,
+        "Maxi pro": 11.63,
+        "Memorise": 14.35,
+        "Ortholex": 10.97,
+        "Purity plus": 13.14,
+        "Velvet": 12.83
+      }
+    },
+    "top_camera_data": {
+      "corner_label": {
+        "full_text": "Ortholex",
+        "product_name": "Ortholex",
+        "size": "Standard",
+        "fuzzy_similarity": 100.0
+      }
+    },
+    "verification_result": {
+      "overall_status": "PASS",
+      "identity_status": "PASS",
+      "qr_product": "Ortholex",
+      "side_ocr_summary": "Ortholex",
+      "side_ocr_similarity": 100.0,
+      "texture_category": "Ortholex",
+      "corner_label_product": "Ortholex",
+      "corner_label_size": "Standard",
+      "mismatches": []
+    },
+    "image_paths": {
+      "raw_qr_camera": "inspection_20260915_165943\\raw_qr_cam1.jpg",
+      "raw_bill_camera": "inspection_20260915_165943\\raw_bill_cam2.jpg",
+      "raw_top_camera": "inspection_20260915_165943\\raw_top_cam3.jpg",
+      "annotated_qr": "inspection_20260915_165943\\annotated_qr.jpg",
+      "annotated_ocr": "inspection_20260915_165943\\annotated_ocr.jpg",
+      "annotated_top": "inspection_20260915_165943\\annotated_top_dims.jpg",
+      "corner_label_crop": "inspection_20260915_165943\\corner_label_crop.jpg"
+    }
+  },
+  {
     "inspection_id": "INS_MATTRESS_20260828_043052",
     "timestamp": "2026-08-28T04:30:52.516730",
     "overall_status": "PASS",
