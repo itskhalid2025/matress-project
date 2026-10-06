@@ -39,3 +39,13 @@ Thumbs.db
 # Logs and temporary files
 *.log
 *.tmp
+
+# Model weights and Large Binary Files
+*.pth
+*.pt
+*.bin
+*.onnx
+*.weights
+*.h5
+*.tflite
+texture/experiment_results/*.pth
